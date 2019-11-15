@@ -7,6 +7,6 @@
 <title>게시판 등록</title>
 </head>
 <body>
-수정해봅니다
+수정해봅니다@
 </body>
 </html>
