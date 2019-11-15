@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <!-- dataSource 객체 생성  -->
+   <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+      <!-- localhost는 작동하면 안 건드려도 되고 안되면 ipconfig로 ip 입력해주세요. -->
+      <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+      <property name="username" value="jsp" />
+      <property name="password" value="1234" />
+   </bean>
+   
+   <!-- mybatis와 DB 연결을 해준다. -->
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource"/>
+      <property name="configLocation" value="classpath:mybatis/mybatisConfig.xml"/>
+      <property name="mapperLocations">
+         <list>
+            <value>classpath:mybatis/loginMapper.xml</value>
+         </list>
+      </property>
+   </bean>
+   
+   <!-- destroy-method 자동적으로 소멸될때 메소드 실행 -->
+   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+      <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+   </bean>
+   
+</beans>
