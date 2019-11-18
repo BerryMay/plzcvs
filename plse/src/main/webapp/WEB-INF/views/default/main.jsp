@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
-<title>게시판 등록</title>
+<title>Insert title here</title>
 </head>
 <body>
-수정해봅니다@
+	<h1>메인</h1>
 </body>
 </html>
