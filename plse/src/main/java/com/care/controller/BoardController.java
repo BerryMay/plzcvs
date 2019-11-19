@@ -20,7 +20,10 @@ public class BoardController {
 	public String detail() {
 		return "board/contentView";
 	}
-	
 
+	@RequestMapping(value = "/adminPost")
+	public String adminPost() {
+		return "admin/adminPost";
+	}
 	
 }
