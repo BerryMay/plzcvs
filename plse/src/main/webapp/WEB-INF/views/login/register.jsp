@@ -68,16 +68,16 @@
                   <ul class="list-unstyled">
                     <li class="">
                       <span class="eight-character"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
-                        min 8 character</li>
+                      Â  min 8 character</li>
                     <li class="">
                       <span class="low-upper-case"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
-                        min 1 uppercase & 1 lowercase character</li>
+                      Â  min 1 uppercase & 1 lowercase character</li>
                     <li class="">
                       <span class="one-number"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
-                        min 1 number</li>
+                      Â  min 1 number</li>
                     <li class="">
                       <span class="one-special-char"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
-                        min 1 special char (!@#$%^&*)</li>
+                      Â  min 1 special char (!@#$%^&*)</li>
                   </ul>
                   </small></div>
 
