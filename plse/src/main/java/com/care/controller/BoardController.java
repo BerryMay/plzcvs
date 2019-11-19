@@ -8,11 +8,16 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board")
 	public String board() {
-		return "board/boardPost";
+		return "board/board";
 	}
 	
 	@RequestMapping(value = "/post")
 	public String post() {
+		return "board/boardPost";
+	}
+	
+	@RequestMapping(value = "/detail")
+	public String detail() {
 		return "board/contentView";
 	}
 	
