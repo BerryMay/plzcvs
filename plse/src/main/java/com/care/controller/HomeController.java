@@ -40,4 +40,9 @@ public class HomeController {
 		return "login/register";
 	}
 	
+	@RequestMapping("/boardPost")
+	public String boardPost() {
+		return "board/boardPost";
+	}
+	
 }
