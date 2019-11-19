@@ -7,6 +7,8 @@
 <title>관리자 물품등록</title>
 </head>
 <body>
+	<jsp:include page="../default/header.jsp"/>
+	<div align="center" style="margin-top: 50px">
 	<form role="form" method="post" autocomplete="off">
 		<div class="inputArea">
 			<label>편의점</label> <select class="category1">
@@ -33,7 +35,8 @@
 		<div class="inputArea">
 			<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
 		</div>
-
 	</form>
+	</div>
+	<jsp:include page="../default/footer.jsp"/>
 </body>
 </html>
