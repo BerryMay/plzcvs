@@ -38,7 +38,17 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+
 		return "member/main";
+
+		
+		
+	}
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register() {
+		/*
+		 * branch 'master' of https://github.com/BerryMay/plzcvs.git
+		 */		return "login/register";
 	}
 	
 }

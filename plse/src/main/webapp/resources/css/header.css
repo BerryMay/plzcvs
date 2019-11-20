@@ -1,0 +1,59 @@
+@charset "UTF-8";
+ /*공통으로 들어가는 부분*/
+      *{margin: 0; padding: 0; box-sizing: border-box;}
+      a{text-decoration: none; color: #222;}
+      ul{list-style: none;}
+      #wrap{ height: 100vh; width: 80%; margin: 0 auto;}
+      
+      /*header*/
+      header{height: auto; overflow: hidden; /*background-color: aqua;*/}
+      header li {display:inline-block; margin: 0;}
+      header hr{margin-top: 8px; 
+          border:0; background-color: #333E50; height: 2px; }
+      
+      /*top메뉴*/
+      #top{
+          /*background-color: cornflowerblue;*/ text-align: right;
+          height: 21px;   line-height: 21px;       
+      }
+    
+      #top li a{display: block; padding: 0 10px;}
+      
+      /*로고*/
+      #logo{width: 200px; height: 120px; margin: 20px auto; text-align: center;
+          background-color: crimson;  line-height:120px; font-size: 20px;
+          background: url('../resources/img/kim.png')  no-repeat center; background-size: contain; 
+      }
+      
+  
+      /*주메뉴-편의점이름*/
+      #nav{
+          /*background-color: darkorange;*/height: 42px;width: 100%;
+          position: relative; left: -95%; transition: 0.3s;
+          border-radius: 0 5px 5px 0;
+          border:1px solid #FFC700;
+      }
+      
+      #nav ul{width: 95%; height: 42px; overflow: hidden; float: left;}
+      #nav ul li{width: 33.333%;  float: left; }
+      #nav ul li a{display: block; width:100%; height: 42px; 
+          text-align: center; line-height: 42px;}
+      
+      #nav ul li:nth-of-type(1) a{background: url('../resources/img/gs25_logo.png')  no-repeat center; background-size: contain, cover; }
+      #nav ul li:nth-of-type(2) a{background: url('../resources/img/711_logo.png')  no-repeat center; background-size: contain, cover; }
+      #nav ul li:nth-of-type(3) a{background: url('../resources/img/cu_logo.png')  no-repeat center; background-size: contain, cover; }
+      
+      #nav button{ float: left; width: 5%; height: 42px; 
+          border:0; border-radius: 0 5px 5px 0;
+      background-color: rgba(0,0,0,0);}
+      
+      /*contents*/
+      #contents{width: inherit; height: 80%; }
+      
+      
+      /*footer*/
+      footer{background-color: #333E50;
+          position: fixed; bottom: 0; width: 80%; 
+          height: 30px;
+      }
+      footer p{color:#fff; text-align: center;}
