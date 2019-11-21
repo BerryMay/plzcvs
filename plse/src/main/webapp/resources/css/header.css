@@ -40,7 +40,7 @@
           text-align: center; line-height: 42px;}
       
       #nav ul li:nth-of-type(1) a{background: url('../resources/img/gs25_logo.png')  no-repeat center; background-size: contain, cover; }
-      #nav ul li:nth-of-type(2) a{background: url('../resources/img/711_logo.png')  no-repeat center; background-size: contain, cover; }
+      #nav ul li:nth-of-type(2) a{background: url('../resources/img/711_logo.png')  no-repeat 60%; background-size: contain, cover; }
       #nav ul li:nth-of-type(3) a{background: url('../resources/img/cu_logo.png')  no-repeat center; background-size: contain, cover; }
       
       #nav button{ float: left; width: 5%; height: 42px; 
