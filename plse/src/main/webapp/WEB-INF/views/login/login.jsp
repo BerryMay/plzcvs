@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -23,7 +23,7 @@
 	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
 	crossorigin="anonymous">
-	<link rel="stylesheet" href="css/login.css" type="text/css" />
+<link rel="stylesheet" href="css/login.css" type="text/css" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -33,41 +33,43 @@
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
-				<h3>Sign In</h3>
-				<div class="d-flex justify-content-end social_icon">
-					<span></span> <span></span> <span></span>
-				</div>
+				<h3>로그인 하기</h3>
 			</div>
 			<div class="card-body">
 				<form>
+					<!-- 아이디 아이콘 -->
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
 						<input type="text" class="form-control" placeholder="username">
-
 					</div>
+					
+					<!-- 비밀번호 아이콘 -->
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
 						<input type="password" class="form-control" placeholder="password">
 					</div>
+					
+					<!-- 기억하기 체크 박스 -->
 					<div class="row align-items-center remember">
 						<input type="checkbox">Remember Me
 					</div>
+					
+					<!-- 로그인 버튼 -->
 					<div class="form-group">
-						<input type="submit" value="Login"
-							class="btn float-right login_btn">
+						<input type="submit" value="Login" class="btn float-right login_btn">
 					</div>
 				</form>
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					Don't have an account?<a href="#">Sign Up</a>
+					<a href="#">회원가입 하러가기</a>
 				</div>
 				<div class="d-flex justify-content-center">
-					<a href="#">Forgot your password?</a>
+					<a href="#">비밀번호 찾기</a>
 				</div>
 			</div>
 		</div>

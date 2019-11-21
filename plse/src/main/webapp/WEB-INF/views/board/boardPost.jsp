@@ -15,7 +15,6 @@
 <body>
 <jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
 
-
 <div class="container">
 	<div class="row">
 	    <div class="col-md-8 col-md-offset-2">
@@ -34,8 +33,6 @@
 					<input type="text" class="form-productname form-control " name="productname" />
 				</div><!-- 편의점, 상품명 div -->
 
-				
-    		    
     		    <div class="form-group"><!-- 별점 div  -->
     		        <label for="star">별점</label>
     		        <!-- 별점시작  -->
@@ -121,7 +118,6 @@
 					});
 				</script>
     		    </div><!-- 파일첨부 div -->
-
 
 				<div class=" btns">
 					<button type="submit" class="btn btn-primary">등록</button>
