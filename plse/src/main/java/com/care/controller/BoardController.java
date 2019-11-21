@@ -10,7 +10,12 @@ public class BoardController {
 	public String board() {
 		return "board/board";
 	}
-	
+	//게시글 수정
+	@RequestMapping(value = "/contentmodify")
+	public String contentmodify() {
+		return "board/contentmodify";
+	}
+	//게시글 등록
 	@RequestMapping(value = "/post")
 	public String post() {
 		return "board/boardPost";
@@ -25,5 +30,5 @@ public class BoardController {
 	public String adminPost() {
 		return "admin/adminPost";
 	}
-	
+
 }

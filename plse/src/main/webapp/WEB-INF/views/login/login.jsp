@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
@@ -32,16 +33,16 @@
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
-				<h3>로그인 하기</h3>
+				<h3>LOGIN</h3>
 			</div>
 			<div class="card-body">
-				<form>
+				<form action="loginChk">
 					<!-- 아이디 아이콘 -->
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="username">
+						<input type="text" name="id" class="form-control" placeholder="username">
 					</div>
 					
 					<!-- 비밀번호 아이콘 -->
@@ -49,7 +50,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="password">
+						<input type="password" name="pw" class="form-control" placeholder="password">
 					</div>
 					
 					<!-- 기억하기 체크 박스 -->
@@ -65,10 +66,10 @@
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					<a href="#">회원가입 하러가기</a>
+					<a href="#" style="color: #ffffff;">회원가입 하러가기</a>
 				</div>
 				<div class="d-flex justify-content-center">
-					<a href="#">비밀번호 찾기</a>
+					<a href="#" style="color: #ffffff;">비밀번호 찾기</a>
 				</div>
 			</div>
 		</div>

@@ -4,162 +4,195 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link
-		href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-		rel="stylesheet" id="bootstrap-css">
-	<script
-		src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<!------ Include the above in your HEAD tag ---------->
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-	<link rel="stylesheet"
-		href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-		crossorigin="anonymous">
-	<link rel="stylesheet" href="css/register.css" type="text/css" />
-	
-	<script>
-	$(document).ready(function() { 
-		  // şifre kurallı değilse butonu disable et
-		  $('#reg_userpassword').keyup(function() {
-		    var password = $('#reg_userpassword').val();
-		    var confirmpassword = $('#reg_userpasswordconfirm').val();
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="css/register.css" type="text/css" />
 
-		    if (checkStrength(password) == false) {
-		      $('#reg_submit').attr('disabled', true);
-		    }
-		  });
+<script>
+	$(document)
+			.ready(
+					function() {
+						// şifre kurallı değilse butonu disable et
+						$('#reg_userpassword')
+								.keyup(
+										function() {
+											var password = $(
+													'#reg_userpassword').val();
+											var confirmpassword = $(
+													'#reg_userpasswordconfirm')
+													.val();
 
-		  // password-rule divi hide/show
-		  $('#reg_userpassword').keyup(function() {
-		    if ($('#reg_userpassword').val()) {
-		      $('#reg_passwordrules').removeClass('hide');
-		      $('#reg-password-strength').removeClass('hide');
-		    } else {
-		      $('#reg_passwordrules').addClass('hide');
-		      $('#reg-password-quality').addClass('hide')
-		      $('#reg-password-quality-result').addClass('hide')
-		      $('#reg-password-strength').addClass('hide')
+											if (checkStrength(password) == false) {
+												$('#reg_submit').attr(
+														'disabled', true);
+											}
+										});
 
-		    }
-		  });
+						// password-rule divi hide/show
+						$('#reg_userpassword').keyup(
+								function() {
+									if ($('#reg_userpassword').val()) {
+										$('#reg_passwordrules').removeClass(
+												'hide');
+										$('#reg-password-strength')
+												.removeClass('hide');
+									} else {
+										$('#reg_passwordrules')
+												.addClass('hide');
+										$('#reg-password-quality').addClass(
+												'hide')
+										$('#reg-password-quality-result')
+												.addClass('hide')
+										$('#reg-password-strength').addClass(
+												'hide')
 
-		  // password-confirm error divi hide/show
-		  $('#reg_userpasswordconfirm').blur(function() {
-		    if ($('#reg_userpassword').val() !== $('#reg_userpasswordconfirm').val()) {
-		      $('#error-confirmpassword').removeClass('hide');
-		      $('#reg_submit').attr('disabled', true);
-		    } else {
-		      $('#error-confirmpassword').addClass('hide');
-		      $('#reg_submit').attr('disabled', false);
-		    }
-		  });
+									}
+								});
 
-		 
-		  $('#reg_submit').hover(function() {
-		    if ($('#reg_submit').prop('disabled')) {
-		      $('#reg_submit').popover({
-		        html: true,
-		        trigger: 'hover',
-		        placement: 'below',
-		        offset: 20,
-		        content: function() {
-		          return $('#sign-up-popover').html();
-		        }
-		      });
-		    }
-		  });
-		  // karakter doğrulama
-		  function checkStrength(password) {
-		    var strength = 0;
+						// password-confirm error divi hide/show
+						$('#reg_userpasswordconfirm')
+								.blur(
+										function() {
+											if ($('#reg_userpassword').val() !== $(
+													'#reg_userpasswordconfirm')
+													.val()) {
+												$('#error-confirmpassword')
+														.removeClass('hide');
+												$('#reg_submit').attr(
+														'disabled', true);
+											} else {
+												$('#error-confirmpassword')
+														.addClass('hide');
+												$('#reg_submit').attr(
+														'disabled', false);
+											}
+										});
 
-		    //If password contains both lower and uppercase characters, increase strength value.
-		    if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
-		      strength += 1;
-		      $('.low-upper-case').addClass('text-success');
-		      $('.low-upper-case i').removeClass('fa-check').addClass('fa-check');
-		      $('#reg-password-quality').addClass('hide');
+						$('#reg_submit').hover(function() {
+							if ($('#reg_submit').prop('disabled')) {
+								$('#reg_submit').popover({
+									html : true,
+									trigger : 'hover',
+									placement : 'below',
+									offset : 20,
+									content : function() {
+										return $('#sign-up-popover').html();
+									}
+								});
+							}
+						});
+						// karakter doğrulama
+						function checkStrength(password) {
+							var strength = 0;
 
+							//If password contains both lower and uppercase characters, increase strength value.
+							if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+								strength += 1;
+								$('.low-upper-case').addClass('text-success');
+								$('.low-upper-case i').removeClass('fa-check')
+										.addClass('fa-check');
+								$('#reg-password-quality').addClass('hide');
 
-		    } else {
-		      $('.low-upper-case').removeClass('text-success');
-		      $('.low-upper-case i').addClass('fa-check').removeClass('fa-check');
-		      $('#reg-password-quality').removeClass('hide');
-		    }
+							} else {
+								$('.low-upper-case')
+										.removeClass('text-success');
+								$('.low-upper-case i').addClass('fa-check')
+										.removeClass('fa-check');
+								$('#reg-password-quality').removeClass('hide');
+							}
 
-		    //If it has numbers and characters, increase strength value.
-		    if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/)) {
-		      strength += 1;
-		      $('.one-number').addClass('text-success');
-		      $('.one-number i').removeClass('fa-check').addClass('fa-check');
-		      $('#reg-password-quality').addClass('hide');
+							//If it has numbers and characters, increase strength value.
+							if (password.match(/([a-zA-Z])/)
+									&& password.match(/([0-9])/)) {
+								strength += 1;
+								$('.one-number').addClass('text-success');
+								$('.one-number i').removeClass('fa-check')
+										.addClass('fa-check');
+								$('#reg-password-quality').addClass('hide');
 
-		    } else {
-		      $('.one-number').removeClass('text-success');
-		      $('.one-number i').addClass('fa-check').removeClass('fa-check');
-		      $('#reg-password-quality').removeClass('hide');
-		    }
+							} else {
+								$('.one-number').removeClass('text-success');
+								$('.one-number i').addClass('fa-check')
+										.removeClass('fa-check');
+								$('#reg-password-quality').removeClass('hide');
+							}
 
-		    //If it has one special character, increase strength value.
-		    if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
-		      strength += 1;
-		      $('.one-special-char').addClass('text-success');
-		      $('.one-special-char i').removeClass('fa-check').addClass('fa-check');
-		      $('#reg-password-quality').addClass('hide');
+							//If it has one special character, increase strength value.
+							if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+								strength += 1;
+								$('.one-special-char').addClass('text-success');
+								$('.one-special-char i')
+										.removeClass('fa-check').addClass(
+												'fa-check');
+								$('#reg-password-quality').addClass('hide');
 
-		    } else {
-		      $('.one-special-char').removeClass('text-success');
-		      $('.one-special-char i').addClass('fa-check').removeClass('fa-check');
-		      $('#reg-password-quality').removeClass('hide');
-		    }
+							} else {
+								$('.one-special-char').removeClass(
+										'text-success');
+								$('.one-special-char i').addClass('fa-check')
+										.removeClass('fa-check');
+								$('#reg-password-quality').removeClass('hide');
+							}
 
-		    if (password.length > 7) {
-		      strength += 1;
-		      $('.eight-character').addClass('text-success');
-		      $('.eight-character i').removeClass('fa-check').addClass('fa-check');
-		      $('#reg-password-quality').removeClass('hide');
+							if (password.length > 7) {
+								strength += 1;
+								$('.eight-character').addClass('text-success');
+								$('.eight-character i').removeClass('fa-check')
+										.addClass('fa-check');
+								$('#reg-password-quality').removeClass('hide');
 
-		    } else {
-		      $('.eight-character').removeClass('text-success');
-		      $('.eight-character i').addClass('fa-check').removeClass('fa-check');
-		      $('#reg-password-quality').removeClass('hide');
-		    }
-		    // ------------------------------------------------------------------------------
-		    // If value is less than 2
-		    if (strength < 2) {
-		      $('#reg-password-quality-result').removeClass()
-		      $('#password-strength').addClass('progress-bar-danger');
+							} else {
+								$('.eight-character').removeClass(
+										'text-success');
+								$('.eight-character i').addClass('fa-check')
+										.removeClass('fa-check');
+								$('#reg-password-quality').removeClass('hide');
+							}
+							// ------------------------------------------------------------------------------
+							// If value is less than 2
+							if (strength == 4) {
+								$('#reg-password-quality-result').removeClass()
+								$('#reg-password-quality-result').addClass(
+										'strong');
+								$('#password-strength').removeClass(
+										'progress-bar-warning');
+								$('#password-strength').addClass(
+										'progress-bar-success');
+								$('#reg-password-quality-result').addClass(
+										'text-success').text('조건에 만족합니다.');
+								$('#password-strength').css('width', '100%');
+								return 'Strong'
+							} else {
+								$('#reg-password-quality-result').removeClass()
+								$('#password-strength').addClass(
+										'progress-bar-danger');
 
-		      $('#reg-password-quality-result').addClass('text-danger').text('zayıf');
-		      $('#password-strength').css('width', '10%');
-		    } else if (strength == 2) {
-		      $('#reg-password-quality-result').addClass('good');
-		      $('#password-strength').removeClass('progress-bar-danger');
-		      $('#password-strength').addClass('progress-bar-warning');
-		      $('#reg-password-quality-result').addClass('text-warning').text('idare eder')
-		      $('#password-strength').css('width', '60%');
-		      return 'Week'
-		    } else if (strength == 4) {
-		      $('#reg-password-quality-result').removeClass()
-		      $('#reg-password-quality-result').addClass('strong');
-		      $('#password-strength').removeClass('progress-bar-warning');
-		      $('#password-strength').addClass('progress-bar-success');
-		      $('#reg-password-quality-result').addClass('text-success').text('güçlü');
-		      $('#password-strength').css('width', '100%');
-		    	return 'Strong'
-		    }
-		  }
-		});
+								$('#reg-password-quality-result').addClass(
+										'text-danger').text('조건에 만족하지 않습니다.');
+								$('#password-strength').css('width', '10%');
+							}
+						}
+					});
 
-		// Şifre gizle göster
-		function togglePassword() {
+	// Şifre gizle göster
+	function togglePassword() {
 
-		  var element = document.getElementById('reg_userpassword');
-		  element.type = (element.type == 'password' ? 'text' : 'password');
+		var element = document.getElementById('reg_userpassword');
+		element.type = (element.type == 'password' ? 'text' : 'password');
 
-		};
+	};
+</script>
 
-	</script>
-	
 </head>
 
 <body>
@@ -167,15 +200,17 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4"></div>
-			<div class="col-md-5">
-				<div class="card cardbox">
-					<div class="card-header" style="text-align: center">회원가입</div>
+			<div class="col-md-5" style="box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px; border-radius: 20px; border:3px solid  #ff9999; ">
+				<div class="card-cardbox">
+					<div class="card-header" style="text-align: center;">회원가입</div>
 					<div class="card-body">
 						<div class="form-group">
-							<form id="login-nav" method="post" role="form" class="form" accept-charset="UTF-8">
+							<form id="login-nav" method="post" role="form" class="form"
+								accept-charset="UTF-8">
 								<div class="form-group">
-									<label class="sr-only">Id</label> 
-									<input type="text" id="reg_username" name="user_id" class="form-control" value="" placeholder="Id" required>
+									<label class="sr-only">Id</label> <input type="text"
+										id="reg_username" name="user_id" class="form-control" value=""
+										placeholder="Id" required>
 								</div>
 
 								<!-- password group -->
@@ -207,30 +242,28 @@
 									</div>
 									<!-- password remember & results -->
 									<div class="help-block text-right">
-
-										<span id="reg-password-quality"
-											class="hide pull-left block-help"> <small>Password
-												<span id="reg-password-quality-result"></span>
-										</small>
+										<small><a href="#">Forgot Password</a></small> <span
+											id="reg-password-quality" class="hide pull-left block-help">
+											<small>Password <span
+												id="reg-password-quality-result"></span></small>
 										</span>
 									</div>
 									<!-- Password Rules -->
 									<div id="reg_passwordrules" class="hide password-rule mt-2">
 										<small>
-
 											<ul class="list-unstyled">
 												<li class=""><span class="eight-character"><i
-														class="fa fa-check-circle" aria-hidden="true"></i></span>   min 8
-													character</li>
+														class="fa fa-check-circle" aria-hidden="true"></i></span>   최소
+													8글자 입력하여야 합니다.</li>
 												<li class=""><span class="low-upper-case"><i
-														class="fa fa-check-circle" aria-hidden="true"></i></span>   min 1
-													uppercase & 1 lowercase character</li>
+														class="fa fa-check-circle" aria-hidden="true"></i></span>   최소
+													한글자의 대문자와 소문자를 포함하여야 합니다.</li>
 												<li class=""><span class="one-number"><i
-														class="fa fa-check-circle" aria-hidden="true"></i></span>   min 1
-													number</li>
+														class="fa fa-check-circle" aria-hidden="true"></i></span>   숫자를
+													포함하여야 합니다.</li>
 												<li class=""><span class="one-special-char"><i
-														class="fa fa-check-circle" aria-hidden="true"></i></span>   min 1
-													special char (!@#$%^&*)</li>
+														class="fa fa-check-circle" aria-hidden="true"></i></span> 특수기호를
+													포함하여야합니다. (!@#$%^&*)</li>
 											</ul>
 										</small>
 									</div>
@@ -288,18 +321,15 @@
 								</div>
 
 								<div class="form-group" style="text-align: left">
-									연령대 : &emsp; <input type="radio" name="age" value="10">10대
-									<input type="radio" name="age" value="20">20대 <input
-										type="radio" name="age" value="30">30대 <input
-										type="radio" name="age" value="40">40대 <input
-										type="radio" name="age" value="50">50대이상
+									생년월일 : <input id="birth" type="date">
 								</div>
 
 								<!-- Submit -->
 								<div class="form-group">
-									<button id="reg_submit" name="submit" value="1" class="btn btn-block btn-primary">
-										Create user
-									</button>
+									<button id="reg_submit" name="submit" value="1">Create user</button>
+									<div id="sign-up-popover" class="hide">
+										<p>is empty</p>
+									</div>
 								</div>
 							</form>
 						</div>
@@ -307,7 +337,7 @@
 						<div class="login-or">
 							<hr class="hr-or">
 						</div>
-						
+
 						<!-- Links -->
 						<div class="bottom text-center">
 							이미 회원가입 하였습니다. <a href="#"><b>Login</b></a>
