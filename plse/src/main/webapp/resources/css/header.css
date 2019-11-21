@@ -8,7 +8,7 @@
       /*header*/
       header{height: auto; overflow: hidden; /*background-color: aqua;*/}
       header li {display:inline-block; margin: 0;}
-      header hr{margin-top: 8px; 
+      header hr{margin-top: 8px; clear:both;
           border:0; background-color: #333E50; height: 2px; }
       
       /*top메뉴*/
