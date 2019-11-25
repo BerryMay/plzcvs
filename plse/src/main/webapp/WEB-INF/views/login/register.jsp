@@ -205,11 +205,11 @@
 					<div class="card-header" style="text-align: center;">회원가입</div>
 					<div class="card-body">
 						<div class="form-group">
-							<form id="login-nav" method="post" role="form" class="form"
+							<form action="registerChk" id="Mregister" method="post" role="form" class="form"
 								accept-charset="UTF-8">
 								<div class="form-group">
 									<label class="sr-only">Id</label> <input type="text"
-										id="reg_username" name="user_id" class="form-control" value=""
+										id="reg_username" name="id" class="form-control" value=""
 										placeholder="Id" required>
 								</div>
 
@@ -221,7 +221,7 @@
 									<!-- password input -->
 									<div class="input-group">
 										<input type="password" id="reg_userpassword"
-											name="user_password" class="form-control"
+											name="pw" class="form-control"
 											data-placement="bottom" data-toggle="popover"
 											data-container="body" data-html="true" value=""
 											placeholder="Password" required>
@@ -252,8 +252,8 @@
 									<div id="reg_passwordrules" class="hide password-rule mt-2">
 										<small>
 											<ul class="list-unstyled">
-												<li class=""><span class="eight-character"><i
-														class="fa fa-check-circle" aria-hidden="true"></i></span>   최소
+												<li class=""><br><span class="eight-character"><i
+														class="fa fa-check-circle" aria-hidden="true"></i></span>  최소
 													8글자 입력하여야 합니다.</li>
 												<li class=""><span class="low-upper-case"><i
 														class="fa fa-check-circle" aria-hidden="true"></i></span>   최소
@@ -304,29 +304,29 @@
 								<!-- NickName -->
 								<div class="form-group">
 									<label class="sr-only">Nickname</label> <input type="text"
-										id="reg_nickname" name="user_nickname" class="form-control"
+										id="reg_nickname" name="nickname" class="form-control"
 										value="" placeholder="Nickname" required>
 								</div>
 								<!-- email group -->
 								<div class="form-group">
 									<label class="sr-only">E-mail Address</label> <input
-										type="email" id="reg_useremail" name="user_email"
+										type="email" id="reg_useremail" name="mail"
 										class="form-control" value="" placeholder="xxx@xxx.com">
 								</div>
 
 								<!-- question group -->
 								<div class="form-group" style="text-align: left">
-									성별 : &emsp; <input type="radio" name="sex" value="male">남
-									&nbsp; <input type="radio" name="sex" value="female">여
+									성별 : &emsp; <input type="radio" name="gender" value="male">남
+									&nbsp; <input type="radio" name="gender" value="female">여
 								</div>
 
 								<div class="form-group" style="text-align: left">
-									생년월일 : <input id="birth" type="date">
+									생년월일 : <input id="age" name="age" type="date">
 								</div>
 
 								<!-- Submit -->
 								<div class="form-group">
-									<button id="reg_submit" name="submit" value="1">Create user</button>
+									<input id="reg_submit" type="submit" value="Create user">
 									<div id="sign-up-popover" class="hide">
 										<p>is empty</p>
 									</div>
@@ -340,7 +340,7 @@
 
 						<!-- Links -->
 						<div class="bottom text-center">
-							이미 회원가입 하였습니다. <a href="#"><b>Login</b></a>
+							이미 회원가입 하였습니다. <a href="login"><b>Login</b></a>
 						</div>
 					</div>
 				</div>

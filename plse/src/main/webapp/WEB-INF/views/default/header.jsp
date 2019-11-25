@@ -30,12 +30,12 @@
 
 		<header>
 			<ul id="top">
-				<li><a href="#">로그인</a></li>|
-				<li><a href="#">회원가입</a></li>|
-				<li><a href="#">리뷰게시판</a></li>
+				<li><a href="login">로그인</a></li>|
+				<li><a href="register">회원가입</a></li>|
+				<li><a href="board">리뷰게시판</a></li>
 			</ul>
 			<h1 id="logo">
-				<a href="#"></a>
+				<a href="main"></a>
 			</h1>
 
 

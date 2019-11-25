@@ -4,6 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<!-- mapper 만드는 곳 -->
-	<mapper namespace="com.plse.loginMapper">
-	
+	<mapper namespace="com.care.mybatis.loginMapper">
+	<select id="login" resultType="Mdto">
+  		select * from member where id=#{id} and pw=#{pw}
+  	</select>
+  	<insert id="register" parameterType="Mdto" >
+  		insert into member values(#{id},#{pw},#{nickname},#{age},#{gender},#{mail},0)
+  	</insert>
 	</mapper>
