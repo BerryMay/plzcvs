@@ -13,17 +13,18 @@
 	<jsp:include page="../default/header.jsp" />
 	<div id="container">
 		<div id="list">
-			<b>게시판 </b>
+			<h1>게시판</h1> 
+			<br><br>
 		</div>
 		<div align="center">
-			<table class="table table-striped table-bordered table-hover">
+			<table class="table table-striped table-bordered table-hover" style="width: 100%;">
 				<thead>
 					<tr>
-						<th width="10%">번호</th>
-						<th width="50%">제목</th>
-						<th width="10%">작성자</th>
-						<th width="20%">작성일</th>
-						<th width="10%">조회</th>
+						<th style=" border-radius: 10px;" width="10%" height="30px" >번호</th>
+						<th style=" border-radius: 10px;" width="50%" height="30px">제목</th>
+						<th style=" border-radius: 10px;" width="10%" height="30px">작성자</th>
+						<th style=" border-radius: 10px;" width="20%" height="30px">작성일</th>
+						<th style=" border-radius: 10px;" width="10%" height="30px">조회</th>
 					</tr>
 				</thead>
 				

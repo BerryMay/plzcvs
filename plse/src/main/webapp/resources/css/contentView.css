@@ -1,0 +1,360 @@
+@charset "UTF-8";
+/* 바탕*/
+body {
+	background: #ffffff;
+}
+
+/*날짜*/
+.date {
+	text-align: right;
+}
+
+/*section*/
+.sec {
+	margin-bottom: 20px;
+}
+
+.profile-head {
+	width: 100%;
+	background-color: #ff9999;
+	float: left;
+	padding: 15px 5px;
+	border-radius: 40px 80px;
+}
+
+.col-md- {
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+.col-md- .img-responsive {
+	margin-top: 50px;
+}
+
+.col-md-5 {
+	width: 50%;
+	float: right;
+}
+
+.profile-head img {
+	height: 150px;
+	width: 150px;
+	margin: 0 auto;
+	border: 5px solid #fff;
+	border-radius: 5px;
+}
+
+.profile-head h5 {
+	width: 100%;
+	padding: 5px 5px 0px 5px;
+	text-align: justify;
+	font-weight: bold;
+	color: #fff;
+	font-size: 25px;
+	text-transform: capitalize;
+	margin-bottom: 0;
+}
+
+.profile-head p {
+	width: 100%;
+	text-align: justify;
+	padding: 0px 5px 5px 5px;
+	color: #fff;
+	font-size: 17px;
+	text-transform: capitalize;
+	margin: 0;
+}
+
+.profile-head a {
+	width: 100%;
+	text-align: center;
+	padding: 10px 5px;
+	color: #fff;
+	font-size: 15px;
+	text-transform: capitalize;
+}
+
+.profile-head ul {
+	list-style: none;
+	padding: 0;
+}
+
+.profile-head ul li {
+	display: block;
+	color: #ffffff;
+	padding: 5px;
+	font-weight: 400;
+	font-size: 15px;
+}
+
+.profile-head ul li:hover span {
+	color: rgb(0, 4, 51);
+}
+
+.profile-head ul li span {
+	color: #ffffff;
+	padding-right: 10px;
+}
+
+.profile-head ul li a {
+	color: #ffffff;
+}
+
+.profile-head h6 {
+	width: 100%;
+	text-align: center;
+	font-weight: 100;
+	color: #fff;
+	font-size: 15px;
+	text-transform: uppercase;
+	margin-bottom: 0;
+}
+
+.tab-pane {
+	background: #ffffff;
+	box-shadow: 0 0 4px rgba(0, 0, 0, .4);
+	border-radius: 0;
+	text-align: center;
+	padding: 10px;
+}
+
+.container {
+	overflow: hidden;
+}
+
+.tab-content {
+	clear: both;
+}
+
+.tab-content>.active {
+	margin-top: 50px;
+	/*width:100% !important;*/
+}
+
+/* edit profile css*/
+.bio-table {
+	width: 75%;
+	border: 0px solid;
+}
+
+.bio-table td {
+	text-transform: capitalize;
+	text-align: left;
+	font-size: 15px;
+}
+
+.bio-table>tbody>tr>td {
+	border: 0px solid;
+	text-transform: capitalize;
+	color: rgb(0, 4, 51);
+	font-size: 15px;
+}
+
+.responsiv-table {
+	border: 0px solid;
+}
+
+@media all and (max-width:430px) {
+	.profile-head ul li {
+		font-size: 12px !important;
+	}
+	.bio-table>tbody>tr>td {
+		font-size: 13px;
+	}
+}
+
+/*좋아요*/
+.btn_like {
+	position: relative;
+	margin: 100px auto;
+	display: block;
+	width: 44px;
+	height: 44px;
+	border: 1px solid #e8e8e8;
+	border-radius: 44px;
+	font-family: notokr-bold, sans-serif;
+	font-size: 14px;
+	line-height: 16px;
+	background-color: #fff;
+	color: #DD5D54;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.03);
+	transition: border .2s ease-out, box-shadow .1s ease-out,
+		background-color .4s ease-out;
+	cursor: pointer;
+}
+
+.btn_like:hover {
+	border: 1px solid rgba(228, 89, 89, 0.3);
+	background-color: rgba(228, 89, 89, 0.02);
+	box-shadow: 0 2px 4px 0 rgba(228, 89, 89, 0.2);
+}
+
+.btn_unlike .img_emoti {
+	background-position: -30px -120px;
+}
+
+.img_emoti {
+	display: inline-block;
+	overflow: hidden;
+	font-size: 0;
+	line-height: 0;
+	background:
+		url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/img_emoti.png?v=20180410)
+		no-repeat;
+	text-indent: -9999px;
+	vertical-align: top;
+	width: 20px;
+	height: 17px;
+	margin-top: 1px;
+	background-position: 0px -120px;
+	text-indent: 0;
+}
+
+.btn_like .ani_heart_m {
+	margin: -63px 0 0 -63px;
+}
+
+.ani_heart_m {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 125px;
+	height: 125px;
+	margin: -63px 0 0 -63px;
+	pointer-events: none;
+}
+
+.ani_heart_m.hi {
+	background-image:
+		url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_on_m.png);
+	-webkit-background-size: 9000px 125px;
+	background-size: 9000px 125px;
+	animation: on_m 1.06s steps(72);
+}
+
+.ani_heart_m.bye {
+	background-image:
+		url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_off_m.png);
+	-webkit-background-size: 8250px 125px;
+	background-size: 8250px 125px;
+	animation: off_m 1.06s steps(66);
+}
+
+@keyframes on_m {
+	from { background-position: 0px}
+	to {background-position: -9000px}
+
+}
+@keyframes off_m {
+	from { background-position:0}
+	to {background-position: -8250px}
+}
+.panel-shadow {
+	box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
+}
+
+.panel-white {
+	border: 1px solid #dddddd;
+}
+
+.panel-white .panel-heading {
+	color: #333;
+	background-color: #fff;
+	border-color: #ddd;
+}
+
+.panel-white .panel-footer {
+	background-color: #fff;
+	border-color: #ddd;
+}
+
+.post .post-heading {
+	height: 95px;
+	padding: 20px 15px;
+}
+
+.post .post-footer {
+	border-top: 1px solid #ddd;
+	padding: 15px;
+}
+
+.post .post-footer .input-group-addon a {
+	color: #454545;
+}
+
+.post .post-footer .comments-list {
+	padding: 0;
+	margin-top: 20px;
+	list-style-type: none;
+}
+
+.post .post-footer .comments-list .comment {
+	display: block;
+	width: 100%;
+	margin: 20px 0;
+}
+
+.post .post-footer .comments-list .comment .comment-heading {
+	display: block;
+	width: 100%;
+}
+
+.post .post-footer .comments-list .comment .comment-heading .user {
+	font-size: 14px;
+	font-weight: bold;
+	display: inline;
+	margin-top: 0;
+	margin-right: 10px;
+}
+
+.post .post-footer .comments-list .comment .comment-heading .time {
+	font-size: 12px;
+	color: #aaa;
+	margin-top: 0;
+	display: inline;
+}
+
+.post .post-footer .comments-list .comment .comment-body {
+	margin-left: 50px;
+}
+
+.post .post-footer .comments-list .comment>.comments-list {
+	margin-left: 50px;
+}
+
+/*입력하는박스*/
+.post .post-footer .input-group .form-control {
+	margin-left: 50px;
+	width: 80%;
+	height: 30;
+	margin-right: 10px;
+	/* -webkit-flex: 1; */
+}
+
+/*댓글입력그룹*/
+.post .post-footer .input-group {
+	/* display: -webkit-flex; */
+	display: flex; 
+	color: #333E50;
+	width: 100%;
+}
+
+/*등록버튼*/
+.sub {
+	border: 1px solid #ffcccc;
+	/*---테두리 정의---*/
+	background-Color: #ff9999;
+	/*--백그라운드 정의---*/
+	font: 12px 굴림;
+	/*--폰트 정의---*/
+	font-weight: bold;
+	/*--폰트 굵기---*/
+	color: #ffffff;
+	/*--폰트 색깔---*/
+	width: 20%;
+	height: 30;
+	/*--버튼 크기---*/
+	border-radius: 10px;
+}

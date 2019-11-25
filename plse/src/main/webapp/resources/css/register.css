@@ -161,3 +161,25 @@ select:hover {
 .hide {
 	display: none;
 }
+
+#reg_submit {
+	width: 100%; 
+	background-color: #ff9999; 
+	color: white; 
+	border:none;
+	height: 50px;
+	border-radius: 10px;
+}
+
+.card-cardbox .card-header {
+	color: white; 
+	background: #ff9999; 
+	border-color: #ccccff;
+	border-radius: 10px;
+	margin-top: 30px;
+}
+
+.card-cardbox{	
+/* 	background-color: rgba(52,62,80,0.7) !important; */
+
+}
