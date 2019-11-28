@@ -5,7 +5,7 @@
 <head>
 	<script  type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap-rating.js"></script> <!-- 별점js -->
-	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="css/boardpost.css" type="text/css" />
     <!-- Font Awesome CSS -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
@@ -15,25 +15,27 @@
 <body>
 <jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
 
-<div class="container">
-	<div class="row">
-	    <div class="col-md-8 col-md-offset-2">
+	    <div class="container">
     		<h2>게시글 등록하기</h2>
     		
-    		<form action="" method="POST">
+    		<form class="postform" action="" method="POST">
     		
 				<div class="form-group"><!-- 편의점, 상품명 div -->
-					<label for="cvsnum">편의점</label> <select name="cvsnum" class="form-cvsnum form-control">
+				<div class="cvsnum_div">
+					<label for="cvsnum">편의점</label> 
+					<select name="cvsnum" class="form-cvsnum form-control">
 						<option value="1">GS25</option>
 						<option value="2">세븐일레븐</option>
 						<option value="3">CU</option>
 					</select> 
-					
+					</div>
+					<div class="productname_div">
 					<label for="productname">상품명</label> 
 					<input type="text" class="form-productname form-control " name="productname" />
+					</div>
 				</div><!-- 편의점, 상품명 div -->
 
-    		    <div class="form-group"><!-- 별점 div  -->
+    		    <div class="form-group star_div"><!-- 별점 div  -->
     		        <label for="star">별점</label>
     		        <!-- 별점시작  -->
     		       
@@ -41,47 +43,51 @@
 				   
 				     <script>
 					      $(function () {
-					        $('input.check').on('change', function () { alert('Rating: ' + $(this).val());	});
-					        $('#programmatically-set').click(function () {
-					          $('#programmatically-rating').rating('rate', $('#programmatically-value').val());
-					        });
-					        $('#programmatically-get').click(function () {	alert($('#programmatically-rating').rating('rate'));	 });
-					        $('#programmatically-reset').click(function () { $('#programmatically-rating').rating('rate', '');	});
+						        $('input.check').on('change', function () { alert('Rating: ' + $(this).val());	});
+						        $('#programmatically-set').click(function () {
+						          $('#programmatically-rating').rating('rate', $('#programmatically-value').val());
+						        });
+						        $('#programmatically-get').click(function () {	alert($('#programmatically-rating').rating('rate'));	 });
+						        $('#programmatically-reset').click(function () { $('#programmatically-rating').rating('rate', '');	});
 					        
 					        
-					        $('.rating-tooltip').rating({
-					          extendSymbol: function (rate) {
-					            $(this).tooltip({
-					              container: 'body',
-					              placement: 'bottom',
-					              title: 'Rate ' + rate
-					            });
-					          }
-					        });
-					        
-					        
-					        $('.rating-tooltip-manual').rating({
-					          extendSymbol: function () {
-						            var title;
-						            
+						        $('.rating-tooltip').rating({
+						          extendSymbol: function (rate) {
 						            $(this).tooltip({
-							              container: 'body',
-							              placement: 'bottom',
-							              trigger: 'manual',
-							              title: function () {  return title; }
+						              container: 'body',
+						              placement: 'bottom',
+						              title: 'Rate ' + rate
 						            });
-		
-						            $(this).on('rating.rateenter', function (e, rate) {
-							              title = rate;
-							              $(this).tooltip('show');
-						            }).on('rating.rateleave', function () { $(this).tooltip('hide'); });
-					          }
-					        });
+						          }
+						        });
 					        
 					        
-					        $('.rating').each(function () {
-					          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
-					        $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
+						        $('.rating-tooltip-manual').rating({
+						          extendSymbol: function () {
+							            var title;
+							            
+							            $(this).tooltip({
+								              container: 'body',
+								              placement: 'bottom',
+								              trigger: 'manual',
+								              title: function () {  return title; }
+							            });
+			
+							            $(this).on('rating.rateenter', function (e, rate) {
+								              title = rate;
+								              $(this).tooltip('show');
+							            }).on('rating.rateleave', function () { $(this).tooltip('hide'); });
+						          }
+						        });
+						        
+					        
+						        $('.rating').each(function () {
+						          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
+						        $('.rating').on('change', function () { 
+						        	$(this).next('.label').text($(this).val()); 
+						        	
+						        	
+						        });
 					      });
 				    </script>
 				    <!-- 별점 끝 -->	        
@@ -94,7 +100,7 @@
    		   	 	
     		    <div class="form-group"> <!-- 내용 -->
     		        <label for="content">내용</label>
-    		        <textarea rows="5" class="form-control" name="content" ></textarea>
+    		        <textarea rows="15" class="form-control" name="content" ></textarea>
     		    </div>
 
     		    <div class=" filebox"><!-- 파일첨부 -->
@@ -119,15 +125,13 @@
 				</script>
     		    </div><!-- 파일첨부 div -->
 
-				<div class=" btns">
+				<div class="btns">
 					<button type="submit" class="btn btn-primary">등록</button>
 					<button class="btn btn-default">취소</button>
 				</div>
 				</form>
-		</div><!-- col-md-8 col-md-offset-2 end -->
+		</div><!-- container end -->
 		
-	</div><!-- row end -->
-</div> <!-- container end -->
 <jsp:include page="../default/footer.jsp" />
 </body>
 </html>
