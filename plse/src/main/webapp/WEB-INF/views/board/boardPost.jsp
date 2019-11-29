@@ -9,7 +9,6 @@
 	<link rel="stylesheet" href="css/boardpost.css" type="text/css" />
     <!-- Font Awesome CSS -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
-
 	<meta charset="UTF-8">
 	<title>Insert title here</title>	
 </head>
@@ -26,10 +25,9 @@
     		<h2>게시글 등록하기</h2>
     		
 <<<<<<< HEAD
-    		<form action="board_reg" method="POST">
-    		<input type="hidden" name="nickname" value="${userId }">
 =======
-    		<form class="postform" action="" method="POST">
+    		<form class="postform" action="board_reg" method="POST">
+    		<input type="hidden" name="nickname" value="${userId }">
     		
 >>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 				<div class="form-group"><!-- 편의점, 상품명 div -->
