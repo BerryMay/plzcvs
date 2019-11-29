@@ -85,7 +85,7 @@
 						          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
 						        $('.rating').on('change', function () { 
 						        	$(this).next('.label').text($(this).val()); 
-						        	
+						        	$('.rating').value($(this).val());
 						        	
 						        });
 					      });
