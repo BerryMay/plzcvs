@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,12 @@
 	<title>Insert title here</title>	
 </head>
 <body>
+<c:if test="${userId == null }">
+	<script type="text/javascript">
+		alert("로그인한 사람만 글쓰기가 가능합니다")
+		location.href="login";
+	</script>
+</c:if>
 <jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
 
 <div class="container">
@@ -20,8 +27,8 @@
 	    <div class="col-md-8 col-md-offset-2">
     		<h2>게시글 등록하기</h2>
     		
-    		<form action="" method="POST">
-    		
+    		<form action="board_reg" method="POST">
+    		<input type="hidden" name="nickname" value="${userId }">
 				<div class="form-group"><!-- 편의점, 상품명 div -->
 					<label for="cvsnum">편의점</label> <select name="cvsnum" class="form-cvsnum form-control">
 						<option value="1">GS25</option>
@@ -33,55 +40,59 @@
 					<input type="text" class="form-productname form-control " name="productname" />
 				</div><!-- 편의점, 상품명 div -->
 
-    		    <div class="form-group"><!-- 별점 div  -->
+    		    <div class="form-group star_div"><!-- 별점 div  -->
     		        <label for="star">별점</label>
     		        <!-- 별점시작  -->
     		       
-    		         <input type="hidden" class="rating" data-fractions="2"/>
+    		         <input type="hidden" class="rating" name="stars" data-fractions="2"/>
 				   
 				     <script>
 					      $(function () {
-					        $('input.check').on('change', function () { alert('Rating: ' + $(this).val());	});
-					        $('#programmatically-set').click(function () {
-					          $('#programmatically-rating').rating('rate', $('#programmatically-value').val());
-					        });
-					        $('#programmatically-get').click(function () {	alert($('#programmatically-rating').rating('rate'));	 });
-					        $('#programmatically-reset').click(function () { $('#programmatically-rating').rating('rate', '');	});
+						        $('input.check').on('change', function () { alert('Rating: ' + $(this).val());	});
+						        $('#programmatically-set').click(function () {
+						          $('#programmatically-rating').rating('rate', $('#programmatically-value').val());
+						        });
+						        $('#programmatically-get').click(function () {	alert($('#programmatically-rating').rating('rate'));	 });
+						        $('#programmatically-reset').click(function () { $('#programmatically-rating').rating('rate', '');	});
 					        
 					        
-					        $('.rating-tooltip').rating({
-					          extendSymbol: function (rate) {
-					            $(this).tooltip({
-					              container: 'body',
-					              placement: 'bottom',
-					              title: 'Rate ' + rate
-					            });
-					          }
-					        });
-					        
-					        
-					        $('.rating-tooltip-manual').rating({
-					          extendSymbol: function () {
-						            var title;
-						            
+						        $('.rating-tooltip').rating({
+						          extendSymbol: function (rate) {
 						            $(this).tooltip({
-							              container: 'body',
-							              placement: 'bottom',
-							              trigger: 'manual',
-							              title: function () {  return title; }
+						              container: 'body',
+						              placement: 'bottom',
+						              title: 'Rate ' + rate
 						            });
-		
-						            $(this).on('rating.rateenter', function (e, rate) {
-							              title = rate;
-							              $(this).tooltip('show');
-						            }).on('rating.rateleave', function () { $(this).tooltip('hide'); });
-					          }
-					        });
+						          }
+						        });
 					        
 					        
-					        $('.rating').each(function () {
-					          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
-					        $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
+						        $('.rating-tooltip-manual').rating({
+						          extendSymbol: function () {
+							            var title;
+							            
+							            $(this).tooltip({
+								              container: 'body',
+								              placement: 'bottom',
+								              trigger: 'manual',
+								              title: function () {  return title; }
+							            });
+			
+							            $(this).on('rating.rateenter', function (e, rate) {
+								              title = rate;
+								              $(this).tooltip('show');
+							            }).on('rating.rateleave', function () { $(this).tooltip('hide'); });
+						          }
+						        });
+						        
+					        
+						        $('.rating').each(function () {
+						          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
+						        $('.rating').on('change', function () { 
+						        	$(this).next('.label').text($(this).val()); 
+						        	$('.rating').value($(this).val());
+						        	
+						        });
 					      });
 				    </script>
 				    <!-- 별점 끝 -->	        

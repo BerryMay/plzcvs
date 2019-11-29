@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,14 +31,24 @@
 
 		<header>
 			<ul id="top">
-				<li><a href="login">로그인</a></li>|
-				<li><a href="register">회원가입</a></li>|
+				<li>
+					<c:choose>
+						<c:when test="${userId == null }">
+							<a href="login">로그인</a>
+						</c:when>
+						<c:otherwise>
+							<a href="logout">${userId } 로그아웃</a>
+						</c:otherwise>
+					</c:choose>
+				</li>|
+				<c:if test="${userId == null }">
+					<li><a href="register">회원가입</a></li>|
+				</c:if>
 				<li><a href="board">리뷰게시판</a></li>
 			</ul>
 			<h1 id="logo">
 				<a href="main"></a>
 			</h1>
-
 
 			<nav id="nav">
 				<ul>

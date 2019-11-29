@@ -21,6 +21,7 @@
       <property name="mapperLocations">
          <list>
             <value>classpath:mybatis/loginMapper.xml</value>
+            <value>classpath:mybatis/boardMapper.xml</value>
          </list>
       </property>
    </bean>
