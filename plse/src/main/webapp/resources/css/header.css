@@ -1,12 +1,16 @@
 @charset "UTF-8";
- /*공통으로 들어가는 부분*/
-      *{margin: 0; padding: 0; box-sizing: border-box;}
-      a{text-decoration: none; color: #222;}
-      ul{list-style: none;}
-      #wrap{ height: 100vh; width: 80%; margin: 0 auto;}
-      
-      /*header*/
-      header{height: auto; overflow: hidden; /*background-color: aqua;*/}
+/*공통으로 들어가는 부분*/
+	* {margin: 0;padding: 0;box-sizing: border-box;}
+	a {text-decoration: none;color: #222;}
+	ul {list-style: none;}
+	#wrap {height: 100vh; width: 80%; margin: 0 auto;}
+	
+	table {border-spacing: 0; border-collapse: collapse;}
+	td, th {padding: 0;}
+	article, aside, details, figcaption, figure, footer, header, hgroup,main, menu, nav, section, summary {display: block;}
+
+	/*header*/
+	header{height: auto; overflow: hidden; /*background-color: aqua;*/}
       header li {display:inline-block; margin: 0;}
       header hr{margin-top: 8px; clear:both;
           border:0; background-color: #808080; height: 2px; }
@@ -48,12 +52,12 @@
       background-color: rgba(0,0,0,0); color: #808080;}
       
       /*contents*/
-      #contents{height: 80%; }
+      #contents{overflow: auto; padding-bottom: 40px;}
       
       
       /*footer*/
       footer{background-color: #808080;
-          position: fixed; bottom: 0; width: 80%; 
-          height: 30px;
+           width: 100%; 
+          height: 36px;
       }
       footer p{color:#fff; text-align: center;}

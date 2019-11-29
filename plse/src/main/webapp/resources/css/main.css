@@ -23,8 +23,13 @@
 /*GLOBALS*/
 *{margin:0; padding:0; list-style:none;}
 a{text-decoration:none; color:#666;}
+<<<<<<< HEAD
 
 body, hmtl{ font-family: 'Anton', sans-serif;}
+=======
+a:hover{color:#ff9999;}
+body, hmtl{background: white; font-family: 'Anton', sans-serif;}
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 
 
 #wrapper{

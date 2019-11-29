@@ -16,7 +16,7 @@
 <jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
 
 	    <div class="container">
-    		<h2>게시글 등록하기</h2>
+    		<h2>게시글 수정하기</h2>
     		
     		<form class="postform" action="" method="POST">
     		
@@ -39,7 +39,7 @@
     		        <label for="star">별점</label>
     		        <!-- 별점시작  -->
     		       
-    		         <input type="hidden" class="rating" name="stars" data-fractions="2"/>
+    		         <input type="hidden" class="rating" data-fractions="2"/>
 				   
 				     <script>
 					      $(function () {
@@ -85,7 +85,7 @@
 						          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
 						        $('.rating').on('change', function () { 
 						        	$(this).next('.label').text($(this).val()); 
-						        	$('.rating').value($(this).val());
+						        	
 						        	
 						        });
 					      });
@@ -126,7 +126,7 @@
     		    </div><!-- 파일첨부 div -->
 
 				<div class="btns">
-					<button type="submit" class="btn btn-primary">등록</button>
+					<button type="submit" class="btn btn-primary">수정</button>
 					<button class="btn btn-default">취소</button>
 				</div>
 				</form>
