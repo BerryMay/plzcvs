@@ -25,13 +25,13 @@
 	    <div class="container">
     		<h2>게시글 등록하기</h2>
     		
-<<<<<<< HEAD
-    		<form action="board_reg" method="POST">
-    		<input type="hidden" name="nickname" value="${userId }">
-=======
-    		<form class="postform" action="" method="POST">
+
+
     		
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+
+    		<form class="postform" action="board_reg" method="POST">
+    		<input type="hidden" name="nickname" value="${userId }">
+
 				<div class="form-group"><!-- 편의점, 상품명 div -->
 				<div class="cvsnum_div">
 					<label for="cvsnum">편의점</label> 
