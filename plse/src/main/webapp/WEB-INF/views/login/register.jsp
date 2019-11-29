@@ -196,6 +196,11 @@
 </head>
 
 <body>
+<c:if test="${userId != null }">
+	<script type="text/javascript">
+		location.href="history.back()";
+	</script>
+</c:if>
 	<jsp:include page="../default/header.jsp" />
 	<div class="container">
 		<div class="row">

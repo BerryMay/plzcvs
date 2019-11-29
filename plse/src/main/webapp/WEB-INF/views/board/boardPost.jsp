@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +14,24 @@
 	<title>Insert title here</title>	
 </head>
 <body>
+<c:if test="${userId == null }">
+	<script type="text/javascript">
+		alert("로그인한 사람만 글쓰기가 가능합니다")
+		location.href="login";
+	</script>
+</c:if>
 <jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
 
 	    <div class="container">
     		<h2>게시글 등록하기</h2>
     		
+<<<<<<< HEAD
+    		<form action="board_reg" method="POST">
+    		<input type="hidden" name="nickname" value="${userId }">
+=======
     		<form class="postform" action="" method="POST">
     		
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 				<div class="form-group"><!-- 편의점, 상품명 div -->
 				<div class="cvsnum_div">
 					<label for="cvsnum">편의점</label> 
@@ -85,8 +97,7 @@
 						          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
 						        $('.rating').on('change', function () { 
 						        	$(this).next('.label').text($(this).val()); 
-						        	$('.rating').value($(this).val());
-						        	
+						        	$('.rating').value($(this).val());					        	
 						        });
 					      });
 				    </script>

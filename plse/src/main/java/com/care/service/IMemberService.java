@@ -8,4 +8,6 @@ public interface IMemberService {
 	public void loginChk(Model model);
 	// 회원가입 메서드
 	public void register(Model model);
+	//로그아웃
+	public void logout(Model model);
 }

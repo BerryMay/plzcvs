@@ -43,7 +43,7 @@
 
 
         <div class="container" style="margin-top: 30px;">
-            <p class="date">날짜 :</p>
+            <p class="date">날짜 : </p>
             <div class="profile-head">
                 <div class="col-md- col-sm-4 col-xs-12">
                     <img src=" " class="img-responsive" />
@@ -53,15 +53,13 @@
 
 
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                    <h5>글제목</h5>
-                    <p>별점: </p>
                     <ul>
-
-                        <li> 글쓴이 : </li>
-                        <li> 편의점 : </li>
-                        <li> 상품명 : </li>
-                        
+                    	<li><h5>${dto.title }</h5></li>
+                        <li> 작성자 : ${dto.nickname }</li>
+                        <li> 편의점 : ${dto.cvsnum }</li>
+                        <li> 상품명 : ${dto.productname }</li>
                     </ul>
+                    <p>별점: ${dto.stars }</p>
 
 
                 </div>
@@ -96,7 +94,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                내용출력부분
+                                                ${dto.content }
                                             </td>
                                         </tr>
 

@@ -28,6 +28,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<c:if test="${userId != null }">
+	<script type="text/javascript">
+		alert("이미 로그인 하셨습니다")
+		location.href="http://localhost:8080/practice/";
+	</script>
+</c:if>
 	<jsp:include page="../default/header.jsp" />
 
 	<div class="d-flex justify-content-center h-100">
@@ -66,7 +72,7 @@
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					<a href="#" style="color: #ffffff;">회원가입 하러가기</a>
+					<a href="register" style="color: #ffffff;">회원가입 하러가기</a>
 				</div>
 				<div class="d-flex justify-content-center">
 					<a href="#" style="color: #ffffff;">비밀번호 찾기</a>

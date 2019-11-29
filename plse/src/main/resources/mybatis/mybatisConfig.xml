@@ -6,5 +6,6 @@
 		<!-- DTO Class 별명 주는거 -->
 		<typeAliases>
 			<typeAlias type="com.care.dto.MemberDTO" alias="Mdto"/>
+			<typeAlias type="com.care.dto.BoardDTO" alias="Bdto"/>
 		</typeAliases>
 	</configuration>
