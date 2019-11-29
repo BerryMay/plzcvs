@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri ="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,12 +22,24 @@
 	</script>
 </c:if>
 <jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
+<<<<<<< HEAD
 
 <div class="container">
 	<div class="row">
 	    <div class="col-md-8 col-md-offset-2">
+=======
+<fmt:requestEncoding value="utf-8" />
+	    <div class="container">
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
     		<h2>게시글 등록하기</h2>
+<<<<<<< HEAD
     		<form class="postform" action="board_reg" method="POST">
+=======
+    		
+
+    		<form action="board_reg" method="POST"  class="postform" >
+
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
     		<input type="hidden" name="nickname" value="${userId }">
 				<div class="form-group"><!-- 편의점, 상품명 div -->
 				<div class="cvsnum_div">

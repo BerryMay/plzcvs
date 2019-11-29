@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.care.dto.BoardDTO;
+
 import com.care.service.BoardService;
 
 @Controller
@@ -36,7 +36,8 @@ public class BoardController {
 		return "board/boardPost";
 	}
 
-	
+
+	//상세보기
 
 
 	//게시글 1개 보기
@@ -50,7 +51,7 @@ public class BoardController {
 
 
 	//관리자 상품등록창
-
+	//관리자 물품등록
 
 	@RequestMapping(value = "/adminPost")
 	public String adminPost() {
