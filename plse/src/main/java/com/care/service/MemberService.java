@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Service
-public class MemberService{
+public class MemberService implements IMemberService{
 	
 	@Autowired
 	private MemberDAO dao;
@@ -31,9 +31,11 @@ public class MemberService{
 		try {
 			if(loginchk != null) {
 				// 성공시 세션 만들어줌
-				session.setAttribute("userId", dto.getId());
+				session.setAttribute("userId", loginchk.getNickname());
+				model.addAttribute("result", "ok");
 			}else {
 				// 실패시
+				model.addAttribute("result", "fail");
 			}			
 		} catch (Exception e) { System.out.println("로그인 오류" + e); }
 	}
@@ -49,7 +51,13 @@ public class MemberService{
 		dto.setGender(request.getParameter("gender"));
 		dto.setMail(request.getParameter("mail"));
 		try {
-			dao.register(dto);
+			int re = dao.register(dto);
+				model.addAttribute("result", re);
 		} catch (Exception e) { System.out.println("회원가입 오류" + e); }
+	}
+	public void logout(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		dao.logout(request);
 	}
 }

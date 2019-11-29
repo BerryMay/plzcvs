@@ -1,5 +1,8 @@
 package com.care.dao;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,13 +18,10 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace+".login",dto);
 	}
 	public int register(MemberDTO dto) {
-		System.out.println("dao 레지스터입니다");
-		System.out.println(dto.getId());
-		System.out.println(dto.getPw());
-		System.out.println(dto.getNickname());
-		System.out.println(dto.getGender());
-		System.out.println(dto.getMail());
-		System.out.println(dto.getAge());
 		return sqlSession.insert(namespace+".register",dto);
+	}
+	public void logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("userId");
 	}
 }

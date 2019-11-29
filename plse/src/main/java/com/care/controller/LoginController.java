@@ -31,9 +31,14 @@ public class LoginController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("request", request);
 		ms.loginChk(model);
+		return "login/loginChk";
+	}
+	@RequestMapping(value = "/logout")
+	public String logout(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		ms.logout(model);
 		return "login/login";
 	}
-	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model,HttpServletRequest request) {
 		return "login/register";
@@ -43,6 +48,6 @@ public class LoginController {
 	public String registerChk(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
 		ms.register(model);
-		return "redirect:login";
+		return "login/registerChk";
 	}
 }
