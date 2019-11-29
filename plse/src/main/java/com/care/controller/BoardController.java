@@ -18,6 +18,10 @@ public class BoardController {
 	@Autowired
 	private BoardService bs;
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 	@RequestMapping(value = "/board")
 	public String board(Model model) {
 		bs.board_list(model);
@@ -35,7 +39,12 @@ public class BoardController {
 		return "board/boardPost";
 	}
 
+<<<<<<< HEAD
 	//상세보기
+=======
+	
+
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 
 	//게시글 1개 보기
 
@@ -49,7 +58,10 @@ public class BoardController {
 
 	//관리자 상품등록창
 
+<<<<<<< HEAD
 	//관리자 물품등록
+=======
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 
 	@RequestMapping(value = "/adminPost")
 	public String adminPost() {

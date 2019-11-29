@@ -27,7 +27,14 @@
     		<h2>게시글 등록하기</h2>
     		
 
+<<<<<<< HEAD
     		<form action="board_reg" method="POST"  class="postform" >
+=======
+
+    		
+
+    		<form class="postform" action="board_reg" method="POST">
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
     		<input type="hidden" name="nickname" value="${userId }">
 
 				<div class="form-group"><!-- 편의점, 상품명 div -->
