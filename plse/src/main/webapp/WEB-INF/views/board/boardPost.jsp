@@ -25,11 +25,19 @@
     		<h2>게시글 등록하기</h2>
     		
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     		<form class="postform" action="board_reg" method="POST">
     		<input type="hidden" name="nickname" value="${userId }">
-    		
+=======
+
+
 >>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+    		
+
+    		<form class="postform" action="board_reg" method="POST">
+    		<input type="hidden" name="nickname" value="${userId }">
+
 				<div class="form-group"><!-- 편의점, 상품명 div -->
 				<div class="cvsnum_div">
 					<label for="cvsnum">편의점</label> 
@@ -95,8 +103,7 @@
 						          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
 						        $('.rating').on('change', function () { 
 						        	$(this).next('.label').text($(this).val()); 
-						        	$('.rating').value($(this).val());
-						        	
+						        	$('.rating').value($(this).val());					        	
 						        });
 					      });
 				    </script>

@@ -12,14 +12,19 @@ import com.care.service.BoardService;
 
 @Controller
 public class BoardController {
+
+	//게시판보기
+
 	@Autowired
 	private BoardService bs;
 	
+
 	@RequestMapping(value = "/board")
 	public String board(Model model) {
 		bs.board_list(model);
 		return "board/board";
 	}
+	
 	//게시글 수정
 	@RequestMapping(value = "/contentmodify")
 	public String contentmodify() {
@@ -30,14 +35,23 @@ public class BoardController {
 	public String post() {
 		return "board/boardPost";
 	}
+
+	
+
+
 	//게시글 1개 보기
+
 	@RequestMapping(value = "/detail")
 	public String detail(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
 		bs.board_view(model);
 		return "board/contentView";
 	}
-	//관리자 물품등록
+
+
+	//관리자 상품등록창
+
+
 	@RequestMapping(value = "/adminPost")
 	public String adminPost() {
 		return "admin/adminPost";
