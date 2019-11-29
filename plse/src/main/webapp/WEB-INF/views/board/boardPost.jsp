@@ -18,7 +18,7 @@
 	    <div class="container">
     		<h2>게시글 등록하기</h2>
     		
-    		<form class="postform" action="" method="POST">
+    		<form class="postform" action="" method="GET">
     		
 				<div class="form-group"><!-- 편의점, 상품명 div -->
 				<div class="cvsnum_div">
@@ -39,7 +39,7 @@
     		        <label for="star">별점</label>
     		        <!-- 별점시작  -->
     		       
-    		         <input type="hidden" class="rating" data-fractions="2"/>
+    		         <input type="hidden" class="rating" name="stars" data-fractions="2"/>
 				   
 				     <script>
 					      $(function () {
@@ -85,7 +85,7 @@
 						          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
 						        $('.rating').on('change', function () { 
 						        	$(this).next('.label').text($(this).val()); 
-						        	
+						        	$('.rating').value($(this).val());
 						        	
 						        });
 					      });
