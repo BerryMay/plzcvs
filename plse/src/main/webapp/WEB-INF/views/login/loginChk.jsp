@@ -17,7 +17,7 @@
 		</c:when>
 		<c:otherwise>
 			<script>
-				location.href = "http://localhost:8080/practice/";
+				location.href = "http://localhost:8989/practice/";
 			</script>
 		</c:otherwise>
 </c:choose>
