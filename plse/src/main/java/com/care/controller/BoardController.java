@@ -12,13 +12,12 @@ import com.care.service.BoardService;
 
 @Controller
 public class BoardController {
-<<<<<<< HEAD
+
 	//게시판보기
-=======
+
 	@Autowired
 	private BoardService bs;
 	
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 	@RequestMapping(value = "/board")
 	public String board(Model model) {
 		bs.board_list(model);
@@ -35,24 +34,23 @@ public class BoardController {
 	public String post() {
 		return "board/boardPost";
 	}
-<<<<<<< HEAD
-	
+
 	//상세보기
-=======
+
 	//게시글 1개 보기
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+
 	@RequestMapping(value = "/detail")
 	public String detail(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
 		bs.board_view(model);
 		return "board/contentView";
 	}
-<<<<<<< HEAD
+
 
 	//관리자 상품등록창
-=======
+
 	//관리자 물품등록
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+
 	@RequestMapping(value = "/adminPost")
 	public String adminPost() {
 		return "admin/adminPost";
