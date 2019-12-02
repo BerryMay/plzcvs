@@ -63,11 +63,10 @@ public class BoardService implements IBoardService{
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		HashMap<String, Object> search = new HashMap<String, Object>();
-		search.put("searchSelect", request.getParameter("searchSelect"));
-		search.put("searchText", request.getParameter("searchText"));
-		//List<BoardDTO> dto = new ArrayList<BoardDTO>();
-		//dto = dao.board_search(search);
-		//System.out.println(dto.get(0).getContent());
+		String s1 = request.getParameter("searchSelect");
+		String s2 = request.getParameter("searchText");
+		search.put("searchSelect", s1 );
+		search.put("searchText", s2 );
 		model.addAttribute("dto", dao.board_search(search));
 	}
 }
