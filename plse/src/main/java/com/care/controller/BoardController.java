@@ -7,24 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import com.care.dto.BoardDTO;
 import com.care.service.BoardService;
 
 @Controller
 public class BoardController {
 
-	//게시판보기
-
 	@Autowired
 	private BoardService bs;
 	
-
+	//게시판보기
 	@RequestMapping(value = "/board")
 	public String board(Model model) {
 		bs.board_list(model);
 		return "board/board";
 	}
-	
 	//게시글 수정
 	@RequestMapping(value = "/contentmodify")
 	public String contentmodify() {
@@ -36,26 +33,12 @@ public class BoardController {
 		return "board/boardPost";
 	}
 
-
 	//상세보기
-
-
-	//게시글 1개 보기
-
 	@RequestMapping(value = "/detail")
 	public String detail(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
 		bs.board_view(model);
 		return "board/contentView";
-	}
-
-
-	//관리자 상품등록창
-	//관리자 물품등록
-
-	@RequestMapping(value = "/adminPost")
-	public String adminPost() {
-		return "admin/adminPost";
 	}
 	//게시글 등록하기
 	@RequestMapping(value = "/board_reg")
@@ -64,5 +47,41 @@ public class BoardController {
 		bs.board_reg(model);
 		return "redirect:board";
 	}
-
+	//게시글 수정페이지
+	@RequestMapping(value = "/board_modify")
+	public String board_modify(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		bs.board_view(model);
+		return "board/contentModify";
+	}
+	//게시글 수정하기
+	@RequestMapping(value = "/board_modifyOk")
+	public String board_modifyOk(Model model,BoardDTO dto) {
+		model.addAttribute("dto", dto);
+		System.out.println("modifyOk num = " +dto.getNum());
+		bs.board_modify(model);
+		return "redirect:detail?num="+dto.getNum();
+	}
+	//게시글 삭제
+	@RequestMapping(value = "/board_delete")
+	public String board_delete(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		bs.board_delete(model);
+		return "redirect:board";
+	}
+	//게시글 검색
+	@RequestMapping(value = "/board_search")
+	public String board_search(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		bs.board_search(model);
+		System.out.println("검색완료");
+		return "board/boardSearch";
+	}
+	//관리자 상품등록창
+	//관리자 물품등록
+	
+	@RequestMapping(value = "/adminPost")
+	public String adminPost() {
+		return "admin/adminPost";
+	}
 }

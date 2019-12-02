@@ -25,4 +25,20 @@
   	<update id="upHit">
   		update board set hit=hit+1 where num=#{num}
   	</update>
+  	<!-- 게시글 수정 -->
+  	<update id="board_modify" parameterType="Bdto">
+  		update board set cvsnum=#{cvsnum}, stars=#{stars}, title=#{title}, content=#{content} where num=#{num}
+  	</update>
+  	<!-- 게시글 삭제 -->
+  	<delete id="board_delete">
+  		delete from board where num=#{num}
+  	</delete>
+  	<!-- 게시글 검색 -->
+  	<select id="board_search" parameterType="HashMap" resultType="Bdto" >
+  		select * from board where #{searchSelect} like '%'||#{searchText}||'%'
+  	</select>
+  	<!-- 가격 가져오기 -->
+  	<select id="board_price" resultType="int">
+  		select price from cvs where productname=#{productname}
+  	</select>
 	</mapper>

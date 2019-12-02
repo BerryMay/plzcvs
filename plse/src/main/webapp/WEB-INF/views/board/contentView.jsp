@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,6 @@
 <jsp:include page="../default/header.jsp" />
 	 <section class="sec">
 
-
         <div class="container" style="margin-top: 30px;">
             <p class="date">날짜 : </p>
             <div class="profile-head">
@@ -58,13 +58,13 @@
                         <li> 작성자 : ${dto.nickname }</li>
                         <li> 편의점 : ${dto.cvsnum }</li>
                         <li> 상품명 : ${dto.productname }</li>
+                        <li> 가격: ${price }</li>
                     </ul>
                     <p>별점: ${dto.stars }</p>
 
 
                 </div>
                 <!--col-md-8 col-sm-8 col-xs-12 close-->
-
 
 
 
@@ -154,23 +154,22 @@
                                 </div>
                                 <p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
                             </div>
-
                         </li>
                     </ul>
                     <form class="contentsbox">
                         <div class="input-group">
                             <input class="form-control" placeholder="Add a comment" type="text">
                             <input type="submit" value="등록" class="sub">
-                            
                         </div>
                     </form>
-
                 </div>
-
-
-
-
             </div>
+        </div>
+        <div align="right">
+        	<c:if test="${userId == dto.nickname }">
+	        	<input class="btn btn-primary" type="button" value="수정" onclick="javascript:location.href='board_modify?num=${dto.num}'">
+	        	<input class="btn btn-primary" type="button" value="삭제" onclick="javascript:location.href='board_delete?num=${dto.num}'">
+        	</c:if>
         </div>
     <jsp:include page="../default/footer.jsp" />
 </body>

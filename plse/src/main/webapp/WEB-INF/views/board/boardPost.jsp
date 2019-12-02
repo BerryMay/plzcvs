@@ -1,18 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri ="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
+	<script type="text/javascript">
+		function bChk(){
+			if(document.postform.productname.value==""){
+				alert("상품명을 입력해주세요")
+			}else if(document.postform.stars.value==""){
+				alert("별점을 매겨주세요")
+			}else if(document.postform.title.value==""){
+				alert("제목을 입력해주세요")
+			}else if(document.postform.content.value==""){
+				alert("내용을 입력해주세요")
+			}else{
+				document.postform.submit();
+			}
+		}
+	</script>
 	<script  type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap-rating.js"></script> <!-- 별점js -->
-	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="css/boardpost.css" type="text/css" />
     <!-- Font Awesome CSS -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
 	<meta charset="UTF-8">
-	<title>Insert title here</title>	
+	<title>게시판 등록</title>	
 </head>
 <body>
 <c:if test="${userId == null }">
@@ -22,37 +36,24 @@
 	</script>
 </c:if>
 <jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
-<<<<<<< HEAD
 
 <div class="container">
 	<div class="row">
 	    <div class="col-md-8 col-md-offset-2">
-=======
-<fmt:requestEncoding value="utf-8" />
-	    <div class="container">
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
     		<h2>게시글 등록하기</h2>
-<<<<<<< HEAD
-    		<form class="postform" action="board_reg" method="POST">
-=======
-    		
+    		<form name="postform" id="postform" class="postform" action="board_reg" method="POST">
 
-    		<form action="board_reg" method="POST"  class="postform" >
-
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
     		<input type="hidden" name="nickname" value="${userId }">
 				<div class="form-group"><!-- 편의점, 상품명 div -->
-				<div class="cvsnum_div">
 					<label for="cvsnum">편의점</label> 
 					<select name="cvsnum" class="form-cvsnum form-control">
 						<option value="1">GS25</option>
 						<option value="2">세븐일레븐</option>
 						<option value="3">CU</option>
 					</select> 
-				</div>
 					
-					<label for="productname">상품명</label> 
-					<input type="text" class="form-productname form-control " name="productname" />
+					<label for="productname">상품명</label>
+					<input type="text" class="form-productname form-control " id="productname" name="productname" />
 				</div><!-- 편의점, 상품명 div -->
 
     		    <div class="form-group"><!-- 별점 div  -->
@@ -111,12 +112,12 @@
     		    
     		    <div class="form-group"><!-- 제목란 -->
 	   		        <label for="title">제목</label>
-	   		        <input type="text" class="form-control" name="title" />
+	   		        <input type="text" class="form-control" id="title" name="title" />
    		   	 	</div>
    		   	 	
     		    <div class="form-group"> <!-- 내용 -->
     		        <label for="content">내용</label>
-    		        <textarea rows="5" class="form-control" name="content" ></textarea>
+    		        <textarea rows="5" class="form-control" id="content" name="content" ></textarea>
     		    </div>
 
     		    <div class=" filebox"><!-- 파일첨부 -->
@@ -142,8 +143,8 @@
     		    </div><!-- 파일첨부 div -->
 
 				<div class=" btns">
-					<button type="submit" class="btn btn-primary">등록</button>
-					<button class="btn btn-default">취소</button>
+					<button type="button" class="btn btn-primary" onclick="javascript:bChk()">등록</button>
+					<button class="btn btn-default" type="reset" onclick="javascript:history.back()">취소</button>
 				</div>
 				</form>
 		</div><!-- col-md-8 col-md-offset-2 end -->

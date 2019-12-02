@@ -1,6 +1,8 @@
 package com.care.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,20 @@ public class BoardDAO {
 		upHit(num);
 		return sqlSession.selectOne(namespace+".board_view",num);
 	}
+	public int board_price(String productname) {
+		return sqlSession.selectOne(namespace+".board_price",productname);
+	}
 	public int upHit(int num) {
 		return sqlSession.update(namespace+".upHit",num);
+	}
+	public int board_modify(BoardDTO dto) {
+		return sqlSession.update(namespace+".board_modify",dto);
+	}
+	public int board_delete(int num) {
+		System.out.println("DAO delete num 값 " + num);
+		return sqlSession.delete(namespace+".board_delete",num);
+	}
+	public List<BoardDTO> board_search(HashMap<String, Object> search) {
+		return sqlSession.selectList(namespace+".board_search",search);
 	}
 }
