@@ -26,7 +26,7 @@ public class BoardService implements IBoardService{
 		BoardDTO dto = new BoardDTO();
 		dto.setTitle(request.getParameter("title"));
 		dto.setNickname(request.getParameter("nickname"));
-		dto.setStars(Integer.parseInt(request.getParameter("stars")));
+		dto.setStars(Double.parseDouble(request.getParameter("stars")));
 		dto.setProductname(request.getParameter("productname"));
 		dto.setContent(request.getParameter("content"));
 		dto.setCvsnum(Integer.parseInt(request.getParameter("cvsnum")));

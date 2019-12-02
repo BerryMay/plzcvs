@@ -13,7 +13,7 @@ public class BoardDTO {
 	private int hit;
 	private int recommend;
 	private Date savedate;
-	private int stars;
+	private double stars;
 	private String productname;
 	private String content;
 	private int cvsnum;

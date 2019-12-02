@@ -10,7 +10,7 @@
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
       <!-- localhost는 작동하면 안 건드려도 되고 안되면 ipconfig로 ip 입력해주세요. -->
       <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-      <property name="username" value="jsp" />
+      <property name="username" value="plz" />
       <property name="password" value="1234" />
    </bean>
    
