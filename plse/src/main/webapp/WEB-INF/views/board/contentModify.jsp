@@ -3,6 +3,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script type="text/javascript">
+		function bChk(){
+			if(document.postform.productname.value==""){
+				alert("상품명을 입력해주세요")
+			}else if(document.postform.stars.value==""){
+				alert("별점을 매겨주세요")
+			}else if(document.postform.title.value==""){
+				alert("제목을 입력해주세요")
+			}else if(document.postform.content.value==""){
+				alert("내용을 입력해주세요")
+			}else{
+				document.postform.submit();
+			}
+		}
+	</script>	
 	<script  type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap-rating.js"></script> <!-- 별점js -->
 	<link rel="stylesheet" href="css/boardpost.css" type="text/css" />
@@ -10,7 +25,7 @@
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
 	<meta charset="UTF-8">
-	<title>Insert title here</title>	
+	<title>게시글 수정</title>
 </head>
 <body>
 <jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
@@ -18,8 +33,8 @@
 	    <div class="container">
     		<h2>게시글 수정하기</h2>
     		
-    		<form class="postform" action="" method="POST">
-    		
+    		<form id="postform" name="postform" class="postform" action="board_modifyOk" method="POST">
+    			<input type="hidden" name="num" value="${dto.num }"/>
 				<div class="form-group"><!-- 편의점, 상품명 div -->
 				<div class="cvsnum_div">
 					<label for="cvsnum">편의점</label> 
@@ -31,7 +46,7 @@
 					</div>
 					<div class="productname_div">
 					<label for="productname">상품명</label> 
-					<input type="text" class="form-productname form-control " name="productname" />
+					<input type="text" class="form-productname form-control " id="productname" name="productname" value="${dto.productname }"/>
 					</div>
 				</div><!-- 편의점, 상품명 div -->
 
@@ -39,7 +54,7 @@
     		        <label for="star">별점</label>
     		        <!-- 별점시작  -->
     		       
-    		         <input type="hidden" class="rating" data-fractions="2"/>
+    		         <input type="hidden" id="stars" name="stars" class="rating" data-fractions="2"/>
 				   
 				     <script>
 					      $(function () {
@@ -83,11 +98,7 @@
 					        
 						        $('.rating').each(function () {
 						          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
-						        $('.rating').on('change', function () { 
-						        	$(this).next('.label').text($(this).val()); 
-						        	$('.rating').value($(this).val());
-						        	
-						        });
+						        $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
 					      });
 				    </script>
 				    <!-- 별점 끝 -->	        
@@ -95,12 +106,12 @@
     		    
     		    <div class="form-group"><!-- 제목란 -->
 	   		        <label for="title">제목</label>
-	   		        <input type="text" class="form-control" name="title" />
+	   		        <input type="text" class="form-control" id="title" name="title" value="${dto.title }"/>
    		   	 	</div>
    		   	 	
     		    <div class="form-group"> <!-- 내용 -->
     		        <label for="content">내용</label>
-    		        <textarea rows="15" class="form-control" name="content" ></textarea>
+    		        <textarea rows="15" class="form-control" id="content" name="content" >${dto.content }</textarea>
     		    </div>
 
     		    <div class=" filebox"><!-- 파일첨부 -->
@@ -126,8 +137,8 @@
     		    </div><!-- 파일첨부 div -->
 
 				<div class="btns">
-					<button type="submit" class="btn btn-primary">수정</button>
-					<button class="btn btn-default">취소</button>
+					<button type="button" class="btn btn-primary" onclick="javascript:bChk()">수정</button>
+					<button class="btn btn-default" onclick="javascript:history.back()">취소</button>
 				</div>
 				</form>
 		</div><!-- container end -->

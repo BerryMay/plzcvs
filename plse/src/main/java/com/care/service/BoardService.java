@@ -1,8 +1,12 @@
 package com.care.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +40,34 @@ public class BoardService implements IBoardService{
 	public void board_view(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		model.addAttribute("dto", dao.board_view(Integer.parseInt(request.getParameter("num"))));
+		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
+		model.addAttribute("dto", dto);
+		HttpSession session = request.getSession();
+		session.setAttribute("price", dao.board_price(dto.getProductname()));
+	}
+	@Override
+	public void board_modify(Model model) {
+		Map<String, Object> map = model.asMap();
+		//HttpServletRequest request = (HttpServletRequest)map.get("request");
+		BoardDTO dto = (BoardDTO)map.get("dto");
+		dao.board_modify(dto);
+	}
+	@Override
+	public void board_delete(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		dao.board_delete(Integer.parseInt(request.getParameter("num")));
+	}
+	@Override
+	public void board_search(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HashMap<String, Object> search = new HashMap<String, Object>();
+		search.put("searchSelect", request.getParameter("searchSelect"));
+		search.put("searchText", request.getParameter("searchText"));
+		//List<BoardDTO> dto = new ArrayList<BoardDTO>();
+		//dto = dao.board_search(search);
+		//System.out.println(dto.get(0).getContent());
+		model.addAttribute("dto", dao.board_search(search));
 	}
 }

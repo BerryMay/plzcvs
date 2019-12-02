@@ -46,9 +46,10 @@
 				</c:if>
 				<li><a href="board">리뷰게시판</a></li>
 			</ul>
+				<a href="http://localhost:8989/practice/">
 			<h1 id="logo">
-				<a href="main"></a>
 			</h1>
+				</a>
 
 			<nav id="nav">
 				<ul>
