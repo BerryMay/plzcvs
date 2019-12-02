@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">  -->
-
+	<script type="text/javascript" src="js/bootstrap-rating.js"></script>
 	<link rel="stylesheet" href="css/contentView.css" type="text/css" />
 
     <!--댓글-->
@@ -43,7 +44,7 @@
 	 <section class="sec">
 
         <div class="container" style="margin-top: 30px;">
-            <p class="date">날짜 : </p>
+            <p class="date"> <fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></p>
             <div class="profile-head">
                 <div class="col-md- col-sm-4 col-xs-12">
                     <img src=" " class="img-responsive" />
@@ -56,11 +57,22 @@
                     <ul>
                     	<li><h5>${dto.title }</h5></li>
                         <li> 작성자 : ${dto.nickname }</li>
-                        <li> 편의점 : ${dto.cvsnum }</li>
-                        <li> 상품명 : ${dto.productname }</li>
+                        <li id="cvs"> 편의점 : &nbsp;</li>
+                       <script>
+                           var cvs ="";
+                           switch(${ dto.cvsnum }){
+                              case 1: cvs="GS25"; break;
+                              case 2: cvs="세븐일레븐"; break;
+                              case 3: cvs="CU"; break;
+                           }
+                           document.getElementById("cvs").innerText+=cvs
+                        </script>
+                        <li> 상품명: ${dto.productname }</li>
                         <li> 가격: ${price }</li>
                     </ul>
-                    <p>별점: ${dto.stars }</p>
+                    <p class="form-group star_div">별점:
+                   <input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
+                </p>  
 
 
                 </div>
@@ -166,6 +178,7 @@
             </div>
         </div>
         <div align="right">
+        <input class="btn btn-primary" type="button" value="목록으로" onclick="javascript:location.href='board'">
         	<c:if test="${userId == dto.nickname }">
 	        	<input class="btn btn-primary" type="button" value="수정" onclick="javascript:location.href='board_modify?num=${dto.num}'">
 	        	<input class="btn btn-primary" type="button" value="삭제" onclick="javascript:location.href='board_delete?num=${dto.num}'">

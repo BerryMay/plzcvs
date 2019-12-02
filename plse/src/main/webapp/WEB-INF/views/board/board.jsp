@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,9 +48,9 @@
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
 						<td style="text-align: center">${dto.productname }</td>
-						<td><a href="detail?num=${dto.num}">${dto.title }</td>
+						<td><a href="detail?num=${dto.num}">${dto.title }</a></td>
 						<td>${dto.nickname }</td>
-						<td style="text-align: center">${dto.savedate }</td>
+						<td style="text-align: center"><fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></td>
 						<td style="text-align: center">${dto.hit }</td>
 					</tr>
 				</c:forEach>

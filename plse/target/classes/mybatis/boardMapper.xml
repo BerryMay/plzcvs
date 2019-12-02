@@ -34,8 +34,8 @@
   		delete from board where num=#{num}
   	</delete>
   	<!-- 게시글 검색 -->
-  	<select id="board_search" parameterType="HashMap" resultType="Bdto" >
-  		select * from board where #{searchSelect} like '%'||#{searchText}||'%'
+  	<select id="board_search" parameterType="hashMap" resultType="Bdto" >
+  		select * from board where #{search.searchSelect} like '%'||2||'%'
   	</select>
   	<!-- 가격 가져오기 -->
   	<select id="board_price" resultType="int">

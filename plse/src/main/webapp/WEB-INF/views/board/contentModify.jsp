@@ -54,7 +54,7 @@
     		        <label for="star">별점</label>
     		        <!-- 별점시작  -->
     		       
-    		         <input type="hidden" id="stars" name="stars" class="rating" data-fractions="2"/>
+    		         <input type="hidden" id="stars" name="stars" class="rating" data-fractions="2" value="${dto.stars }"/>
 				   
 				     <script>
 					      $(function () {
