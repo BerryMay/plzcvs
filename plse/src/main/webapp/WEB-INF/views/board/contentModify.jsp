@@ -54,7 +54,7 @@
     		        <label for="star">별점</label>
     		        <!-- 별점시작  -->
     		       
-    		         <input type="hidden" id="stars" name="stars" class="rating" data-fractions="2"/>
+    		         <input type="hidden" id="stars" name="stars" class="rating" data-fractions="2" value="${dto.stars }"/>
 				   
 				     <script>
 					      $(function () {
@@ -138,7 +138,7 @@
 
 				<div class="btns">
 					<button type="button" class="btn btn-primary" onclick="javascript:bChk()">수정</button>
-					<button class="btn btn-default" onclick="javascript:history.back()">취소</button>
+					<button type="button" class="btn btn-default" onclick="javascript:history.back()">취소</button>
 				</div>
 				</form>
 		</div><!-- container end -->
