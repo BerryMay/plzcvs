@@ -45,15 +45,21 @@
 
     		<input type="hidden" name="nickname" value="${userId }">
 				<div class="form-group"><!-- 편의점, 상품명 div -->
+            		<div class="cvsnum_div">
 					<label for="cvsnum">편의점</label> 
 					<select name="cvsnum" class="form-cvsnum form-control">
 						<option value="1">GS25</option>
 						<option value="2">세븐일레븐</option>
 						<option value="3">CU</option>
 					</select> 
-					
-					<label for="productname">상품명</label>
+					</div>
+					<div class="productname_div">
+					<label for="productname">상품명</label> 
 					<input type="text" class="form-productname form-control " id="productname" name="productname" />
+					</div>
+					
+					<!-- <label for="productname">상품명</label>
+					<input type="text" class="form-productname form-control " id="productname" name="productname" /> -->
 				</div><!-- 편의점, 상품명 div -->
 
     		    <div class="form-group"><!-- 별점 div  -->

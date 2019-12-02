@@ -41,6 +41,7 @@ public class BoardService implements IBoardService{
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
+		System.out.println(dto.getContent());
 		model.addAttribute("dto", dto);
 		HttpSession session = request.getSession();
 		session.setAttribute("price", dao.board_price(dto.getProductname()));
