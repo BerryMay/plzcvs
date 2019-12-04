@@ -7,5 +7,6 @@
 		<typeAliases>
 			<typeAlias type="com.care.dto.MemberDTO" alias="Mdto"/>
 			<typeAlias type="com.care.dto.BoardDTO" alias="Bdto"/>
+			<typeAlias type="com.care.dto.CommentDTO" alias="Cdto"/>
 		</typeAliases>
 	</configuration>
