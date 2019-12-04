@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 
 import com.care.dao.BoardDAO;
 import com.care.dto.BoardDTO;
+import com.care.dto.CommentDTO;
 @Service
 public class BoardService implements IBoardService{
 	@Autowired
@@ -103,5 +104,18 @@ public class BoardService implements IBoardService{
 		dto.setNum(Integer.parseInt(request.getParameter("num")));
 		dto.setNickname(request.getParameter("nickname"));
 		return dao.board_heartChk(dto);
+	}
+	@Override
+	public void board_comment(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		CommentDTO dto = (CommentDTO)map.get("dto");
+		dao.board_comment(dto);
+	}
+	@Override
+	public List<CommentDTO> board_commentList(Model model) {
+		Map<String, Object> map = model.asMap();
+		CommentDTO dto = (CommentDTO)map.get("dto");	
+		return dao.board_commentList(dto.getBnum());
 	}
 }

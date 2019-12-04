@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.care.dto.BoardDTO;
+import com.care.dto.CommentDTO;
 
 @Component
 public class BoardDAO {
@@ -58,5 +59,11 @@ public class BoardDAO {
 	}
 	public int board_heartChk(BoardDTO dto) {
 		return sqlSession.selectOne(namespace+".board_heartChk",dto);
+	}
+	public void board_comment(CommentDTO dto) {
+		sqlSession.insert(namespace+".board_comment",dto);
+	}
+	public List<CommentDTO> board_commentList(int bnum) {
+		return sqlSession.selectList(namespace+".board_commentList",bnum);
 	}
 }
