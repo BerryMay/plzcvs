@@ -41,4 +41,20 @@
   	<select id="board_price" resultType="int">
   		select price from cvs where productname=#{productname}
   	</select>
+  	<!-- 좋아요 -->
+  	<insert id="board_heart" parameterType="Bdto">
+		insert into heart values(#{num},#{nickname})
+	</insert>
+	<!-- 좋아요 취소 -->
+	<delete id="board_unheart" parameterType="Bdto">
+		delete from heart where bnum=#{num} and nickname=#{nickname}
+	</delete>
+	<!-- 좋아요 여부 체크 -->
+	<select id="board_heartChk" parameterType="Bdto" resultType="int">
+		select * from heart where bnum=#{num} and nickname=#{nickname}
+	</select>
+	<!-- 게시판별 좋아요 개수 -->
+	<select id="board_heartCnt" resultType="int">
+		select count(*) from heart where bnum=#{bnum}
+	</select>
 	</mapper>

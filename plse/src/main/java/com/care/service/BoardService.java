@@ -41,7 +41,6 @@ public class BoardService implements IBoardService{
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
-		System.out.println(dto.getContent());
 		model.addAttribute("dto", dto);
 		HttpSession session = request.getSession();
 		session.setAttribute("price", dao.board_price(dto.getProductname()));
@@ -69,5 +68,40 @@ public class BoardService implements IBoardService{
 		search.put("searchSelect", s1 );
 		search.put("searchText", s2 );
 		model.addAttribute("dto", dao.board_search(search));
+	}
+	@Override
+	public int board_heart(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		BoardDTO dto = new BoardDTO();
+		dto.setNum(Integer.parseInt(request.getParameter("num")));
+		dto.setNickname(request.getParameter("nickname"));
+		dao.board_heart(dto);
+		return 0;
+	}
+	@Override
+	public int board_unheart(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		BoardDTO dto = new BoardDTO();
+		dto.setNum(Integer.parseInt(request.getParameter("num")));
+		dto.setNickname(request.getParameter("nickname"));
+		dao.board_unheart(dto);
+		return 0;
+	}
+	@Override
+	public int board_heartCnt(Model model) {
+		Map<String, Object> map = model.asMap();
+		BoardDTO dto = (BoardDTO)map.get("dto");
+		return dao.board_heartCnt(dto.getNum());
+	}
+	@Override
+	public int board_heartChk(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		BoardDTO dto = new BoardDTO();
+		dto.setNum(Integer.parseInt(request.getParameter("num")));
+		dto.setNickname(request.getParameter("nickname"));
+		return dao.board_heartChk(dto);
 	}
 }

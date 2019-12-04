@@ -1,14 +1,19 @@
 package com.care.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.care.dto.BoardDTO;
 import com.care.service.BoardService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class BoardController {
@@ -54,7 +59,6 @@ public class BoardController {
 	@RequestMapping(value = "/board_modifyOk")
 	public String board_modifyOk(Model model,BoardDTO dto) {
 		model.addAttribute("dto", dto);
-		System.out.println("modifyOk num = " +dto.getNum());
 		bs.board_modify(model);
 		return "redirect:detail?num="+dto.getNum();
 	}
@@ -72,6 +76,34 @@ public class BoardController {
 		bs.board_search(model);
 		System.out.println("검색완료");
 		return "board/boardSearch";
+	}
+	//좋아요
+	@RequestMapping(value = "/board_heart")
+	@ResponseBody
+	public void board_heart(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		bs.board_heart(model);
+	}
+	//좋아요취소
+	@RequestMapping(value = "/board_unheart")
+	@ResponseBody
+	public void board_unheart(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		bs.board_unheart(model);
+	}
+	//좋아요 여부 체크
+	@RequestMapping(value = "/board_heartChk")
+	@ResponseBody
+	public int board_heartChk(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		return bs.board_heartChk(model);
+	}
+	//좋아요 수
+	@RequestMapping(value = "/board_heartCnt")
+	@ResponseBody
+	public int board_heartCnt(Model model,BoardDTO dto) {
+		model.addAttribute("dto", dto);
+		return bs.board_heartCnt(model);
 	}
 	//관리자 상품등록창
 	//관리자 물품등록

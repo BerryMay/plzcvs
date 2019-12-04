@@ -17,29 +17,83 @@
     <!--댓글-->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     
-    
    <!-- js파일-->
     <script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script>
     <script>
     $(function() {
 	    $('#likebtn').click(function(){
+	    	if(${userId != null}){
 	    	  if($("button").hasClass('btn_unlike')){
 	    	    $("button").removeClass('btn_unlike');
 	    	    $('.ani_heart_m').removeClass('hi');
 	    	    $('.ani_heart_m').addClass('bye');
+	    	    $.ajax({
+	    	    	url:"board_unheart",
+	    	    	type:"POST",
+	    	    	data:$("#board_heart").serialize(),
+	    	    	success:function(data){
+	    	    		heartCnt();
+	    	    	},
+	    	    	error:function(){
+	    	    		alert("좋아요  오류발생")
+	    	    	}
+	    	    });
 	    	  }
 	    	  else{
 	    	    $("button").addClass('btn_unlike');
 	    	    $('.ani_heart_m').addClass('hi');
 	    	    $('.ani_heart_m').removeClass('bye');
+	    	    $.ajax({
+	    	    	url:"board_heart",
+	    	    	type:"POST",
+	    	    	data:$("#board_heart").serialize(),
+	    	    	success:function(data){
+	    	    		heartCnt();
+	    	    	},
+	    	    	error:function(){
+	    	    		alert("좋아요 취소 오류발생")
+	    	    	}
+	    	    });
 	    	  }
+	    	}else{
+	    		alert("로그인 해주세요")
+	    		location.href="login";
+	    	}
 	    	});
     	})
+    function heartCnt() {
+		$.ajax({
+			url:"board_heartCnt",
+			type:"POST",
+			data:$("#board_heart").serialize(),
+			success:function(data){
+				$("#result").text(data);
+			},
+			error:function(){
+				alert("좋아요 total 오류발생")
+			}
+		});
+	}
+    
+    function heartChk(){
+    	$.ajax({
+    		url:"board_heartChk",
+    		type:"POST",
+    		data:$("#board_heart").serialize(),
+			success:function(data){
+				$("button").addClass('btn_unlike');
+	    	    $('.ani_heart_m').addClass('hi');
+	    	    $('.ani_heart_m').removeClass('bye');
+			},
+			error:function(){
+				
+			}
+    	});
+    }
     </script>
 
-
 </head>
-<body>
+<body onload="heartChk();heartCnt()">
 <jsp:include page="../default/header.jsp" />
 	 <section class="sec">
 
@@ -51,7 +105,6 @@
                     <h6>Jenifer Smith</h6>
                 </div>
                 <!--col-md-4 col-sm-4 col-xs-12 close-->
-
 
                 <div class="col-md-5 col-sm-5 col-xs-12">
                     <ul>
@@ -74,17 +127,12 @@
                    <input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
                 </p>  
 
-
                 </div>
                 <!--col-md-8 col-sm-8 col-xs-12 close-->
-
-
-
             </div>
             <!--profile-head close-->
         </div>
         <!--container close-->
-
 
         <!-- Tab panes -->
         <div class="tab-content">
@@ -93,7 +141,6 @@
 
                     <br clear="all" />
                     <div class="row">
-
 
                         <div class="col-md-6">
 
@@ -110,7 +157,6 @@
                                             </td>
                                         </tr>
 
-
                                     </tbody>
                                 </table>
                             </div>
@@ -118,20 +164,13 @@
                         </div>
                         <!--col-md-6 close-->
 
-
-
                     </div>
                     <!--row close-->
-
-
-
 
                 </div>
                 <!--container close-->
             </div>
             <!--tab-pane close-->
-
-
 
         </div>
         <!--tab-content close-->
@@ -140,14 +179,17 @@
     </section>
     <!--section close-->
 
-
     <div>
-        <button type="button" class="btn_like" id="likebtn">
-            <span class="img_emoti">좋아요</span>
-            <span class="ani_heart_m"></span>
-        </button>
+    	<form id="board_heart">
+    		<input type="hidden" name="num"value="${dto.num }"/>
+    		<input type="hidden" name="nickname" value="${userId }"/>
+	        <button type="button" class="btn_like" id="likebtn">
+    	        <span class="img_emoti">좋아요</span>
+        	    <span class="ani_heart_m"></span>
+       	 </button>
+    	</form>
+좋아요  : <label id="result"></label>
     </div>
-
 
     <!-- 댓글 -->
 	 <div class="container">
@@ -176,7 +218,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> <!-- 댓글  -->
         <div align="right">
         <input class="btn btn-primary" type="button" value="목록으로" onclick="javascript:location.href='board'">
         	<c:if test="${userId == dto.nickname }">
