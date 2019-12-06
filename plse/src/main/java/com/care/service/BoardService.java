@@ -102,7 +102,7 @@ public class BoardService implements IBoardService{
 		BoardDTO dto = new BoardDTO();
 		dto.setNum(Integer.parseInt(request.getParameter("num")));
 		dto.setNickname(request.getParameter("nickname"));
-		return dao.board_heartChk(dto);
+		return 0;
 	}
 	@Override
 	public void board_comment(Model model) {
