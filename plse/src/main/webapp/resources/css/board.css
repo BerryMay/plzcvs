@@ -48,24 +48,8 @@ div>#paging {
 
 /* 애니메이션 지점 설정하기 */
 /* 익스플로러 10 이상, 최신 모던 브라우저에서 지원 */
-@
-keyframes blink {
-	from {color: white;
-}
-
-30%
-{
-color
-:
- 
-yellow
-;
-}
-to {
-	color: red;
-	font-weight: bold;
-}
-/* 0% {color:white;}
-      30% {color: yellow;}
-      100% {color:red; font-weight: bold;} */
+@keyframes blink {
+   from {color: white; font-weight: bold;}
+   30% {color: yellow; font-weight: bold;}
+   to {color: red; font-weight: bold;}
 }

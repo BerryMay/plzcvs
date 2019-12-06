@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.care.dto.BoardDTO;
 import com.care.dto.CommentDTO;
+import com.care.dto.PageCount;
 
 @Component
 public class BoardDAO {
@@ -42,8 +43,8 @@ public class BoardDAO {
 		System.out.println("DAO delete num 값 " + num);
 		return sqlSession.delete(namespace+".board_delete",num);
 	}
-	public List<BoardDTO> board_search(HashMap<String, Object> search) {
-		return sqlSession.selectList(namespace+".board_search",search);
+	public List<BoardDTO> board_search(BoardDTO dto) {
+		return sqlSession.selectList(namespace+".board_search",dto);
 	}
 	
 	//좋아요
@@ -66,4 +67,13 @@ public class BoardDAO {
 	public List<CommentDTO> board_commentList(int bnum) {
 		return sqlSession.selectList(namespace+".board_commentList",bnum);
 	}
+	
+	// paging
+		public int getTotalPage() {
+			return sqlSession.selectOne(namespace+".board_getTotalPage");
+		}
+		
+		public List<BoardDTO> page_board_list(PageCount pc) {
+			return sqlSession.selectList(namespace+".board_pagingList",pc);
+		}
 }

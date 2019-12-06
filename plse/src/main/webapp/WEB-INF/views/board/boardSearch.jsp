@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <link rel="stylesheet" href="css/board.css" type="text/css" />
 <script type="text/javascript">
 	function sChk(){
-		if(document.searchForm.searchText.value==""){
+		if(document.searchForm.content.value==""){
 			alert("검색어를 입력해주세요")
 		}else{
 			document.searchForm.submit();
@@ -38,18 +39,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!-- hit 뜨게하는 코드 -->
-					<c:if test="${article.hit >= 20}">
-                  		<span class="hit">best!</span>
-                	</c:if>
+					
 				</tbody>
 				<c:forEach var="dto" items="${dto }">
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
 						<td style="text-align: center">${dto.productname }</td>
-						<td><a href="detail?num=${dto.num}">${dto.title }</td>
+						<td><a href="detail?num=${dto.num}">${dto.title }</a>
+						<!-- hit 뜨게하는 코드 -->
+						<c:if test="${dto.hit >= 20}">
+                  			<span class="hit">best!</span>
+                		</c:if></td>
 						<td>${dto.nickname }</td>
-						<td style="text-align: center">${dto.savedate }</td>
+						<td style="text-align: center"><fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></td>
 						<td style="text-align: center">${dto.hit }</td>
 					</tr>
 				</c:forEach>
@@ -64,12 +66,12 @@
 		</div>
 		<div align="center">
 			<form action="board_search" id="searchForm" name="searchForm">
-			<select name="searchSelect" class="form-cvsnum form-control">
+			<select name="title" class="form-cvsnum form-control">
 				<option value="productname">상품명</option>
 				<option value="title">제목</option>
 				<option value="nickname">작성자</option>
 			</select>
-			<input type="text" name="searchText"/>
+			<input type="text" name="content"/>
 			<input type="button" value="검색" onclick="javascript:sChk()"/>
 			</form>
 		</div>

@@ -24,8 +24,11 @@ public class BoardController {
 	
 	//게시판보기
 	@RequestMapping(value = "/board")
-	public String board(Model model) {
-		bs.board_list(model);
+	public String board(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		// 페이징 처리하는 sql문 실행하기
+		bs.page_board_list(model);
+		bs.pagingNum(model);
 		return "board/board";
 	}
 
@@ -75,7 +78,6 @@ public class BoardController {
 	public String board_search(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
 		bs.board_search(model);
-		System.out.println("검색완료");
 		return "board/boardSearch";
 	}
 	//좋아요

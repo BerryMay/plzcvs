@@ -34,8 +34,8 @@
   		delete from board where num=#{num}
   	</delete>
   	<!-- 게시글 검색 -->
-  	<select id="board_search" parameterType="hashMap" resultType="Bdto" >
-  		select * from board where #{search.searchSelect} like '%'||2||'%'
+  	<select id="board_search" parameterType="Bdto" resultType="Bdto" >
+  		select * from board where ${title} like '%'||#{content}||'%'
   	</select>
   	<!-- 가격 가져오기 -->
   	<select id="board_price" resultType="int">
@@ -64,5 +64,13 @@
 	<!-- 댓글 불러오기 -->
 	<select id="board_commentList" resultType="Cdto" parameterType="int">
 		select * from comments where bnum=#{bnum}
+	</select>
+	<!-- 토탈페이지 -->
+	<select id="board_getTotalPage" resultType="int">
+		select count(*) from board
+	</select>
+	<!-- 페이징 리스트 가져오기 -->
+	<select id="board_pagingList" parameterType="Pdto" resultType="Bdto">
+		select B.* from(select rownum rn, A.* from (select * from board order by num desc)A)B where rn between #{startPage} and #{endPage}
 	</select>
 	</mapper>
