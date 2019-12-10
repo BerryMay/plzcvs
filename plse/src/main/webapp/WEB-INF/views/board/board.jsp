@@ -79,19 +79,18 @@
 				${start} / ${pc.totEndPage}
 			</div>
 			<div align="right">
-				<input type="button" value="글쓰기" onclick="location.href='post'"
-					style="border-radius: 10px;" height="30px">
+				<button class="btn" type="button" onclick="location.href='post'"><i class="fas fa-pen-fancy"></i> &nbsp; 글쓰기</button>
 			</div>
 		</div>
-		<div align="center">
+		<div class="search_div">
 			<form action="board_search" id="searchForm" name="searchForm">
-			<select name="title" class="form-cvsnum form-control">
-				<option value="productname">상품명</option>
-				<option value="title">제목</option>
-				<option value="nickname">작성자</option>
-			</select>
-			<input type="text" name="content"/>
-			<input type="button" value="검색" onclick="javascript:sChk()"/>
+				<select name="title" class="form-cvsnum form-control">
+					<option value="productname">상품명</option>
+					<option value="title">제목</option>
+					<option value="nickname">작성자</option>
+				</select>
+				<input type="text" class="search_text" name="content"/>
+				<input type="button" class="btn search_btn" value="검색" onclick="javascript:sChk()"/>
 			</form>
 		</div>
 	</div>

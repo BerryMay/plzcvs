@@ -45,7 +45,7 @@ public class BoardService implements IBoardService{
 		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
 		model.addAttribute("dto", dto);
 		HttpSession session = request.getSession();
-		session.setAttribute("price", dao.board_price(dto.getProductname()));
+		session.setAttribute("price", dao.board_price(dto));
 	}
 	@Override
 	public void board_modify(Model model) {
