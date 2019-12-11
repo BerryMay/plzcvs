@@ -32,8 +32,8 @@ public class BoardDAO {
 		upHit(num);
 		return sqlSession.selectOne(namespace+".board_view",num);
 	}
-	public int board_price(String productname) {
-		return sqlSession.selectOne(namespace+".board_price",productname);
+	public int board_price(BoardDTO dto) {
+		return sqlSession.selectOne(namespace+".board_price", dto);
 	}
 	public int upHit(int num) {
 		return sqlSession.update(namespace+".upHit",num);
