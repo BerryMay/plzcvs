@@ -78,6 +78,9 @@
 				<!-- 전체페이지 출력 -->
 				${start} / ${pc.totEndPage}
 			</div>
+			
+			
+			
 			<div align="right">
 				<input type="button" value="글쓰기" onclick="location.href='post'"
 					style="border-radius: 10px;" height="30px">

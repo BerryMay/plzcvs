@@ -30,7 +30,7 @@
     				commentList();
     			},
     			error:function(){
-    	    		alert("댓글저장  오류발생")
+    				alert("세션이 만료되었거나, 댓글을 입력해주세요")
     	    	}
     		}) //ajax끝
     	})
@@ -41,9 +41,11 @@
 			type:"POST",
 			data:$("#board_comment").serialize(),
 			success:function(data){
+				$("#comment").text("");
 				var output = "<table style='width:100%'>";
 				output += "<tbody style='width:100%'>"; 
 				for(var i in data){
+					var user =  "<%=(String)session.getAttribute("userId")%>";
 					var savedate = moment(data[i].savedate).format('YYYY년 MM월 DD일 HH:mm:ss');
 					output += "<tr>"
 					output += "<td style='width:20%'>"+data[i].nickname+"</td>";
