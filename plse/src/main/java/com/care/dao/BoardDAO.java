@@ -7,6 +7,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.care.dto.BoardDTO;
 import com.care.dto.CommentDTO;
@@ -22,8 +24,8 @@ public class BoardDAO {
 	public List<BoardDTO> board_list() {
 		return sqlSession.selectList(namespace+".board_list");
 	}
+	@RequestMapping(method = RequestMethod.POST)
 	public int board_reg(BoardDTO dto) {
-		System.out.println(dto.getStars());
 		return sqlSession.insert(namespace+".board_reg",dto);
 	}
 	public BoardDTO board_view(int num) {

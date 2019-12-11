@@ -1,41 +1,40 @@
 package com.care.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.care.dao.BoardDAO;
 import com.care.dto.BoardDTO;
 import com.care.dto.CommentDTO;
 import com.care.dto.PageCount;
+import com.care.file.UploadFileUtils;
 @Service
 public class BoardService implements IBoardService{
 	@Autowired
 	BoardDAO dao;
-	
+	@Resource(name="uploadPath")
+	private String uploadPath;
 	@Override
 	public void board_list(Model model) {
 		model.addAttribute("list", dao.board_list());
 	}
 	@Override
-	public void board_reg(Model model) {
-		Map<String, Object> map = model.asMap();
-		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		BoardDTO dto = new BoardDTO();
-		dto.setTitle(request.getParameter("title"));
-		dto.setNickname(request.getParameter("nickname"));
-		dto.setStars(Double.parseDouble(request.getParameter("stars")));
-		dto.setProductname(request.getParameter("productname"));
-		dto.setContent(request.getParameter("content"));
-		dto.setCvsnum(Integer.parseInt(request.getParameter("cvsnum")));
+	@RequestMapping(method = RequestMethod.POST)
+	public void board_reg(BoardDTO dto) throws Exception {
 		dao.board_reg(dto);
 	}
 	@Override

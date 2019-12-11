@@ -41,15 +41,24 @@
 			type:"POST",
 			data:$("#board_comment").serialize(),
 			success:function(data){
+				$("#comment").text("");
 				var output = "<table style='width:100%'>";
 				output += "<tbody style='width:100%'>"; 
 				for(var i in data){
-					var savedate = moment(data[i].savedate).format('YYYY년 MM월 DD일 HH:mm:ss');
+					var user =  "<%=(String)session.getAttribute("userId")%>";
+					var savedate = moment(data[i].savedate).format('YYYY.MM.DD HH:mm');
 					output += "<tr>"
-					output += "<td style='width:20%'>"+data[i].nickname+"</td>";
-					output += "<td style='width:60%'>"+data[i].content+"</td>";
-					output += "<td style='width:20%'>"+savedate+"</td>";
+					output += "<td style='width:20%'><b>"+data[i].nickname+"</b></td>";
+					output += "<td style='width:10%'><h6 style='color:#aaa''>"+savedate+"</h6></td>";
+					if(data[i].nickname == user){
+						output += "<td>수정</td>"
+						output += "<td>삭제</td>"
+					}
 					output += "</tr>"
+					output += "<tr>"
+					output += "<td style='width:100%'>"+data[i].content+"</td>";
+					output += "</tr>"
+						
 				}
 				output += "</tbody>"; 
 				output += "</table>"
@@ -193,6 +202,11 @@
                                             <td>내 용</td>
 
                                         </tr>
+                                        <c:if test="${dto.gdsimg != null }">
+                                        <tr>
+                                        	<td><img src="${dto.gdsimg }"/></td>
+                                        </tr>
+                                        </c:if>
                                         <tr>
                                             <td>
                                                 ${dto.content }

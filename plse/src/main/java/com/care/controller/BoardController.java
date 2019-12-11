@@ -1,18 +1,24 @@
 package com.care.controller;
 
-import java.util.HashMap;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.care.dto.*;
+import com.care.file.UploadFileUtils;
 import com.care.service.BoardService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,6 +27,8 @@ public class BoardController {
 
 	@Autowired
 	private BoardService bs;
+	@Resource(name="uploadPath")
+	private String uploadPath;
 	
 	//게시판보기
 	@RequestMapping(value = "/board")
@@ -46,10 +54,19 @@ public class BoardController {
 		return "board/contentView";
 	}
 	//게시글 등록하기
-	@RequestMapping(value = "/board_reg")
-	public String board_reg(Model model, HttpServletRequest request) {
-		model.addAttribute("request", request);
-		bs.board_reg(model);
+	@RequestMapping(value = "/board_reg", method = RequestMethod.POST )
+	public String board_reg(Model model,BoardDTO dto,MultipartFile file) throws Exception {
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+		 fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		 dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+		 System.out.println("컨트롤러 getGdsimg : " + dto.getGdsimg());
+		}else {
+			dto.setGdsimg(null);
+		}
+		bs.board_reg(dto);
 		return "redirect:board";
 	}
 	//게시글 수정페이지
@@ -120,7 +137,6 @@ public class BoardController {
 	@ResponseBody
 	public List<CommentDTO> board_commentList(Model model,CommentDTO dto) {
 		model.addAttribute("dto", dto);
-		System.out.println(bs.board_commentList(model));
 		return bs.board_commentList(model);
 	}
 	

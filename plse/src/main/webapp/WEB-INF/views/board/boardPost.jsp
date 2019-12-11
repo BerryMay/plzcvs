@@ -41,7 +41,7 @@
    <div class="row">
        <div class="col-md-8 col-md-offset-2">
           <h2>게시글 등록하기</h2>
-          <form name="postform" id="postform" class="postform" action="board_reg" method="POST">
+          <form name="postform" id="postform" class="postform" action="board_reg" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="nickname" value="${userId }">
             <div class="form-group"><!-- 편의점, 상품명 div -->
                   <div class="cvsnum_div">
@@ -118,7 +118,8 @@
                     <label for="title">제목</label>
                     <input type="text" class="form-control" id="title" name="title" />
                    </div>
-                   
+                   <!-- 사진 보여주는 div -->
+              <div class="select_img"><img src="" /></div>
               <div class="form-group"> <!-- 내용 -->
                   <label for="content">내용</label>
                   <textarea rows="5" class="form-control" id="content" name="content" ></textarea>
@@ -128,7 +129,7 @@
                  <label for="pic" class="uploadlabel">파일첨부</label>                
                  <input class="upload-name" value="파일선택" disabled="disabled">    
                  <label for="ex_filename" class="upload">업로드</label> 
-                 <input type="file" id="ex_filename" class="upload-hidden">
+                 <input type="file" name="file" id="ex_filename" class="upload-hidden">
                  
             <!-- 파일 선택하면 파일명 보여지기 -->
             <script>
@@ -140,12 +141,19 @@
                      } else { // old IE 
                         var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
                      }          
-                     $(this).siblings('.upload-name').val(filename); // 추출한 파일명 삽입 
+                     $(this).siblings('.upload-name').val(filename); // 추출한 파일명 삽입
+                     if(this.files && this.files[0]) { // 사진 보여주는 스크립트
+                    	    var reader = new FileReader;
+                    	    reader.onload = function(data) {
+                    	     $(".select_img img").attr("src", data.target.result).width(500);        
+                    	    }
+                    	    reader.readAsDataURL(this.files[0]);
+                    	   }
                   }); 
                });
             </script>
               </div><!-- 파일첨부 div -->
-
+              <%=request.getRealPath("/") %>
             <div class=" btns">
                <button type="button" class="btn btn-primary" onclick="javascript:bChk()">등록</button>
                <button class="btn btn-default" type="reset" onclick="javascript:history.back()">취소</button>

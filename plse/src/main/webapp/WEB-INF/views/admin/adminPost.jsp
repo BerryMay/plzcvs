@@ -35,6 +35,7 @@
 		<div class="inputArea">
 			<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
 		</div>
+		
 	</form>
 	</div>
 	<jsp:include page="../default/footer.jsp"/>
