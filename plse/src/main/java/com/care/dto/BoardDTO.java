@@ -17,4 +17,5 @@ public class BoardDTO {
 	private String productname;
 	private String content;
 	private int cvsnum;
+	private String gdsimg;
 }

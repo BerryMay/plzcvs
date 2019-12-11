@@ -28,6 +28,7 @@ create table board(
   content varchar2(1000),
   cvsnum number(1),
   productnum number(10) CONSTRAINT pnamekey REFERENCES CVS(productnum)
+  gdsimg varchar2(200)
 );
 create SEQUENCE board_num_seq;        
 
