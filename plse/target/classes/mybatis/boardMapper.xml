@@ -73,4 +73,9 @@
 	<select id="board_pagingList" parameterType="Pdto" resultType="Bdto">
 		select B.* from(select rownum rn, A.* from (select * from board order by num desc)A)B where rn between #{startPage} and #{endPage}
 	</select>
+	  	
+  	<!-- 자동완성  -->
+  	<select id="productname_autocomplete" resultType="String" parameterType="int">
+  		select productname from cvs where cvsnum=#{cvsnum}
+  	</select>
 	</mapper>

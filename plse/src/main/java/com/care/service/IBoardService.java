@@ -21,4 +21,5 @@ public interface IBoardService {
 	public int board_heartChk(Model model);
 	public void board_comment(Model model);
 	public List<CommentDTO> board_commentList(Model model);
+	public List<String> productname_autocomplete(Model model);
 }

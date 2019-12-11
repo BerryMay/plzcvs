@@ -78,4 +78,11 @@ public class BoardDAO {
 		public List<BoardDTO> page_board_list(PageCount pc) {
 			return sqlSession.selectList(namespace+".board_pagingList",pc);
 		}
+		
+		
+	//상품명 자동완성
+	public List<String> productname_autocomplete(int cvsnum) {
+		return sqlSession.selectList(namespace+".productname_autocomplete", cvsnum);
+	}
+	
 }

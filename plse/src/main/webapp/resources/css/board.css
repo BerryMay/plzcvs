@@ -137,3 +137,5 @@ div>#paging {
 	display: inline-block; width: 200px; height: 30px;
 	border-radius: 5px; border: 1px solid #808080; box-sizing: border-box;
 }
+
+.aw100{display: inline-block; width: 100%;}

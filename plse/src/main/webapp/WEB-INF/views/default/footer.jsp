@@ -9,7 +9,7 @@
 <body>
 	</div>
 	<footer>
-		<p>&copy; 2019. (조이름 )All rights reserved</p>
+		<p>&copy; 2019. 편편백서 All rights reserved</p>
 	</footer>
 
 	</div>

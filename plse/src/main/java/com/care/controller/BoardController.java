@@ -140,11 +140,18 @@ public class BoardController {
 		return bs.board_commentList(model);
 	}
 	
-	//관리자 상품등록창
+
 	//관리자 물품등록
-	
 	@RequestMapping(value = "/adminPost")
 	public String adminPost() {
 		return "admin/adminPost";
+	}
+	
+	//상품명 자동완성
+	@RequestMapping(value = "productname_autocomplete")
+	@ResponseBody
+	public List<String> productname_autocomplete(Model model, HttpServletRequest request) {
+		model.addAttribute("request", request);
+		return bs.productname_autocomplete(model);
 	}
 }

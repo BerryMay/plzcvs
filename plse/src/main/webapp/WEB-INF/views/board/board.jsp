@@ -45,11 +45,12 @@
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
 						<td style="text-align: center">${dto.productname }</td>
-						<td><a href="detail?num=${dto.num}">${dto.title }</a>
+						<td><a href="detail?num=${dto.num}"  class="aw100">${dto.title }
 						<!-- hit 뜨게하는 코드 -->
 						<c:if test="${dto.hit >= 20}">
                   			<span class="hit">best!</span>
-                		</c:if></td>
+                		</c:if>
+                		</a></td>
 						<td>${dto.nickname }</td>
 						<td style="text-align: center"><fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></td>
 						<td style="text-align: center">${dto.hit }</td>

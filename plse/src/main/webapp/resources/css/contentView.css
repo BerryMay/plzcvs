@@ -6,19 +6,18 @@ body {
 
 /*날짜*/
 .date {
-	text-align: right;
+	text-align: right;	font-size:16px;	color: #aaa;
+	margin-bottom:16px;
 }
 
 /*section*/
-.sec {
-	margin-bottom: 20px;
-}
+.sec {	margin-bottom: 20px;}
 
 .profile-head {
 	width: 100%;
 	background-color: #ff9999;
-	float: left;
-	padding: 15px 5px;
+	overflow:hidden;
+	padding: 30px 5px;
 	border-radius: 40px 80px;
 }
 
@@ -28,13 +27,12 @@ body {
 	text-align: center;
 }
 
-.col-md- .img-responsive {
-	margin-top: 50px;
+.col-md- .img-responsive {	
+	margin-top: 20px;
 }
 
-.col-md-5 {
-	width: 50%;
-	float: right;
+profile-head .col-md-5 {
+	width: 50%;	float: right;
 }
 
 .profile-head img {
@@ -76,14 +74,15 @@ body {
 }
 
 .profile-head ul {
+	margin: 0 auto; padding: 0;
 	list-style: none;
-	padding: 0;
 }
 
 .profile-head ul li {
 	display: block;
 	color: #ffffff;
 	padding: 5px;
+	padding-left:20%;
 	font-weight: 400;
 	font-size: 15px;
 }
@@ -97,9 +96,7 @@ body {
 	padding-right: 10px;
 }
 
-.profile-head ul li a {
-	color: #ffffff;
-}
+.profile-head ul li a {color: #ffffff;}
 
 .profile-head h6 {
 	width: 100%;
@@ -121,6 +118,7 @@ body {
 
 .container {
 	overflow: hidden;
+	margin:0 auto;	width:100%;
 }
 
 .tab-content {
@@ -167,7 +165,7 @@ body {
 /*좋아요*/
 .btn_like {
 	position: relative;
-	margin: 100px auto;
+	margin: 20px auto;
 	display: block;
 	width: 44px;
 	height: 44px;
@@ -276,13 +274,11 @@ body {
 }
 
 .post .post-footer {
-	border-top: 1px solid #ddd;
+
 	padding: 15px;
+	width:80%; margin:0 auto;
 }
 
-.post .post-footer .input-group-addon a {
-	color: #454545;
-}
 
 .post .post-footer .comments-list {
 	padding: 0;
@@ -308,12 +304,10 @@ body {
 	margin-top: 0;
 	margin-right: 10px;
 }
-
-.post .post-footer .comments-list .comment .comment-heading .time {
+/* savedate 표시 */
+.time {
 	font-size: 12px;
 	color: #aaa;
-	margin-top: 0;
-	display: inline;
 }
 
 .post .post-footer .comments-list .comment .comment-body {
@@ -324,37 +318,123 @@ body {
 	margin-left: 50px;
 }
 
-/*입력하는박스*/
-.post .post-footer .input-group .form-control {
-	margin-left: 50px;
-	width: 80%;
-	height: 30;
-	margin-right: 10px;
-	/* -webkit-flex: 1; */
+/* 댓글 div */
+.comment_div{
+	width:80%; margin:0 auto;
+	text-align: center;
 }
 
+
+/*입력하는박스*/
+.post .post-footer .input-group .form-control {
+	margin-right: 10px;
+	width: 80%;		resize:none;
+	float: left;
+	/* -webkit-flex: 1; */
+}
 /*댓글입력그룹*/
 .post .post-footer .input-group {
 	/* display: -webkit-flex; */
 	display: flex; 
 	color: #333E50;
 	width: 100%;
+	overflow:hidden;
 }
 
 /*등록버튼*/
 .sub {
-	border: 1px solid #ffcccc;
+	border: 1px solid #ffcccc;	border-radius: 10px;
 	/*---테두리 정의---*/
 	background-Color: #ff9999;
 	/*--백그라운드 정의---*/
-	font: 12px 굴림;
-	/*--폰트 정의---*/
-	font-weight: bold;
-	/*--폰트 굵기---*/
-	color: #ffffff;
-	/*--폰트 색깔---*/
+	font: 12px 굴림; font-weight: bold; color: #ffffff;
+	/*--폰트 정의---*/	
 	width: 20%;
-	height: 30;
 	/*--버튼 크기---*/
-	border-radius: 10px;
+}
+
+/* 버튼 */
+.btn {
+	display: inline-block;
+	padding: 6px 20px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	
+	position:relative;
+	raght: 40px;
+	color: #fff;
+	background-color: #ff9999;
+	border-color: #ffcccc;
+}
+
+.btn:focus, .btn:active:focus {
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px
+}
+
+.btn:hover, .btn:focus{
+	text-decoration: none;
+	color: #808080;
+	background-color: #ffcccc;
+	border-color: #ff9999
+}
+
+.btn:active{
+	background-image: none;
+	outline: 0;
+	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
+}
+/* 댓글 목록 */
+
+
+.profile-head p.star_div{
+	text-align: center;
+	margin-top: 10px;
+}
+.comment{overflow: hidden; border-bottom:1px solid #ddd;}
+.comment-heading .user{display:inline-block; width: 30%; min-width:100px; height:26px;margin-right: 20px; color:#666;}
+.comment-heading .time{
+	display:inline-block;  width: 30%; min-width:100px; height:26px;margin-right: 20px;
+	font-size: 12px; color: #aaa; text-align:right; float: right;
+
+}
+.comment-heading .com_btns{display:inline-block;  min-width:100px; height:26px;  font-size: 12px; color: #aaa;}
+
+.com_btns .com_btn{font-size: 12px; color: #aaa; border: none; background-color: inherit;}
+.com_btns .com_btn:hover{ color: #666;}
+
+.com_con{ width: 100%; padding-left:20px; box-sizing: border-box; min-height: 30px;}
+
+#con{display:inline; width:80%;  resize: none;}
+#btn_comment{width:18%; height:54px; float:right;}
+
+.img-responsive{display: block;}
+
+/* 글 내용 보이는 곳 */
+.content_div{
+	text-align:left; color:#555;
+	padding:30px 15px;
+	width:100%; min-height: 320px; 
+	border-bottom:1px solid #ddd;
+}
+/* 좋아요 div */
+.heart_div{
+	padding: 20px 0;
 }

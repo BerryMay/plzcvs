@@ -21,9 +21,107 @@
 	<script  type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap-rating.js"></script> <!-- 별점js -->
 	<link rel="stylesheet" href="css/boardpost.css" type="text/css" />
+	<script  type="text/javascript" src="js/jquery-ui.js"></script><!-- 자동완성관련 -->
+	<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" /><!-- 자동완성관련 css -->
     <!-- Font Awesome CSS -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
+<script type="text/javascript">
+		var productnames = new Array(); //상품이름 담을 배열
+	
+		$(function(){		
+			var cvsnum ={"cvsnum":$(".form-cvsnum").val()};
+			
+			$.ajax({
+				type:'get', url:"productname_autocomplete", data:cvsnum,
+				success:function(data){
+					if(data.length > 0){
+	                     for(i=0; i<data.length; i++){
+	                    	 productnames.push(data[i]);              	 
+	                     }   
+	                }			
+				},error:function(data){console.log("상품명 불러오기에러");},
+		})
+
+			
+			$(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기				
+				if(this.value == '1'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//gs일때								
+				else if(this.value =='2'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//세븐일때									
+				else if(this.value == '3'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//Cu일때					
+				
+				//바뀌면 목록을 새로 불러온다.
+				$.ajax({
+					type:'get', url:"productname_autocomplete", data:cvsnum,
+					success:function(data){
+						if(data.length > 0){
+							productnames=new Array();
+		                     for(i=0; i<data.length; i++){
+		                    	 productnames;
+		                    	 productnames.push(data[i]);    //각각의 상품명 값을 넣어준다          	 
+		                     }   
+		                }
+					},error:function(data){console.log("상품명 불러오기에러");},
+				})//ajax 끝
+
+			}) 
+
+			$("#productname").autocomplete({
+		        source: productnames,
+		        select: function(event, ui) {
+		            console.log(ui.item.value);		            
+		        },
+		        focus: function(event, ui) {
+		            return false;
+		        }
+		    });     
+		});//자동완성 끝
+		
+		
+		//별점 script
+        $(function () {
+          $('input.check').on('change', function () { alert('Rating: ' + $(this).val());   });
+          $('#programmatically-set').click(function () {
+            $('#programmatically-rating').rating('rate', $('#programmatically-value').val());
+          });
+          $('#programmatically-get').click(function () {   alert($('#programmatically-rating').rating('rate'));    });
+          $('#programmatically-reset').click(function () { $('#programmatically-rating').rating('rate', '');   });
+          
+          
+          $('.rating-tooltip').rating({
+            extendSymbol: function (rate) {
+              $(this).tooltip({
+                container: 'body',
+                placement: 'bottom',
+                title: 'Rate ' + rate
+              });
+            }
+          });
+          
+          
+          $('.rating-tooltip-manual').rating({
+            extendSymbol: function () {
+                 var title;
+                 
+                 $(this).tooltip({
+                      container: 'body',
+                      placement: 'bottom',
+                      trigger: 'manual',
+                      title: function () {  return title; }
+                 });
+
+                 $(this).on('rating.rateenter', function (e, rate) {
+                      title = rate;
+                      $(this).tooltip('show');
+                 }).on('rating.rateleave', function () { $(this).tooltip('hide'); });
+            }
+          });
+          
+          
+          $('.rating').each(function () {
+            $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
+          $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
+        });//별점끝
+      </script>
 	<meta charset="UTF-8">
 	<title>게시글 수정</title>
 </head>
@@ -52,56 +150,7 @@
 
     		    <div class="form-group star_div"><!-- 별점 div  -->
     		        <label for="star">별점</label>
-    		        <!-- 별점시작  -->
-    		       
     		         <input type="hidden" id="stars" name="stars" class="rating" data-fractions="2" value="${dto.stars }"/>
-				   
-				     <script>
-					      $(function () {
-						        $('input.check').on('change', function () { alert('Rating: ' + $(this).val());	});
-						        $('#programmatically-set').click(function () {
-						          $('#programmatically-rating').rating('rate', $('#programmatically-value').val());
-						        });
-						        $('#programmatically-get').click(function () {	alert($('#programmatically-rating').rating('rate'));	 });
-						        $('#programmatically-reset').click(function () { $('#programmatically-rating').rating('rate', '');	});
-					        
-					        
-						        $('.rating-tooltip').rating({
-						          extendSymbol: function (rate) {
-						            $(this).tooltip({
-						              container: 'body',
-						              placement: 'bottom',
-						              title: 'Rate ' + rate
-						            });
-						          }
-						        });
-					        
-					        
-						        $('.rating-tooltip-manual').rating({
-						          extendSymbol: function () {
-							            var title;
-							            
-							            $(this).tooltip({
-								              container: 'body',
-								              placement: 'bottom',
-								              trigger: 'manual',
-								              title: function () {  return title; }
-							            });
-			
-							            $(this).on('rating.rateenter', function (e, rate) {
-								              title = rate;
-								              $(this).tooltip('show');
-							            }).on('rating.rateleave', function () { $(this).tooltip('hide'); });
-						          }
-						        });
-						        
-					        
-						        $('.rating').each(function () {
-						          $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
-						        $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
-					      });
-				    </script>
-				    <!-- 별점 끝 -->	        
     		    </div><!-- 별점 div-->
     		    
     		    <div class="form-group"><!-- 제목란 -->
@@ -121,20 +170,27 @@
     		       <input type="file" id="ex_filename" class="upload-hidden">
     		       
 				<!-- 파일 선택하면 파일명 보여지기 -->
-				<script>
-					$(document).ready(function(){ 
-						var fileTarget = $('.filebox .upload-hidden'); 
-						fileTarget.on('change', function(){ // 값이 변경되면
-							if(window.FileReader){ // modern browser 
-								var filename = $(this)[0].files[0].name; 
-							} else { // old IE 
-								var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
-							} 			
-							$(this).siblings('.upload-name').val(filename); // 추출한 파일명 삽입 
-						}); 
-					});
-				</script>
-    		    </div><!-- 파일첨부 div -->
+            <script>
+               $(document).ready(function(){ 
+                  var fileTarget = $('.filebox .upload-hidden'); 
+                  fileTarget.on('change', function(){ // 값이 변경되면
+                     if(window.FileReader){ // modern browser 
+                        var filename = $(this)[0].files[0].name; 
+                     } else { // old IE 
+                        var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+                     }          
+                     $(this).siblings('.upload-name').val(filename); // 추출한 파일명 삽입
+                     if(this.files && this.files[0]) { // 사진 보여주는 스크립트
+                    	    var reader = new FileReader;
+                    	    reader.onload = function(data) {
+                    	     $(".select_img img").attr("src", data.target.result).maxWidth(500);        
+                    	    }
+                    	    reader.readAsDataURL(this.files[0]);
+                    	   }
+                  }); 
+               });
+            </script>
+              </div><!-- 파일첨부 div -->
 
 				<div class="btns">
 					<button type="button" class="btn btn-primary" onclick="javascript:bChk()">수정</button>

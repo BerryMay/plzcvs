@@ -155,5 +155,13 @@ public class BoardService implements IBoardService{
 			// 페이징된 리스트 가져오기
 			model.addAttribute("list", dao.page_board_list(pagingNum(model)));
 		}
+		
+	//자동완성	
+	@Override
+	public List<String> productname_autocomplete(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		return dao.productname_autocomplete(Integer.parseInt(request.getParameter("cvsnum")));
+	}
 	
 }
