@@ -49,7 +49,93 @@ div>#paging {
 /* 애니메이션 지점 설정하기 */
 /* 익스플로러 10 이상, 최신 모던 브라우저에서 지원 */
 @keyframes blink {
-   from {color: white; font-weight: bold;}
-   30% {color: yellow; font-weight: bold;}
-   to {color: red; font-weight: bold;}
+	from {color: white; font-weight: bold;}
+	30% {color: yellow; font-weight: bold;}
+	to {color: red; font-weight: bold;}
 }
+
+
+/* 버튼 */
+.btn {
+	display: inline-block;
+	padding: 6px 20px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	
+	position:relative;
+	raght: 40px;
+	color: #fff;
+	background-color: #ff9999;
+	border-color: #ffcccc;
+}
+
+.btn:focus, .btn:active:focus {
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px
+}
+
+.btn:hover, .btn:focus{
+	
+	text-decoration: none;
+	
+	color: #808080;
+	background-color: #ffcccc;
+	border-color: #ff9999
+}
+
+.btn:active{
+	background-image: none;
+	outline: 0;
+	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
+}
+/* 검색부분 */
+.search_div{
+	text-align: center;
+	margin-top: 30px;
+}
+.btn.search_btn{
+	padding: 6px 10px; line-height: 16px;
+	position:static;
+	color: #808080;
+	background-color: #ddd;
+	border-color: #808080;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+.btn.search_btn:hover{
+	color: #fff;
+	background-color: #808080;
+	border-color: #ddd;
+}
+
+.board_search{
+	width: 500px; margin: 0 auto; hight:30px; vertical-align: middle;
+}
+.form-cvsnum{
+	display: inline-block;
+	width: 100px; height:30px; vertical-align: middle;
+	border-radius: 5px; border: 1px solid #808080; box-sizing: border-box;
+}
+.search_text{
+	display: inline-block; width: 200px; height: 30px;
+	border-radius: 5px; border: 1px solid #808080; box-sizing: border-box;
+}
+
+.aw100{display: inline-block; width: 100%;}

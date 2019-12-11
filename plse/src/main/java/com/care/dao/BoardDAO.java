@@ -7,6 +7,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.care.dto.BoardDTO;
 import com.care.dto.CommentDTO;
@@ -22,16 +24,16 @@ public class BoardDAO {
 	public List<BoardDTO> board_list() {
 		return sqlSession.selectList(namespace+".board_list");
 	}
+	@RequestMapping(method = RequestMethod.POST)
 	public int board_reg(BoardDTO dto) {
-		System.out.println(dto.getStars());
 		return sqlSession.insert(namespace+".board_reg",dto);
 	}
 	public BoardDTO board_view(int num) {
 		upHit(num);
 		return sqlSession.selectOne(namespace+".board_view",num);
 	}
-	public int board_price(String productname) {
-		return sqlSession.selectOne(namespace+".board_price",productname);
+	public int board_price(BoardDTO dto) {
+		return sqlSession.selectOne(namespace+".board_price", dto);
 	}
 	public int upHit(int num) {
 		return sqlSession.update(namespace+".upHit",num);
@@ -76,4 +78,11 @@ public class BoardDAO {
 		public List<BoardDTO> page_board_list(PageCount pc) {
 			return sqlSession.selectList(namespace+".board_pagingList",pc);
 		}
+		
+		
+	//상품명 자동완성
+	public List<String> productname_autocomplete(int cvsnum) {
+		return sqlSession.selectList(namespace+".productname_autocomplete", cvsnum);
+	}
+	
 }

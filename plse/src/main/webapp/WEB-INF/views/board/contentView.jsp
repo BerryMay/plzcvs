@@ -7,18 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+	<!-- js파일-->
+    <script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">  -->
 	<script type="text/javascript" src="js/bootstrap-rating.js"></script>
 	<link rel="stylesheet" href="css/contentView.css" type="text/css" />
+	<link rel="stylesheet" href="css/contentView2.css" type="text/css" />
 
     <!--댓글-->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+   
     <script src="resources/js/moment.js"></script>
-   <!-- js파일-->
-    <script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script>
     <script>
     $(function(){
     	$('#btn_comment').click(function(){
@@ -46,12 +45,23 @@
 				output += "<tbody style='width:100%'>"; 
 				for(var i in data){
 					var user =  "<%=(String)session.getAttribute("userId")%>";
+<<<<<<< HEAD
 					var savedate = moment(data[i].savedate).format('YYYY년 MM월 DD일 HH:mm:ss');
+=======
+					var savedate = moment(data[i].savedate).format('YYYY.MM.DD HH:mm');
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 					output += "<tr>"
-					output += "<td style='width:20%'>"+data[i].nickname+"</td>";
-					output += "<td style='width:60%'>"+data[i].content+"</td>";
-					output += "<td style='width:20%'>"+savedate+"</td>";
+					output += "<td style='width:20%'><b>"+data[i].nickname+"</b></td>";
+					output += "<td style='width:10%'><h6 style='color:#aaa''>"+savedate+"</h6></td>";
+					if(data[i].nickname == user){
+						output += "<td>수정</td>"
+						output += "<td>삭제</td>"
+					}
 					output += "</tr>"
+					output += "<tr>"
+					output += "<td style='width:100%'>"+data[i].content+"</td>";
+					output += "</tr>"
+						
 				}
 				output += "</tbody>"; 
 				output += "</table>"
@@ -141,101 +151,75 @@
 <jsp:include page="../default/header.jsp" />
 	 <section class="sec">
 
-        <div class="container" style="margin-top: 30px;">
+       <div class="container" style="margin: 30px auto;">
             <p class="date"> <fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></p>
             <div class="profile-head">
-                <div class="col-md- col-sm-4 col-xs-12">
+                <div class="col-md-4 col-sm-4 col-xs-12">
                     <img src=" " class="img-responsive" />
-                    <h6>Jenifer Smith</h6>
+                     <p class="form-group star_div">별점:
+                   		<input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
+                	</p>  
                 </div>
                 <!--col-md-4 col-sm-4 col-xs-12 close-->
 
                 <div class="col-md-5 col-sm-5 col-xs-12">
                     <ul>
-                    	<li><h5>${dto.title }</h5></li>
+                       <li><h5>${dto.title }</h5></li>
                         <li> 작성자 : ${dto.nickname }</li>
                         <li id="cvs"> 편의점 : &nbsp;</li>
-                       <script>
-                           var cvs ="";
-                           switch(${ dto.cvsnum }){
-                              case 1: cvs="GS25"; break;
-                              case 2: cvs="세븐일레븐"; break;
-                              case 3: cvs="CU"; break;
-                           }
-                           document.getElementById("cvs").innerText+=cvs
-                        </script>
+                      
                         <li> 상품명: ${dto.productname }</li>
                         <li> 가격: ${price }</li>
                     </ul>
-                    <p class="form-group star_div">별점:
-                   <input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
-                </p>  
-
                 </div>
-                <!--col-md-8 col-sm-8 col-xs-12 close-->
+                <!--col-md-5 col-sm-5 col-xs-12 close-->
+                
+                
             </div>
             <!--profile-head close-->
         </div>
         <!--container close-->
+        
+        
 
         <!-- Tab panes -->
         <div class="tab-content">
             <div class="tab-pane fade active in" id="profile">
                 <div class="container">
+                    <br clear="all" />                  
+                        <div class="col-md-6">      
+                       
+                            <p style="display:none;">  내 용</p>
+                            <c:if test="${dto.gdsimg != null }">
+                             	<div><img src="${dto.gdsimg }"/></div>
+                             </c:if>
+                            <div class="content_div"> ${dto.content }</div>
 
-                    <br clear="all" />
-                    <div class="row">
+                        </div> <!--col-md-6 close-->
+                </div> <!--container close-->
+               
+                
+                <!-- 좋아요  -->
+			    <div class="heart_div">
+					<form id="board_heart">
+						<input type="hidden" name="num" value="${dto.num }" /> <input
+							type="hidden" name="nickname" value="${userId }" />
+						<button type="button" class="btn_like" id="likebtn">
+							<span class="img_emoti">좋아요</span> <span class="ani_heart_m"></span>
+						</button>
+					</form>
+					<div align="center">
+						좋아요 : <label id="result"></label>
+					</div>
+				</div><!-- 좋아요  끝-->
+                
+            </div><!--tab-pane close-->
+        </div><!--tab-content close-->
+        
 
-                        <div class="col-md-6">
-
-                            <div class="table-responsive responsiv-table">
-                                <table class="table bio-table">
-                                    <tbody>
-                                        <tr>
-                                            <td>내 용</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                ${dto.content }
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--table-responsive close-->
-                        </div>
-                        <!--col-md-6 close-->
-
-                    </div>
-                    <!--row close-->
-
-                </div>
-                <!--container close-->
-            </div>
-            <!--tab-pane close-->
-
-        </div>
-        <!--tab-content close-->
-
-
-    </section>
+	
+ </section>
     <!--section close-->
-
-	<div>
-		<form id="board_heart">
-			<input type="hidden" name="num" value="${dto.num }" /> <input
-				type="hidden" name="nickname" value="${userId }" />
-			<button type="button" class="btn_like" id="likebtn">
-				<span class="img_emoti">좋아요</span> <span class="ani_heart_m"></span>
-			</button>
-		</form>
-		<div align="center">
-			좋아요 : <label id="result"></label>
-		</div>
-	</div>
-
 	<!-- 댓글 -->
 	 <div class="container">
         
@@ -255,13 +239,24 @@
                 </div>
             </div>
         </div> <!-- 댓글  -->
+        <!--게시글 수정/삭제/목록 버튼들 -->
         <div align="right">
         <input class="btn btn-primary" type="button" value="목록으로" onclick="javascript:location.href='board'">
-        	<c:if test="${userId == dto.nickname }">
-	        	<input class="btn btn-primary" type="button" value="수정" onclick="javascript:location.href='board_modify?num=${dto.num}'">
-	        	<input class="btn btn-primary" type="button" value="삭제" onclick="javascript:location.href='board_delete?num=${dto.num}'">
-        	</c:if>
-        </div>
+           <c:if test="${userId == dto.nickname }">
+              <input class="btn btn-primary" type="button" value="수정" onclick="javascript:location.href='board_modify?num=${dto.num}'">
+              <input class="btn btn-primary" type="button" value="삭제" onclick="javascript:location.href='board_delete?num=${dto.num}'">
+           </c:if>
+        </div> 
+
     <jsp:include page="../default/footer.jsp" />
+     <script>
+         var cvs ="";
+         switch(${ dto.cvsnum }){
+            case 1: cvs="GS25"; break;
+            case 2: cvs="세븐일레븐"; break;
+            case 3: cvs="CU"; break;
+         }
+         document.getElementById("cvs").innerText+=cvs
+      </script>
 </body>
 </html>
