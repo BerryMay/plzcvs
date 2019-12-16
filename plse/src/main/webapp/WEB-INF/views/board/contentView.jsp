@@ -45,11 +45,8 @@
 				output += "<tbody style='width:100%'>"; 
 				for(var i in data){
 					var user =  "<%=(String)session.getAttribute("userId")%>";
-<<<<<<< HEAD
-					var savedate = moment(data[i].savedate).format('YYYY년 MM월 DD일 HH:mm:ss');
-=======
 					var savedate = moment(data[i].savedate).format('YYYY.MM.DD HH:mm');
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+
 					output += "<tr>"
 					output += "<td style='width:20%'><b>"+data[i].nickname+"</b></td>";
 					output += "<td style='width:10%'><h6 style='color:#aaa''>"+savedate+"</h6></td>";
