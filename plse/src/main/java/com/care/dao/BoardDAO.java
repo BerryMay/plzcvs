@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.care.dto.BoardDTO;
 import com.care.dto.CommentDTO;
+import com.care.dto.CvsDTO;
 import com.care.dto.PageCount;
 
 @Component
@@ -39,6 +40,7 @@ public class BoardDAO {
 		return sqlSession.update(namespace+".upHit",num);
 	}
 	public int board_modify(BoardDTO dto) {
+		System.out.println("dao chk"+dto.getProductname());
 		return sqlSession.update(namespace+".board_modify",dto);
 	}
 	public int board_delete(int num) {
@@ -48,7 +50,9 @@ public class BoardDAO {
 	public List<BoardDTO> board_search(BoardDTO dto) {
 		return sqlSession.selectList(namespace+".board_search",dto);
 	}
-	
+	public String board_productimg(BoardDTO dto) {
+		return sqlSession.selectOne(namespace+".board_productimg",dto);
+	}
 	//좋아요
 	
 	public void board_heart(BoardDTO dto) {
@@ -84,5 +88,10 @@ public class BoardDAO {
 	public List<String> productname_autocomplete(int cvsnum) {
 		return sqlSession.selectList(namespace+".productname_autocomplete", cvsnum);
 	}
+	// 관리자
+		@RequestMapping(method = RequestMethod.POST)
+		public int adminPost(CvsDTO dto) {
+			return sqlSession.insert(namespace+".adminPost",dto);
+		}
 	
 }

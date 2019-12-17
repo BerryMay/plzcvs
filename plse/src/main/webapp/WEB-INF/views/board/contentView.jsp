@@ -16,9 +16,17 @@
 	<link rel="stylesheet" href="css/contentView2.css" type="text/css" />
 
     <!--댓글-->
-   
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="resources/js/moment.js"></script>
     <script>
+      var pagesu =10;  //페이지 번호 갯수
+	  var currentPage = 0; //현재페이지
+	  var numPerPage = 3;  //페이징시 표출되는 목록의갯수
+	  var endPage;	//끝페이지
+	  var comnum;	//전체댓글수
+	  var wantpg=3;	//출력시 3페이지로 나누기 위한 변수
+    
+    
     $(function(){
     	$('#btn_comment').click(function(){
     		$.ajax({
@@ -41,34 +49,143 @@
 			data:$("#board_comment").serialize(),
 			success:function(data){
 				$("#comment").text("");
-				var output = "<table style='width:100%'>";
+				var output;
 				output += "<tbody style='width:100%'>"; 
-				for(var i in data){
+				console.log(data);
+				comnum = data.length
+				endPage = Math.ceil(comnum/wantpg); 
+				
+				for(i=0; i< comnum; i++){
 					var user =  "<%=(String)session.getAttribute("userId")%>";
 					var savedate = moment(data[i].savedate).format('YYYY.MM.DD HH:mm');
-
-					output += "<tr>"
-					output += "<td style='width:20%'><b>"+data[i].nickname+"</b></td>";
-					output += "<td style='width:10%'><h6 style='color:#aaa''>"+savedate+"</h6></td>";
-					if(data[i].nickname == user){
-						output += "<td>수정</td>"
-						output += "<td>삭제</td>"
-					}
-					output += "</tr>"
-					output += "<tr>"
-					output += "<td style='width:100%'>"+data[i].content+"</td>";
-					output += "</tr>"
+					output += "<thread><tr>"
+						output += "<td style='width:20%'>"+data[i].nickname+"</td>";
+						output += "<td style='width:60%'>"+data[i].content+"</td>";
+						output += "<td style='width:20%'><h6 style='color:#aaa''>"+savedate+"</h6></td>";
+						if(data[i].nickname == user){
+							output += "<td>수정</td>"
+							output += "<td>삭제</td>"
+						}
+						output += "</tr></thead>"
+					
 						
 				}
 				output += "</tbody>"; 
-				output += "</table>"
+				
 				$("#comment").append(output);
+				page();
 			},
 			error:function(){
 	    		alert("댓글리스트  오류발생")
 	    	}
-		})
+		});
     }
+    
+    
+ // 만들어진 테이블에 페이지 처리
+	function page(){ 
+		
+		var reSortColors = function($table) {
+		  $('tbody tr:odd td', $table).removeClass('even').removeClass('listtd').addClass('odd');
+		  $('tbody tr:even td', $table).removeClass('odd').removeClass('listtd').addClass('even');
+		 };
+		 
+		 
+		 
+		 $('table.paginated').each(function() {
+		 
+		  var $table = $(this);    
+		  
+		  
+		  //length로 원래 리스트의 전체길이구함
+		  var numRows = comnum;
+		  //Math.ceil를 이용하여 반올림
+		  var numPages = endPage;
+		  //리스트가 없으면 종료
+		  if (numPages==0) return;
+		  //pager라는 클래스의 div엘리먼트 작성
+		  var $pager = $('<td align="center" id="remo" colspan="10"><div class="pager"></div></td>');
+		  
+		  var nowp = currentPage;
+		  var endp = endPage;
+		  
+		  //페이지를 클릭하면 다시 셋팅
+		  $table.bind('repaginate', function() {
+			  
+		  //기본적으로 모두 감춘다, 현재페이지+1 곱하기 현재페이지까지 보여준다
+		   $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+		   $("#remo").html("");
+		   
+		   if (numPages > 1) {     // 한페이지 이상이면
+				    if (currentPage < 5 && numPages-currentPage >= 5) {   // 현재 5p 이하이면
+				     nowp = 0;     // 1부터 
+				     endp = pagesu;    // 10까지
+				    }else{
+				     nowp = currentPage -5;  // 6넘어가면 2부터 찍고
+				     endp = nowp+pagesu;   // 10까지
+				     pi = 1;
+			    }
+			    
+			    if (numPages < endp) {   // 10페이지가 안되면
+				     endp = numPages;   // 마지막페이지를 갯수 만큼
+				     nowp = numPages-pagesu;  // 시작페이지를   갯수 -10
+			    }
+			    
+			    if (nowp < 1) {     // 시작이 음수 or 0 이면
+			     	nowp = 0;     // 1페이지부터 시작
+			    }
+		   }else{       // 한페이지 이하이면
+			    nowp = 0;      // 한번만 페이징 생성
+			    endp = numPages;
+		   }
+		   // [처음]
+		   $('<br /><span class="page-number" cursor: "pointer">[처음]</span>').bind('click', {newPage: page},function(event) {
+		          currentPage = 0;   
+		          $table.trigger('repaginate');  
+		          $($(".page-number")[2]).addClass('active').siblings().removeClass('active');
+		      }).appendTo($pager).addClass('clickable');
+		    // [이전]
+		      $('<span class="page-number" cursor: "pointer">&nbsp;&nbsp;&nbsp;[이전]&nbsp;</span>').bind('click', {newPage: page},function(event) {
+		          if(currentPage == 0) return; 
+		          currentPage = currentPage-1;
+		    $table.trigger('repaginate'); 
+		    $($(".page-number")[(currentPage-nowp)+2]).addClass('active').siblings().removeClass('active');
+		   }).appendTo($pager).addClass('clickable');
+		    // [1,2,3,4,5,6,7,8]
+		   for (var page = nowp ; page < endp; page++) {
+		    $('<span class="page-number" cursor: "pointer" style="margin-left: 8px;"></span>').text(page + 1).bind('click', {newPage: page}, function(event) {
+		     currentPage = event.data['newPage'];
+		     $table.trigger('repaginate');
+		     $($(".page-number")[(currentPage-nowp)+2]).addClass('active').siblings().removeClass('active');
+		     }).appendTo($pager).addClass('clickable');
+		   } 
+		    // [다음]
+		      $('<span class="page-number" cursor: "pointer">&nbsp;&nbsp;&nbsp;[다음]&nbsp;</span>').bind('click', {newPage: page},function(event) {
+		    if(currentPage == numPages-1) return;
+		        currentPage = currentPage+1;
+		    $table.trigger('repaginate'); 
+		     $($(".page-number")[(currentPage-nowp)+2]).addClass('active').siblings().removeClass('active');
+		   }).appendTo($pager).addClass('clickable');
+		    // [끝]
+		   $('<span class="page-number" cursor: "pointer">&nbsp;[끝]</span>').bind('click', {newPage: page},function(event) {
+		           currentPage = numPages-1;
+		           $table.trigger('repaginate');
+		           $($(".page-number")[endp-nowp+1]).addClass('active').siblings().removeClass('active');
+		   }).appendTo($pager).addClass('clickable');
+		     
+		     $($(".page-number")[2]).addClass('active');
+		reSortColors($table);
+		  });
+		   $pager.insertAfter($table).find('span.page-number:first').next().next().addClass('active');   
+		   $pager.appendTo($table);
+		   $table.trigger('repaginate');
+		 });
+		}
+    
+    
+    
+    
+    
     
     $(function() {
 	    $('#likebtn').click(function(){
@@ -111,19 +228,7 @@
 	    	}
 	    	});
     	})
-    function heartCnt() {
-		$.ajax({
-			url:"board_heartCnt",
-			type:"POST",
-			data:$("#board_heart").serialize(),
-			success:function(data){
-				$("#result").text(data);
-			},
-			error:function(){
-				alert("좋아요 total 오류발생")
-			}
-		});
-	}
+
     
     function heartChk(){
     	$.ajax({
@@ -141,6 +246,20 @@
     	});
     }
     
+    function heartCnt() {
+		$.ajax({
+			url:"board_heartCnt",
+			type:"POST",
+			data:$("#board_heart").serialize(),
+			success:function(data){
+				$("#result").text(data);
+			},
+			error:function(){
+				alert("좋아요 total 오류발생")
+			}
+		});
+	}
+    
     </script>
 
 </head>
@@ -152,7 +271,7 @@
             <p class="date"> <fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></p>
             <div class="profile-head">
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <img src=" " class="img-responsive" />
+                    <img src="${productimg }" class="img-responsive" />
                      <p class="form-group star_div">별점:
                    		<input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
                 	</p>  
@@ -222,9 +341,12 @@
         
             <div class="panel panel-white post panel-shadow">
                 <div class="post-footer">
-					<div id="comment">
-		
-					</div>
+					<div >
+						<table class="comment paginated" id="comment" style='width:100%'>
+						
+						
+						</table>
+					</div></br>
                     <form class="contentsbox" id="board_comment">
                         <div class="input-group">
                             <input class="form-control" name="content" placeholder="Add a comment" type="text">

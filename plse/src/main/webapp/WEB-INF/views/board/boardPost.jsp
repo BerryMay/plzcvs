@@ -30,58 +30,66 @@
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
-	<script type="text/javascript">
-		var productnames = new Array(); //상품이름 담을 배열
-	
-		$(function(){		
-			var cvsnum ={"cvsnum":$(".form-cvsnum").val()};
-			
-			$.ajax({
-				type:'get', url:"productname_autocomplete", data:cvsnum,
-				success:function(data){
-					if(data.length > 0){
-	                     for(i=0; i<data.length; i++){
-	                    	 productnames.push(data[i]);              	 
-	                     }   
-	                }			
-				},error:function(data){console.log("상품명 불러오기에러");},
-		})
+   <script type="text/javascript">
+      var productnames = new Array(); //상품이름 담을 배열
+   
+      $(function(){      
+         var cvsnum ={"cvsnum":$(".form-cvsnum").val()};
+         
+         $.ajax({
+            type:'get', url:"productname_autocomplete", data:cvsnum,
+            success:function(data){
+               if(data.length > 0){
+                        for(i=0; i<data.length; i++){
+                           productnames.push(data[i]);                  
+                        }   
+                   }         
+            },error:function(data){console.log("상품명 불러오기에러");},
+      })
 
-			
-			$(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기				
-				if(this.value == '1'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//gs일때								
-				else if(this.value =='2'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//세븐일때									
-				else if(this.value == '3'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//Cu일때					
-				
-				//바뀌면 목록을 새로 불러온다.
-				$.ajax({
-					type:'get', url:"productname_autocomplete", data:cvsnum,
-					success:function(data){
-						if(data.length > 0){
-							productnames=new Array();
-		                     for(i=0; i<data.length; i++){
-		                    	 productnames;
-		                    	 productnames.push(data[i]);    //각각의 상품명 값을 넣어준다          	 
-		                     }   
-		                }
-					},error:function(data){console.log("상품명 불러오기에러");},
-				})//ajax 끝
+         
+         $(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기            
+            if(this.value == '1'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //gs일때                        
+            else if(this.value =='2'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //세븐일때                           
+            else if(this.value == '3'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //Cu일때               
+            
+            //바뀌면 목록을 새로 불러온다.
+            $.ajax({
+               type:'get', url:"productname_autocomplete", data:cvsnum,
+               success:function(data){
+                  if(data.length > 0){
+                     productnames=new Array();//초기화
+                           for(i=0; i<data.length; i++){                             
+                              productnames.push(data[i]);    //각각의 상품명 값을 넣어준다              
+                           }   
+                      }
+                  $("#productname").autocomplete({
+                       source: productnames,
+                       select: function(event, ui) {
+                           console.log(ui.item.value);                  
+                       },
+                       focus: function(event, ui) {
+                           return false;
+                       }
+                   });     
+               },error:function(data){console.log("상품명 불러오기에러");},
+            })//ajax 끝
 
-			}) 
+         }) 
 
-			$("#productname").autocomplete({
-		        source: productnames,
-		        select: function(event, ui) {
-		            console.log(ui.item.value);		            
-		        },
-		        focus: function(event, ui) {
-		            return false;
-		        }
-		    });     
-		});//자동완성 끝
-		
-		
-		//별점 script
+         $("#productname").autocomplete({
+              source: productnames,
+              select: function(event, ui) {
+                  console.log(ui.item.value);                  
+              },
+              focus: function(event, ui) {
+                  return false;
+              }
+          });     
+      });//자동완성 끝
+      
+      
+      //별점 script
         $(function () {
           $('input.check').on('change', function () { alert('Rating: ' + $(this).val());   });
           $('#programmatically-set').click(function () {
@@ -157,9 +165,6 @@
                <label for="productname">상품명</label> 
                <input type="text" class="form-productname form-control " id="productname" name="productname" />
                </div>
-               
-               <!-- <label for="productname">상품명</label>
-               <input type="text" class="form-productname form-control " id="productname" name="productname" /> -->
             </div><!-- 편의점, 상품명 div -->
 
               <div class="form-group"><!-- 별점 div  -->
@@ -196,23 +201,23 @@
                      }          
                      $(this).siblings('.upload-name').val(filename); // 추출한 파일명 삽입
                      if(this.files && this.files[0]) { // 사진 보여주는 스크립트
-                    	    var reader = new FileReader;
-                    	    reader.onload = function(data) {
-                    	     $(".select_img img").attr("src", data.target.result).maxWidth(500);        
-                    	    }
-                    	    reader.readAsDataURL(this.files[0]);
-                    	   }
+                           var reader = new FileReader;
+                           reader.onload = function(data) {
+                            $(".select_img img").attr("src", data.target.result).maxWidth(500);        
+                           }
+                           reader.readAsDataURL(this.files[0]);
+                          }
                   }); 
                });
             </script>
               </div><!-- 파일첨부 div -->
                <%=request.getRealPath("/") %>
                <!-- 
-               		무슨 경로가 떠서 놀라셨죠..?
-               		절대경로 확인 후에 servlet에서 업로드 패스 설정 (34번줄) value값 변경  맨 뒤에 \resources 추가할것. "질문은 시훈씨에게..." 
-               		resources(css,js,img폴더있는곳)에 imgUpload 폴더 생성해두기
-               		
-               		후에 업로드 되는 이미지들이 서버에 저장되면 이럴 필요가 없다고 합니다.
+                     무슨 경로가 떠서 놀라셨죠..?
+                     절대경로 확인 후에 servlet에서 업로드 패스 설정 (34번줄) value값 변경  맨 뒤에 \resources 추가할것. "질문은 시훈씨에게..." 
+                     resources(css,js,img폴더있는곳)에 imgUpload 폴더 생성해두기
+                     
+                     후에 업로드 되는 이미지들이 서버에 저장되면 이럴 필요가 없다고 합니다.
                 -->
             <div class=" btns">
                <button type="button" class="btn btn-primary" onclick="javascript:bChk()">등록</button>

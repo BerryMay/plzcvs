@@ -131,7 +131,7 @@
 	    <div class="container">
     		<h2>게시글 수정하기</h2>
     		
-    		<form id="postform" name="postform" class="postform" action="board_modifyOk" method="POST">
+    		<form id="postform" name="postform" class="postform" action="board_modifyOk" method="POST" enctype="multipart/form-data">
     			<input type="hidden" name="num" value="${dto.num }"/>
 				<div class="form-group"><!-- 편의점, 상품명 div -->
 				<div class="cvsnum_div">
@@ -157,7 +157,7 @@
 	   		        <label for="title">제목</label>
 	   		        <input type="text" class="form-control" id="title" name="title" value="${dto.title }"/>
    		   	 	</div>
-   		   	 	
+   		   	 	<div class="select_img"><img src="${dto.gdsimg }" /></div>
     		    <div class="form-group"> <!-- 내용 -->
     		        <label for="content">내용</label>
     		        <textarea rows="15" class="form-control" id="content" name="content" >${dto.content }</textarea>
@@ -167,8 +167,8 @@
     		       <label for="pic" class="uploadlabel">파일첨부</label>   		       
     		       <input class="upload-name" value="파일선택" disabled="disabled">    
     		       <label for="ex_filename" class="upload">업로드</label> 
-    		       <input type="file" id="ex_filename" class="upload-hidden">
-    		       
+    		       <input type="file" name="file" id="ex_filename" class="upload-hidden">
+    		       <input type="hidden" name="gdsimg" value="${dto.gdsimg }">
 				<!-- 파일 선택하면 파일명 보여지기 -->
             <script>
                $(document).ready(function(){ 

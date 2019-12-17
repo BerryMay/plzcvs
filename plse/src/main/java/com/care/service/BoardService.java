@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.care.dao.BoardDAO;
 import com.care.dto.BoardDTO;
 import com.care.dto.CommentDTO;
+import com.care.dto.CvsDTO;
 import com.care.dto.PageCount;
 import com.care.file.UploadFileUtils;
 @Service
@@ -45,6 +46,7 @@ public class BoardService implements IBoardService{
 		model.addAttribute("dto", dto);
 		HttpSession session = request.getSession();
 		session.setAttribute("price", dao.board_price(dto));
+		session.setAttribute("productimg", dao.board_productimg(dto));
 	}
 	@Override
 	public void board_modify(Model model) {
@@ -101,7 +103,7 @@ public class BoardService implements IBoardService{
 		BoardDTO dto = new BoardDTO();
 		dto.setNum(Integer.parseInt(request.getParameter("num")));
 		dto.setNickname(request.getParameter("nickname"));
-		return 0;
+		return dao.board_heartChk(dto);
 	}
 	@Override
 	public void board_comment(Model model) {
@@ -155,12 +157,17 @@ public class BoardService implements IBoardService{
 			// 페이징된 리스트 가져오기
 			model.addAttribute("list", dao.page_board_list(pagingNum(model)));
 		}
-		
+		@RequestMapping(method = RequestMethod.POST)
+		public void adminPost(CvsDTO dto) throws Exception{
+			dao.adminPost(dto);
+			
+		}
 	//자동완성	
 	@Override
 	public List<String> productname_autocomplete(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
+
 		return dao.productname_autocomplete(Integer.parseInt(request.getParameter("cvsnum")));
 	}
 	

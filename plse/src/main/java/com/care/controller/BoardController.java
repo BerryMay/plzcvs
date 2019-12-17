@@ -77,8 +77,15 @@ public class BoardController {
 		return "board/contentModify";
 	}
 	//게시글 수정하기
-	@RequestMapping(value = "/board_modifyOk")
-	public String board_modifyOk(Model model,BoardDTO dto) {
+	@RequestMapping(value = "/board_modifyOk", method = RequestMethod.POST)
+	public String board_modifyOk(Model model,BoardDTO dto,MultipartFile file) throws Exception {
+		if(file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
+			new File(uploadPath + dto.getGdsimg()).delete();
+			String imgUploadPath = uploadPath + File.separator + "imgUpload";
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+			String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+		}
 		model.addAttribute("dto", dto);
 		bs.board_modify(model);
 		return "redirect:detail?num="+dto.getNum();
@@ -144,6 +151,21 @@ public class BoardController {
 	//관리자 물품등록
 	@RequestMapping(value = "/adminPost")
 	public String adminPost() {
+		return "admin/adminPost";
+	}
+	//물픔등록ok
+	@RequestMapping(value = "/adminPostOk", method = RequestMethod.POST)
+	public String adminPost(Model model,CvsDTO dto,MultipartFile file) throws Exception {
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+		}else {
+			dto.setGdsimg(null);
+		}
+		bs.adminPost(dto);
 		return "admin/adminPost";
 	}
 	

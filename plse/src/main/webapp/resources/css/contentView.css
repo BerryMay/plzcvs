@@ -190,6 +190,7 @@ profile-head .col-md-5 {
 
 .btn_unlike .img_emoti {
 	background-position: -30px -120px;
+	
 }
 
 .img_emoti {
@@ -437,4 +438,9 @@ profile-head .col-md-5 {
 /* 좋아요 div */
 .heart_div{
 	padding: 20px 0;
+}
+
+/* 댓글페이징css */
+.page-number{
+	cursor: pointer;
 }
