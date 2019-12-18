@@ -245,8 +245,7 @@
       /* 댓글삭제 클릭시*/
       function delComment(btn, cnum){ 
 		var dnum = {"cnum":cnum};
-	
-      	$(btn).parent().parent().parent().parent().remove();
+      	
       	$.ajax({
 	            type:"POST",
 	            url:"comment_delete",
@@ -256,6 +255,7 @@
 	            success:function(data){
 	         	   console.log("댓글 삭제하기");
 	         	  listReply();
+	         	  
 	         	   
 	            },error:function(data){console.log("에러");},
 	         })
@@ -323,43 +323,60 @@
      		   $('<span class="page-number" cursor: "pointer">[처음]</span>').bind('click', {newPage: page},function(event) {
      		          currentPage = 0;   
      		          $ul.trigger('repaginate');  
-     		          $($(".page-number")[2]).addClass('active').siblings().removeClass('active');
+     		          $($(".page-number")[2]).addClass('actived').siblings().removeClass('actived');
      		      }).appendTo($pager).addClass('clickable');
      		    // [이전]
-     		      $('<span class="page-number" cursor: "pointer">&nbsp;&nbsp;&nbsp;[이전]&nbsp;</span>').bind('click', {newPage: page},function(event) {
+     		      $('<span class="page-number" cursor: "pointer">[이전]</span>').bind('click', {newPage: page},function(event) {
      		          if(currentPage == 0) return; 
      		          currentPage = currentPage-1;
      		    $ul.trigger('repaginate'); 
-     		    $($(".page-number")[(currentPage-nowp)+2]).addClass('active').siblings().removeClass('active');
+     		    $($(".page-number")[(currentPage-nowp)+2]).addClass('actived').siblings().removeClass('actived');
      		   }).appendTo($pager).addClass('clickable');
      		    // [1,2,3,4,5,6,7,8]
      		   for (var page = nowp ; page < endp; page++) { 
      		    $('<span class="page-number" cursor: "pointer" style="margin-left: 8px;"></span>').text(page + 1).bind('click', {newPage: page}, function(event) {
      		     currentPage = event.data['newPage'];
      		     $ul.trigger('repaginate');
-     		     $($(".page-number")[(currentPage-nowp)+2]).addClass('active').siblings().removeClass('active');
+     		     $($(".page-number")[(currentPage-nowp)+2]).addClass('actived').siblings().removeClass('actived');
      		     }).appendTo($pager).addClass('clickable');
      		   } 
      		    // [다음]
-     		      $('<span class="page-number" cursor: "pointer">&nbsp;&nbsp;&nbsp;[다음]&nbsp;</span>').bind('click', {newPage: page},function(event) {
+     		      $('<span class="page-number" cursor: "pointer">[다음]</span>').bind('click', {newPage: page},function(event) {
      		    if(currentPage == numPages-1) return;
      		        currentPage = currentPage+1;
      		    $ul.trigger('repaginate'); 
-     		     $($(".page-number")[(currentPage-nowp)+2]).addClass('active').siblings().removeClass('active');
+     		     $($(".page-number")[(currentPage-nowp)+2]).addClass('actived').siblings().removeClass('actived');
      		   }).appendTo($pager).addClass('clickable');
      		    // [끝]
-     		   $('<span class="page-number" cursor: "pointer">&nbsp;[끝]</span>').bind('click', {newPage: page},function(event) {
+     		   $('<span class="page-number" cursor: "pointer">[끝]</span>').bind('click', {newPage: page},function(event) {
      		           currentPage = numPages-1;
      		           $ul.trigger('repaginate');
-     		           $($(".page-number")[endp-nowp+1]).addClass('active').siblings().removeClass('active');
+     		           $($(".page-number")[endp-nowp+1]).addClass('actived').siblings().removeClass('actived');
      		   }).appendTo($pager).addClass('clickable');
      		     
-     		     $($(".page-number")[2]).addClass('active');
-     		reSortColors($ul);
+     		    
+     		    if(ck<="1"){	
+      				 //0, 1페이지라면    				
+      				$($(".page-number")[2]).addClass('actived');
+      			 }else{
+      				 //1페이지가 아니라면		
+      				$($(".page-number")[2]).removeClass('actived');
+   	 				if(ck>numPages){
+      			 	$($(".page-number")[endp-nowp+1]).addClass('actived');
+   	 				}else{
+   	 				$($(".page-number")[ck+1]).addClass('actived');
+   					
+   	 				}
+     			}
+
      		  });
-     		   $pager.insertAfter($ul).find('span.page-number:first').next().next().addClass('active');   
-     		   $pager.insertAfter($ul);
-     		   $ul.trigger('repaginate');
+     		  
+	     		var ck = Number($('.actived').text());
+				if($('ul.paginated').next().hasClass('pager')){ 	$("#remo").remove();	}
+	   			 	 
+				$pager.insertAfter($ul);
+	   			$ul.trigger('repaginate');
+
      		 });
      		}
 
