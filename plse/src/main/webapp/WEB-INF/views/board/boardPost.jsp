@@ -203,7 +203,7 @@
                      if(this.files && this.files[0]) { // 사진 보여주는 스크립트
                            var reader = new FileReader;
                            reader.onload = function(data) {
-                            $(".select_img img").attr("src", data.target.result).maxWidth(500);        
+                            $(".select_img img").attr("src", data.target.result);        
                            }
                            reader.readAsDataURL(this.files[0]);
                           }
