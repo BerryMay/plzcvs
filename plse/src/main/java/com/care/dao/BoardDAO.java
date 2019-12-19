@@ -107,7 +107,6 @@ public class BoardDAO {
 	}
 	//실시간검색어 저장
 	public void search_reg(BoardDTO dto){
-		System.out.println("검색어 저장 실행, content 값 : " + dto.getContent());
 		Object a = search_Chk(dto);
 		if(a != null){
 			sqlSession.update(namespace+".search_update",dto);

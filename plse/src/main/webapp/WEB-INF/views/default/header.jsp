@@ -36,7 +36,6 @@
 			success:function(data){
 				$("#searchCntTable").empty();
 				output += "<tr><th colspan='2'><b>실시간검색어</b></th></tr>"
-				console.log("실행")
 				for(i=0; i<data.length; i++){
 					output += "<tr>"
 					output += "<th>"+(i+1)+"</th>"
@@ -64,38 +63,40 @@
 <title>Insert title here</title>
 </head>
 <body onload="searchList()">
-	<div id="wrap">
+	<div id="wrap" >
 
 		<header>
 			<ul id="top">
-				<li>
-					<c:choose>
+				<li><c:choose>
 						<c:when test="${userId == null }">
 							<a href="login">로그인</a>
 						</c:when>
 						<c:otherwise>
 							<a href="logout">${userId } 로그아웃</a>
 						</c:otherwise>
-					</c:choose>
-				</li>|
+					</c:choose></li>|
 				<c:if test="${userId == null }">
 					<li><a href="register">회원가입</a></li>|
 				</c:if>
 				<li><a href="board">리뷰게시판</a></li>
 			</ul>
-				<a href="http://localhost:8989/practice/">
-			<h5 id="logo"></h5>
-				</a>
-			<!-- 실시간검색어 div -->
-			<div id="searchCnt">
+				
+			<h1 id="logo">
+				<a class="logo" href="http://localhost:8989/practice/"></a>
+			</h1>
+
+		<aside id="search_aside">
+			<div>
+				<!-- 실시간검색어 테이블 -->
 				<table id="searchCntTable">
 				</table>
-			</div> <!-- 실시간 끝 -->
+			</div>
+		</aside>
 			<nav id="nav">
 				<ul>
-					<li><a href="#"></a></li>
-					<li><a href="#"></a></li>
-					<li><a href="#"></a></li>
+					<li><a href="board">리뷰 게시판</a></li>
+					<li><a href="#">레시피 게시판</a></li>
+					<li><a href="#">그래프</a></li>
 				</ul>
 				<button id="nav_btn" onclick="stop('nav')">
 					<i class="fas fa-angle-right fa-2x"></i>

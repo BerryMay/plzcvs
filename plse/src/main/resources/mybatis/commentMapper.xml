@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- mapper 만드는 곳 --> 
+	<mapper namespace="com.care.mybatis.commentMapper">
+	
+		<!-- 댓글 리스트 -->
+		<select id="comment_list" resultType="Cdto" parameterType="int">
+			select * from comments where bnum=#{num} order by cnum asc
+		</select>
+		
+		<!-- 댓글 작성 -->
+		<insert id="comment_create" parameterType="Cdto">
+			insert into comments(bnum, content, nickname, cnum) values(#{bnum}, #{content}, #{nickname}, comment_num_seq.nextval)
+	  	</insert>
+  	
+  		<!-- 댓글 수정 -->
+	  	<update id="comment_modify" parameterType="Cdto">
+	  		update comments set content=#{content} where cnum=#{cnum}
+	  	</update>
+	  	<!-- 게시글 삭제 -->
+	  	<delete id="comment_delete">
+	  		delete from comments where cnum=#{cnum}
+	  	</delete>
+  	
+	
+	</mapper>

@@ -137,7 +137,7 @@ public class BoardService implements IBoardService{
 			if(start == 0) start=1;
 			PageCount pc = new PageCount();
 			// 페이지에 보여줄 게시글 갯수
-			int pageNum=1;
+			int pageNum=10;
 			// 전체 게시글 갯수 가져오기
 			int totalPage = getTotalPage();
 			// 전체 게시글 갯수 / 페이지 보여줄 게시글 갯수 + (나머지 값이 있으면 + 1) 마지막 페이지 번호를 정하는 식

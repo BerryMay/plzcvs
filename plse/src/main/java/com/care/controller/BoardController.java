@@ -100,7 +100,6 @@ public class BoardController {
 	//게시글 검색
 	@RequestMapping(value = "/board_search")
 	public String board_search(Model model,HttpServletRequest request) {
-		System.out.println("컨트롤러 search content : "+request.getParameter("content"));
 		model.addAttribute("request", request);
 		bs.board_search(model);
 		return "board/boardSearch";
