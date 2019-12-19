@@ -100,6 +100,7 @@ public class BoardController {
 	//게시글 검색
 	@RequestMapping(value = "/board_search")
 	public String board_search(Model model,HttpServletRequest request) {
+		System.out.println("컨트롤러 search content : "+request.getParameter("content"));
 		model.addAttribute("request", request);
 		bs.board_search(model);
 		return "board/boardSearch";
@@ -176,4 +177,10 @@ public class BoardController {
 		model.addAttribute("request", request);
 		return bs.productname_autocomplete(model);
 	}
-}
+	//실시간검색어 리스트
+	@RequestMapping(value = "board_searchCnt")
+	@ResponseBody
+	public List<SearchCntDTO> board_searchCnt(){
+		return bs.searchCnt();
+	}
+	}

@@ -22,6 +22,7 @@ import com.care.dto.BoardDTO;
 import com.care.dto.CommentDTO;
 import com.care.dto.CvsDTO;
 import com.care.dto.PageCount;
+import com.care.dto.SearchCntDTO;
 import com.care.file.UploadFileUtils;
 @Service
 public class BoardService implements IBoardService{
@@ -169,6 +170,10 @@ public class BoardService implements IBoardService{
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 
 		return dao.productname_autocomplete(Integer.parseInt(request.getParameter("cvsnum")));
+	}
+	//실시간검색어 리스트
+	public List<SearchCntDTO> searchCnt(){
+		return dao.searchCnt();
 	}
 	
 }

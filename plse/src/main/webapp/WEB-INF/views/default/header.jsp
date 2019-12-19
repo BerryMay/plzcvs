@@ -8,7 +8,9 @@
 <link rel="stylesheet" href="css/header.css" type="text/css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-
+<!-- js파일-->
+    <script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <script>
         function stop(nav) {
@@ -24,9 +26,44 @@
           }
         }
 </script>
+<!-- 실시간검색어  -->
+<script type="text/javascript">
+	function searchList(){
+		var output="";
+		$.ajax({
+			url:"board_searchCnt",
+			type:"POST",
+			success:function(data){
+				$("#searchCntTable").empty();
+				output += "<tr><th colspan='2'><b>실시간검색어</b></th></tr>"
+				console.log("실행")
+				for(i=0; i<data.length; i++){
+					output += "<tr>"
+					output += "<th>"+(i+1)+"</th>"
+					output += "<th><a href=board_search?content="+data[i].title+">"+data[i].title+"</a></th>";
+					output += "</tr>"
+					if(i == 4) break;
+				}
+				$("#searchCntTable").append(output);
+			},
+			error:function(){
+				$("#searchCntTable").empty();
+				output += "<tr><th colspan='2'><b>실시간검색어</b></th></tr>"
+				console.log("실시간검색어 에러")
+				output += "<tr>"
+				output += "<td colspan='2'>검색 데이터가 없습니다</td>";
+				output += "</tr>"
+				$("#searchCntTable").append(output);
+			}
+		});
+	}
+	setInterval(searchList, 5000)
+
+
+</script>
 <title>Insert title here</title>
 </head>
-<body>
+<body onload="searchList()">
 	<div id="wrap">
 
 		<header>
@@ -47,9 +84,13 @@
 				<li><a href="board">리뷰게시판</a></li>
 			</ul>
 				<a href="http://localhost:8989/practice/">
-			<h1 id="logo"></h1>
+			<h5 id="logo"></h5>
 				</a>
-
+			<!-- 실시간검색어 div -->
+			<div id="searchCnt">
+				<table id="searchCntTable">
+				</table>
+			</div> <!-- 실시간 끝 -->
 			<nav id="nav">
 				<ul>
 					<li><a href="#"></a></li>
