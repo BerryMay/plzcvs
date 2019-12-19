@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link
@@ -91,6 +95,18 @@
 								});
 							}
 						});
+						
+						
+						$('#reg_submit').click(function() {
+							
+						
+								alret("help~~");
+						});
+						
+						
+						
+						
+						
 						// karakter doğrulama
 						function checkStrength(password) {
 							var strength = 0;
@@ -191,6 +207,9 @@
 		element.type = (element.type == 'password' ? 'text' : 'password');
 
 	};
+	
+	
+	
 </script>
 
 </head>
@@ -328,7 +347,14 @@
 								<div class="form-group" style="text-align: left">
 									생년월일 : <input id="age" name="age" type="date">
 								</div>
-
+								
+								
+   								<!-- recapcha -->
+   
+   								<div class="g-recaptcha" data-sitekey="6LcyXMcUAAAAAOA8wS0BEcF5PDkaN5bZjyfbmGJa
+								"></div>
+								<br>							
+								 
 								<!-- Submit -->
 								<div class="form-group">
 									<input id="reg_submit" type="submit" value="Create user">
@@ -339,10 +365,11 @@
 							</form>
 						</div>
 
+
 						<div class="login-or">
 							<hr class="hr-or">
 						</div>
-
+						
 						<!-- Links -->
 						<div class="bottom text-center">
 							이미 회원가입 하였습니다. <a href="login"><b>Login</b></a>
