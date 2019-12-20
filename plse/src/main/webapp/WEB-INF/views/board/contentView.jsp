@@ -394,7 +394,7 @@
             <p class="date"> <fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></p>
             <div class="profile-head">
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <img src="" class="img-responsive" />
+                    <img src="${productimg }" class="img-responsive" />
                      <p class="form-group star_div">별점:
                    		<input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
                 	</p>  
