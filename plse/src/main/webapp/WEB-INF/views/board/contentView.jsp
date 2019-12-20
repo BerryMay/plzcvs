@@ -29,7 +29,10 @@
 	  var endPage;	//끝페이지
 	  var comnum;	//전체댓글수
 	  var wantpg=3;	//출력시 3페이지로 나누기 위한 변수
-  
+	  cvsnum();
+	  heartChk();
+	  heartCnt();
+	  
   
     var num=0;
 
@@ -110,6 +113,7 @@
     //편의점분류
     function cvsnum(){
     	var cvs ="";
+        
         switch(${ dto.cvsnum }){
            case 1: cvs="GS25"; break;
            case 2: cvs="세븐일레븐"; break;
@@ -394,7 +398,7 @@
             <p class="date"> <fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></p>
             <div class="profile-head">
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <img src="" class="img-responsive" />
+                    <img src="${productimg}" class="img-responsive" />
                      <p class="form-group star_div">별점:
                    		<input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
                 	</p>  
