@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
    <script type="text/javascript">
+   
+   $(document).ready(function($) {
+
       var productnames = new Array(); //상품이름 담을 배열
    
       $(function(){      
@@ -39,11 +42,13 @@
          $.ajax({
             type:'get', url:"productname_autocomplete", data:cvsnum,
             success:function(data){
+            	
                if(data.length > 0){
                         for(i=0; i<data.length; i++){
                            productnames.push(data[i]);                  
                         }   
-                   }         
+                   }    
+               
             },error:function(data){console.log("상품명 불러오기에러");},
       })
 
@@ -63,9 +68,13 @@
                               productnames.push(data[i]);    //각각의 상품명 값을 넣어준다              
                            }   
                       }
+                 
+
+
+       
                   $("#productname").autocomplete({
                        source: productnames,
-                       select: function(event, ui) {
+                       select: function(event, ui) {            
                            console.log(ui.item.value);                  
                        },
                        focus: function(event, ui) {
@@ -80,6 +89,7 @@
          $("#productname").autocomplete({
               source: productnames,
               select: function(event, ui) {
+            	 
                   console.log(ui.item.value);                  
               },
               focus: function(event, ui) {
@@ -133,11 +143,13 @@
             $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
           $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
         });//별점끝
+        
+   });
       </script>
    <meta charset="UTF-8">
    <title>게시판 등록</title>   
 </head>
-<body>
+<body >
 <c:if test="${userId == null }">
    <script type="text/javascript">
       alert("로그인한 사람만 글쓰기가 가능합니다")

@@ -22,6 +22,7 @@
     
     <script>
     
+    $(document).ready(function($) {
     var pagesu =10;  //페이지 번호 갯수
 	  var currentPage = 0; //현재페이지
 	  var numPerPage = 3;  //페이징시 표출되는 목록의갯수
@@ -380,12 +381,12 @@
      		 });
      		}
 
-       
+      });
     </script>
-
+	
 
 </head>
-<body onload="heartChk();heartCnt();cvsnum()">
+<body >
 <jsp:include page="../default/header.jsp" />
     <section class="sec">
 
@@ -393,7 +394,7 @@
             <p class="date"> <fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></p>
             <div class="profile-head">
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <img src=" " class="img-responsive" />
+                    <img src="" class="img-responsive" />
                      <p class="form-group star_div">별점:
                    		<input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
                 	</p>  
