@@ -491,6 +491,7 @@ input[type=file] {
 	background-color: #ffcccc;
 	border-color: #ff9999
 }
+.upload-hidden{visibility: hidden;}
 /*파일첨부 끝*/
 
 /*별점*/

@@ -46,6 +46,11 @@ bnum number(10) CONSTRAINT bnumkey REFERENCES board(num),
 nickname varchar2(20) CONSTRAINT mnumkey REFERENCES member(nickname),
 PRIMARY key(bnum,nickname)
 );
+create table searchCnt(
+title varchar2(100),
+dates date,
+cnt number(10)
+);
 
 comments primary key 편집으로 들어가서 bnum에 추가해주세요
 그리고 모두 notnull 체크해주세용

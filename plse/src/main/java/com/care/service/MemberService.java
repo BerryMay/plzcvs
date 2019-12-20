@@ -1,5 +1,6 @@
 package com.care.service;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 
 import com.care.dao.MemberDAO;
 import com.care.dto.MemberDTO;
+import com.care.recaptcha.VerifyRecaptcha;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -50,11 +52,26 @@ public class MemberService implements IMemberService{
 		dto.setAge(request.getParameter("age"));
 		dto.setGender(request.getParameter("gender"));
 		dto.setMail(request.getParameter("mail"));
+		boolean result = false;
+		
+		VerifyRecaptcha.setSecretKey("6LcyXMcUAAAAAGlmmpaJIfO_rj2M26pnq07V_588");
 		try {
+		if(VerifyRecaptcha.verify(request.getParameter("g-recaptcha-response")))
+		result =  true;
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			result =  false;
+		}
+		try {
+			if ( result == true ) {
 			int re = dao.register(dto);
-				model.addAttribute("result", re);
-		} catch (Exception e) { System.out.println("회원가입 오류" + e); }
+			model.addAttribute("result", re); 
+			}
+	} 
+		catch (Exception e) { System.out.println("회원가입오류" + e); }
 	}
+	
 	public void logout(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
