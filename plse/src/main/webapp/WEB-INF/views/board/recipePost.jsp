@@ -144,6 +144,7 @@
             $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
           $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
         });//별점끝
+   });
       </script>
    <meta charset="UTF-8">
    <title>레시피 게시판 등록</title>   
