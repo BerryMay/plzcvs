@@ -14,6 +14,7 @@ create table cvs(
   productname varchar2(100),
   price number(10),
   newproduct date
+  gdsimg varchar2(200)
 );
 
 create table board(
@@ -24,11 +25,12 @@ create table board(
   recommend NUMBER(7),
   savedate date default sysdate,
   stars float,
-  productname varchar2(20),
+  productname varchar2(100),
   content varchar2(1000),
   cvsnum number(1),
-  productnum number(10) CONSTRAINT pnamekey REFERENCES CVS(productnum)
-  gdsimg varchar2(200)
+  productnum number(10) CONSTRAINT pnamekey REFERENCES CVS(productnum),
+  gdsimg varchar2(200),
+  cat varchar2(20)
 );
 create SEQUENCE board_num_seq;        
 
@@ -47,5 +49,12 @@ nickname varchar2(20) CONSTRAINT mnumkey REFERENCES member(nickname),
 PRIMARY key(bnum,nickname)
 );
 
+create table searchCnt(
+title varchar2(100),
+dates date,
+cnt number(10)
+);
+
 comments primary key 편집으로 들어가서 bnum에 추가해주세요
 그리고 모두 notnull 체크해주세용
+보드 테이블에 편집-제약조건-외래 키 들 삭제 시 종속 삭제 해주세용

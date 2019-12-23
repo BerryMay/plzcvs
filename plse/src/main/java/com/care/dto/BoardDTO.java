@@ -18,4 +18,6 @@ public class BoardDTO {
 	private String content;
 	private int cvsnum;
 	private String gdsimg;
+	
+	private String cat; 
 }

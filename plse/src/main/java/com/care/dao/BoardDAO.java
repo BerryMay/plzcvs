@@ -47,9 +47,21 @@ public class BoardDAO {
 		System.out.println("DAO delete num 값 " + num);
 		return sqlSession.delete(namespace+".board_delete",num);
 	}
+	
+	//게시판 서치
 	public List<BoardDTO> board_search(BoardDTO dto) {
 		return sqlSession.selectList(namespace+".board_search",dto);
 	}
+	//레시피 서치
+	public List<BoardDTO> recipeBoard_search(BoardDTO dto) {
+		return sqlSession.selectList(namespace+".recipeBoard_search",dto);
+	}
+	//게시판 검색
+	public List<BoardDTO> cvs_search(BoardDTO dto) {
+		System.out.println("cvs넘버dao실행");
+		return sqlSession.selectList(namespace+".cvs_search",dto);
+	}
+	
 	public String board_productimg(BoardDTO dto) {
 		return sqlSession.selectOne(namespace+".board_productimg",dto);
 	}
@@ -74,13 +86,25 @@ public class BoardDAO {
 		return sqlSession.selectList(namespace+".board_commentList",bnum);
 	}
 	
-	// paging
+	// 리뷰 토탈페이지
 		public int getTotalPage() {
 			return sqlSession.selectOne(namespace+".board_getTotalPage");
 		}
 		
+	// 리세피 토탈페이지
+		public int recipeGetTotalPage() {
+			return sqlSession.selectOne(namespace+".recipeBoard_getTotalPage");
+		}
+		
+		
+		
+	//리뷰페이지
 		public List<BoardDTO> page_board_list(PageCount pc) {
 			return sqlSession.selectList(namespace+".board_pagingList",pc);
+		}
+	//레시피페이지
+		public List<BoardDTO> recipePage_board_list(PageCount pc) {
+			return sqlSession.selectList(namespace+".recipeBoard_pagingList",pc);
 		}
 		
 		

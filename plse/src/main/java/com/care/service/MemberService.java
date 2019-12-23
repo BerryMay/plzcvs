@@ -77,4 +77,7 @@ public class MemberService implements IMemberService{
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		dao.logout(request);
 	}
+	public int userIdCheck(String id) {
+		return dao.userIdCheck(id);
+	}
 }

@@ -7,22 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시판 리스트</title>
-<!-- js파일-->
-    <script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
 <!-- Bootstrap -->
 <link rel="stylesheet" href="css/board.css" type="text/css" />
-<script type="text/javascript">
-
-	$(function(){
-		$("#cvssearchs").change(function(){
-			document.cvsSearchForm.submit();
-		});
-	});
-</script>
-
-
 <script type="text/javascript">
 	function sChk(){
 		if(document.searchForm.content.value==""){
@@ -31,28 +17,15 @@
 			document.searchForm.submit();
 		}
 	}
-	
-	
-	
 </script>
 </head>
 <body>
 	<jsp:include page="../default/header.jsp" />
 	<div id="container">
 		<div id="list">
-			<h1>게시판</h1> 
+			<h1>레시피게시판</h1> 
 			<br><br>
 		</div>
-		
-			<form action="cvs_search" id="cvsSearchForm" name="cvsSearchForm">
-	<select name="cvsnum" id="cvssearchs" class="form-cvsnum form-control">
-		<option value="0">편의점선택</option>
-		<option value="1">gs25</option>
-		<option value="2">cu</option>
-		<option value="3">세븐일레븐</option>
-	</select>
-	</form>
-		
 		<div align="center">
 			<table class="table table-striped table-bordered table-hover" style="width: 100%;">
 				<thead>
@@ -72,7 +45,7 @@
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
 						<td style="text-align: center">${dto.productname }</td>
-						<td><a href="detail?num=${dto.num}"  class="aw100">${dto.title }
+						<td><a href="recipeDetail?num=${dto.num}"  class="aw100">${dto.title }
 						<!-- hit 뜨게하는 코드 -->
 						<c:if test="${dto.hit >= 20}">
                   			<span class="hit">best!</span>
@@ -100,7 +73,7 @@
 				
 				<!-- 계산해서 페이지 번호 나타내주기 -->
 				<c:forEach begin="1" end="${pc.totEndPage }" step="1" var="cnt">
-					<a href="board?start=${cnt }">[${cnt }]</a>		
+					<a href="recipeBoard?start=${cnt }">[${cnt }]</a>		
 				</c:forEach><br>
 				
 				<!-- 전체페이지 출력 -->
@@ -110,11 +83,11 @@
 			
 			
 			<div align="right">
-				<button class="btn" type="button" onclick="location.href='post'"><i class="fas fa-pen-fancy"></i> &nbsp; 글쓰기</button>
+				<button class="btn" type="button" onclick="location.href='recipePost'"><i class="fas fa-pen-fancy"></i> &nbsp; 글쓰기</button>
 			</div>
 		</div>
 		<div class="search_div">
-			<form action="board_search" id="searchForm" name="searchForm">
+			<form action="recipeBoard_search" id="searchForm" name="searchForm">
 				<select name="title" class="form-cvsnum form-control">
 					<option value="productname">상품명</option>
 					<option value="title">제목</option>

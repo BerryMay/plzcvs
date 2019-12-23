@@ -123,15 +123,15 @@
         });//별점끝
       </script>
 	<meta charset="UTF-8">
-	<title>게시글 수정</title>
+	<title>레시피 게시글 수정</title>
 </head>
 <body>
 <jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
 
 	    <div class="container">
-    		<h2>게시글 수정하기</h2>
+    		<h2>레시피 게시글 수정하기</h2>
     		
-    		<form id="postform" name="postform" class="postform" action="board_modifyOk" method="POST" enctype="multipart/form-data">
+    		<form id="postform" name="postform" class="postform" action="recipeBoard_modifyOk" method="POST" enctype="multipart/form-data">
     			<input type="hidden" name="num" value="${dto.num }"/>
     			<div class="form-group"><!-- 편의점, 상품명 div -->
 				<div class="cvsnum_div">

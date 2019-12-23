@@ -11,4 +11,10 @@
   	<insert id="register" parameterType="Mdto" >
   		insert into member values(#{id},#{pw},#{nickname},#{age},#{gender},#{mail},0)
   	</insert>
+  	
+  	
+  	<select id="userIdCheck" parameterType="Mdto" resultType="int">
+  		select count(*) from member where id = #{id}
+  	</select>
+  	
 	</mapper>

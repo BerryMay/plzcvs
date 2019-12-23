@@ -135,7 +135,7 @@
         });//별점끝
       </script>
    <meta charset="UTF-8">
-   <title>게시판 등록</title>   
+   <title>레시피 게시판 등록</title>   
 </head>
 <body>
 <c:if test="${userId == null }">
@@ -149,10 +149,10 @@
 <div class="container">
    <div class="row">
        <div class="col-md-8 col-md-offset-2">
-          <h2>게시글 등록하기</h2>
-          <form name="postform" id="postform" class="postform" action="board_reg" method="POST" enctype="multipart/form-data">
+          <h2>레시피 등록하기</h2>
+          <form name="postform" id="postform" class="postform" action="recipeBoard_reg" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="nickname" value="${userId }">
-          <input type="hidden" name="cat" value='1'>
+          <input type="hidden" name="cat" value='2'>
             <div class="form-group"><!-- 편의점, 상품명 div -->
                   <div class="cvsnum_div">
                <label for="cvsnum">편의점</label> 

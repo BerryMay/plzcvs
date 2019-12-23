@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.care.dto.MemberDTO;
 import com.care.service.*;
@@ -50,4 +52,11 @@ public class LoginController {
 		ms.register(model);
 		return "login/registerChk";
 	}
+	@RequestMapping(value = "/user/idCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public int idCheck(@RequestParam("id") String id) {
+
+		return ms.userIdCheck(id);
+	}
+	
 }

@@ -208,7 +208,33 @@
 
 	};
 	
-	
+	$(document).ready(function() {
+		//아이디 중복 
+		$("#id").blur(function() {
+		var id = $('#id').val();
+		console.log(id);
+		$.ajax({
+			url : 'user/idCheck?id='+id,
+			type : 'get',
+			success : function(data) {
+				console.log("1 = 중복o / 0 = 중복x : "+ data);							
+				
+				if (data == 1) {
+						// 1 : 아이디가 중복되는 문구
+						$("#id_check").text("사용중인 아이디입니다 :p");
+						$("#id_check").css("color", "red");
+						
+					} else {
+						$("#id_check").text("사용가능한 아이디입니다 :p");
+						$("#id_check").css("color", "red");
+							
+					}
+				}, error : function() {
+						console.log("실패");
+				}
+			});
+		});
+	});
 	
 </script>
 
@@ -231,12 +257,17 @@
 						<div class="form-group">
 							<form action="registerChk" id="Mregister" method="post" role="form" class="form"
 								accept-charset="UTF-8">
+								
+								
+									
+								<!-- id 지정 -->
 								<div class="form-group">
-									<label class="sr-only">Id</label> <input type="text"
-										id="reg_username" name="id" class="form-control" value=""
-										placeholder="Id" required>
-								</div>
-
+								<input type="text" id="id" name="id" class="form-control" placeholder="Id" required>
+							
+								<div class="check_font" id="id_check"></div>	
+							
+								 </div>
+								 
 								<!-- password group -->
 								<div class="form-group">
 
