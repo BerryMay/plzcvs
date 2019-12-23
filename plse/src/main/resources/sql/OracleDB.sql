@@ -48,6 +48,11 @@ bnum number(10) CONSTRAINT bnumkey REFERENCES board(num),
 nickname varchar2(20) CONSTRAINT mnumkey REFERENCES member(nickname),
 PRIMARY key(bnum,nickname)
 );
+create table searchCnt(
+title varchar2(100),
+dates date,
+cnt number(10)
+);
 
 create table searchCnt(
 title varchar2(100),

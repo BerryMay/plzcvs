@@ -285,8 +285,17 @@ public class BoardController {
 	//상품명 자동완성
 	@RequestMapping(value = "productname_autocomplete")
 	@ResponseBody
+	
 	public List<String> productname_autocomplete(Model model, HttpServletRequest request) {
+		
+		System.out.println("실행");
 		model.addAttribute("request", request);
 		return bs.productname_autocomplete(model);
 	}
-}
+	//실시간검색어 리스트
+	@RequestMapping(value = "board_searchCnt")
+	@ResponseBody
+	public List<SearchCntDTO> board_searchCnt(){
+		return bs.searchCnt();
+	}
+	}

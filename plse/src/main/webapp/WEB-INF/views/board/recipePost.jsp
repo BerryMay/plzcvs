@@ -31,62 +31,73 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
    <script type="text/javascript">
-      var productnames = new Array(); //상품이름 담을 배열
    
-      $(function(){      
-         var cvsnum ={"cvsnum":$(".form-cvsnum").val()};
-         
-         $.ajax({
-            type:'get', url:"productname_autocomplete", data:cvsnum,
-            success:function(data){
-               if(data.length > 0){
-                        for(i=0; i<data.length; i++){
-                           productnames.push(data[i]);                  
-                        }   
-                   }         
-            },error:function(data){console.log("상품명 불러오기에러");},
-      })
+   $(document).ready(function($) {
 
-         
-         $(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기            
-            if(this.value == '1'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //gs일때                        
-            else if(this.value =='2'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //세븐일때                           
-            else if(this.value == '3'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //Cu일때               
-            
-            //바뀌면 목록을 새로 불러온다.
-            $.ajax({
-               type:'get', url:"productname_autocomplete", data:cvsnum,
-               success:function(data){
-                  if(data.length > 0){
-                     productnames=new Array();//초기화
-                           for(i=0; i<data.length; i++){                             
-                              productnames.push(data[i]);    //각각의 상품명 값을 넣어준다              
-                           }   
-                      }
-                  $("#productname").autocomplete({
-                       source: productnames,
-                       select: function(event, ui) {
-                           console.log(ui.item.value);                  
-                       },
-                       focus: function(event, ui) {
-                           return false;
-                       }
-                   });     
-               },error:function(data){console.log("상품명 불러오기에러");},
-            })//ajax 끝
+	      var productnames = new Array(); //상품이름 담을 배열
+	   
+	      $(function(){      
+	         var cvsnum ={"cvsnum":$(".form-cvsnum").val()};
+	         
+	         $.ajax({
+	            type:'get', url:"productname_autocomplete", data:cvsnum,
+	            success:function(data){
+	            	
+	               if(data.length > 0){
+	                        for(i=0; i<data.length; i++){
+	                           productnames.push(data[i]);                  
+	                        }   
+	                   }    
+	               
+	            },error:function(data){console.log("상품명 불러오기에러");},
+	      })
 
-         }) 
+	         
+	         $(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기            
+	            if(this.value == '1'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //gs일때                        
+	            else if(this.value =='2'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //세븐일때                           
+	            else if(this.value == '3'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //Cu일때               
+	            
+	            //바뀌면 목록을 새로 불러온다.
+	            $.ajax({
+	               type:'get', url:"productname_autocomplete", data:cvsnum,
+	               success:function(data){
+	                  if(data.length > 0){
+	                     productnames=new Array();//초기화
+	                           for(i=0; i<data.length; i++){                             
+	                              productnames.push(data[i]);    //각각의 상품명 값을 넣어준다              
+	                           }   
+	                      }
+	                 
 
-         $("#productname").autocomplete({
-              source: productnames,
-              select: function(event, ui) {
-                  console.log(ui.item.value);                  
-              },
-              focus: function(event, ui) {
-                  return false;
-              }
-          });     
-      });//자동완성 끝
+
+	       
+	                  $("#productname").autocomplete({
+	                       source: productnames,
+	                       select: function(event, ui) {            
+	                           console.log(ui.item.value);                  
+	                       },
+	                       focus: function(event, ui) {
+	                           return false;
+	                       }
+	                   });     
+	               },error:function(data){console.log("상품명 불러오기에러");},
+	            })//ajax 끝
+
+	         }) 
+
+	         $("#productname").autocomplete({
+	              source: productnames,
+	              select: function(event, ui) {
+	            	 
+	                  console.log(ui.item.value);                  
+	              },
+	              focus: function(event, ui) {
+	                  return false;
+	              }
+	          });     
+	      });//자동완성 끝
+	      
       
       
       //별점 script
@@ -164,7 +175,7 @@
                </div>
                <div class="productname_div">
                <label for="productname">상품명</label> 
-               <input type="text" class="form-productname form-control " id="productname" name="productname" />
+              <input type="text" class="form-productname form-control " id="productname" name="productname" />
                </div>
             </div><!-- 편의점, 상품명 div -->
 

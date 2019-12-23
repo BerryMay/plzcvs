@@ -1,5 +1,6 @@
 package com.care.dao;
 
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import com.care.dto.BoardDTO;
 import com.care.dto.CommentDTO;
 import com.care.dto.CvsDTO;
 import com.care.dto.PageCount;
+import com.care.dto.SearchCntDTO;
 
 @Component
 public class BoardDAO {
@@ -40,18 +42,25 @@ public class BoardDAO {
 		return sqlSession.update(namespace+".upHit",num);
 	}
 	public int board_modify(BoardDTO dto) {
-		System.out.println("dao chk"+dto.getProductname());
 		return sqlSession.update(namespace+".board_modify",dto);
 	}
 	public int board_delete(int num) {
-		System.out.println("DAO delete num 값 " + num);
 		return sqlSession.delete(namespace+".board_delete",num);
 	}
 	
 	//게시판 서치
 	public List<BoardDTO> board_search(BoardDTO dto) {
-		return sqlSession.selectList(namespace+".board_search",dto);
+		//검색할때 실시간검색어를 위한 검색기록 저장
+		search_reg(dto);
+		if(dto.getTitle() == null) {
+			//실시간검색어 클릭시 검색
+			return sqlSession.selectList(namespace+".searchSelect",dto);
+		}else {
+			//일반적인 검색 수행시
+			return sqlSession.selectList(namespace+".board_search",dto);
+		}
 	}
+
 	//레시피 서치
 	public List<BoardDTO> recipeBoard_search(BoardDTO dto) {
 		return sqlSession.selectList(namespace+".recipeBoard_search",dto);
@@ -61,6 +70,7 @@ public class BoardDAO {
 		System.out.println("cvs넘버dao실행");
 		return sqlSession.selectList(namespace+".cvs_search",dto);
 	}
+
 	
 	public String board_productimg(BoardDTO dto) {
 		return sqlSession.selectOne(namespace+".board_productimg",dto);
@@ -111,6 +121,23 @@ public class BoardDAO {
 	//상품명 자동완성
 	public List<String> productname_autocomplete(int cvsnum) {
 		return sqlSession.selectList(namespace+".productname_autocomplete", cvsnum);
+	}
+	//실시간검색어리스트
+	public List<SearchCntDTO> searchCnt(){
+		return sqlSession.selectList(namespace+".searchCnt");
+	}
+	//실시간검색어 여부확인
+	public Object search_Chk(BoardDTO dto) {
+		return sqlSession.selectOne(namespace+".search_chk",dto);
+	}
+	//실시간검색어 저장
+	public void search_reg(BoardDTO dto){
+		Object a = search_Chk(dto);
+		if(a != null){
+			sqlSession.update(namespace+".search_update",dto);
+		}else {
+			sqlSession.insert(namespace+".search_reg",dto);
+		}
 	}
 	// 관리자
 		@RequestMapping(method = RequestMethod.POST)
