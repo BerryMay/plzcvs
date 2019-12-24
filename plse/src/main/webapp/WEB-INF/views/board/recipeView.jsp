@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,16 +22,12 @@
     
     <script>
     
-    $(document).ready(function($) {
     var pagesu =10;  //페이지 번호 갯수
 	  var currentPage = 0; //현재페이지
 	  var numPerPage = 3;  //페이징시 표출되는 목록의갯수
 	  var endPage;	//끝페이지
 	  var comnum;	//전체댓글수
 	  var wantpg=3;	//출력시 3페이지로 나누기 위한 변수
-	  cvsnum();
-	  heartCnt();
-	  heartChk();
 	  
   
     var num=0;
@@ -115,7 +109,6 @@
     //편의점분류
     function cvsnum(){
     	var cvs ="";
-        
         switch(${ dto.cvsnum }){
            case 1: cvs="GS25"; break;
            case 2: cvs="세븐일레븐"; break;
@@ -186,7 +179,6 @@
                          html += "<h5 class='time'>"+savedate+"</h5>";
                          html += "</div>";
                          html += "<p class='com_con' id='"+num++ +"'>"+data[i].content+"</p>";
-                         console.log(data[i].content);
                          html += "</div>";
                          html += "</li>";
                      }
@@ -388,12 +380,12 @@
      		 });
      		}
 
-      });
+       
     </script>
-	
+
 
 </head>
-<body >
+<body onload="heartChk();heartCnt();cvsnum()">
 <jsp:include page="../default/header.jsp" />
     <section class="sec">
 
@@ -401,10 +393,7 @@
             <p class="date"> <fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></p>
             <div class="profile-head">
                 <div class="col-md-4 col-sm-4 col-xs-12">
-
-                    <img src="${productimg}" class="img-responsive" />
-
-
+                    <img src=" " class="img-responsive" />
                      <p class="form-group star_div">별점:
                    		<input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
                 	</p>  
@@ -444,7 +433,7 @@
                             <c:if test="${dto.gdsimg != null }">
                              	<div><img src="${dto.gdsimg }"/></div>
                              </c:if>
-                            <div class="content_div">${dto.content }</div>
+                            <div class="content_div"> ${dto.content }</div>
 
                         </div> <!--col-md-6 close-->
 
@@ -492,10 +481,10 @@
     
 		    <!--게시글 수정/삭제/목록 버튼들 -->
 	        <div align="right">
-	        <input class="btn btn-primary" type="button" value="목록으로" onclick="javascript:location.href='board'">
+	        <input class="btn btn-primary" type="button" value="목록으로" onclick="javascript:location.href='recipeBoard'">
 	           <c:if test="${userId == dto.nickname }">
-	              <input class="btn btn-primary" type="button" value="수정" onclick="javascript:location.href='board_modify?num=${dto.num}'">
-	              <input class="btn btn-primary" type="button" value="삭제" onclick="javascript:location.href='board_delete?num=${dto.num}'">
+	              <input class="btn btn-primary" type="button" value="수정" onclick="javascript:location.href='recipeBoard_modify?num=${dto.num}'">
+	              <input class="btn btn-primary" type="button" value="삭제" onclick="javascript:location.href='recipeBoard_delete?num=${dto.num}'">
 	           </c:if>
 	        </div> 
     </section>

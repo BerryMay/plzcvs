@@ -11,4 +11,25 @@
   	<insert id="register" parameterType="Mdto" >
   		insert into member values(#{id},#{pw},#{nickname},#{age},#{gender},#{mail},0)
   	</insert>
+  	
+  	
+  	<select id="userIdCheck" parameterType="Mdto" resultType="int">
+  		select count(*) from member where id = #{id}
+  	</select>
+  	
+  	<!-- 마이페이지 불러오기  -->
+  	<select id="view" resultType="Mdto" parameterType="String">
+  		select * from member where nickname=#{nickname}
+  	</select>
+  	
+  	<!-- 마이페이지 수정오기  -->
+  	<update id="member_modify" parameterType="Mdto">
+  		update member set pw=#{pw}, nickname=#{nickname}, age=#{age}, mail=#{mail}, gender=#{gender} where id=#{id}
+  	</update>
+  	
+  	<!-- 회원탈퇴 -->
+	<delete id="member_withdrawal"  parameterType="String">
+  		delete from member where nickname=#{nickname}
+  	</delete>
+  	
 	</mapper>

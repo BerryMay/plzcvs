@@ -34,69 +34,70 @@
    
    $(document).ready(function($) {
 
-      var productnames = new Array(); //상품이름 담을 배열
-   
-      $(function(){      
-         var cvsnum ={"cvsnum":$(".form-cvsnum").val()};
-         
-         $.ajax({
-            type:'get', url:"productname_autocomplete", data:cvsnum,
-            success:function(data){
-            	
-               if(data.length > 0){
-                        for(i=0; i<data.length; i++){
-                           productnames.push(data[i]);                  
-                        }   
-                   }    
-               
-            },error:function(data){console.log("상품명 불러오기에러");},
-      })
+	      var productnames = new Array(); //상품이름 담을 배열
+	   
+	      $(function(){      
+	         var cvsnum ={"cvsnum":$(".form-cvsnum").val()};
+	         
+	         $.ajax({
+	            type:'get', url:"productname_autocomplete", data:cvsnum,
+	            success:function(data){
+	            	
+	               if(data.length > 0){
+	                        for(i=0; i<data.length; i++){
+	                           productnames.push(data[i]);                  
+	                        }   
+	                   }    
+	               
+	            },error:function(data){console.log("상품명 불러오기에러");},
+	      })
 
-         
-         $(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기            
-            if(this.value == '1'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //gs일때                        
-            else if(this.value =='2'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //세븐일때                           
-            else if(this.value == '3'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //Cu일때               
-            
-            //바뀌면 목록을 새로 불러온다.
-            $.ajax({
-               type:'get', url:"productname_autocomplete", data:cvsnum,
-               success:function(data){
-                  if(data.length > 0){
-                     productnames=new Array();//초기화
-                           for(i=0; i<data.length; i++){                             
-                              productnames.push(data[i]);    //각각의 상품명 값을 넣어준다              
-                           }   
-                      }
-                 
+	         
+	         $(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기            
+	            if(this.value == '1'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //gs일때                        
+	            else if(this.value =='2'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //세븐일때                           
+	            else if(this.value == '3'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //Cu일때               
+	            
+	            //바뀌면 목록을 새로 불러온다.
+	            $.ajax({
+	               type:'get', url:"productname_autocomplete", data:cvsnum,
+	               success:function(data){
+	                  if(data.length > 0){
+	                     productnames=new Array();//초기화
+	                           for(i=0; i<data.length; i++){                             
+	                              productnames.push(data[i]);    //각각의 상품명 값을 넣어준다              
+	                           }   
+	                      }
+	                 
 
 
-       
-                  $("#productname").autocomplete({
-                       source: productnames,
-                       select: function(event, ui) {            
-                           console.log(ui.item.value);                  
-                       },
-                       focus: function(event, ui) {
-                           return false;
-                       }
-                   });     
-               },error:function(data){console.log("상품명 불러오기에러");},
-            })//ajax 끝
+	       
+	                  $("#productname").autocomplete({
+	                       source: productnames,
+	                       select: function(event, ui) {            
+	                           console.log(ui.item.value);                  
+	                       },
+	                       focus: function(event, ui) {
+	                           return false;
+	                       }
+	                   });     
+	               },error:function(data){console.log("상품명 불러오기에러");},
+	            })//ajax 끝
 
-         }) 
+	         }) 
 
-         $("#productname").autocomplete({
-              source: productnames,
-              select: function(event, ui) {
-            	 
-                  console.log(ui.item.value);                  
-              },
-              focus: function(event, ui) {
-                  return false;
-              }
-          });     
-      });//자동완성 끝
+	         $("#productname").autocomplete({
+	              source: productnames,
+	              select: function(event, ui) {
+	            	 
+	                  console.log(ui.item.value);                  
+	              },
+	              focus: function(event, ui) {
+	                  return false;
+	              }
+	          });     
+	      });//자동완성 끝
+	      
       
       
       //별점 script
@@ -143,13 +144,12 @@
             $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
           $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
         });//별점끝
-        
    });
       </script>
    <meta charset="UTF-8">
-   <title>게시판 등록</title>   
+   <title>레시피 게시판 등록</title>   
 </head>
-<body >
+<body>
 <c:if test="${userId == null }">
    <script type="text/javascript">
       alert("로그인한 사람만 글쓰기가 가능합니다")
@@ -161,10 +161,10 @@
 <div class="container">
    <div class="row">
        <div class="col-md-8 col-md-offset-2">
-          <h2>게시글 등록하기</h2>
-          <form name="postform" id="postform" class="postform" action="board_reg" method="POST" enctype="multipart/form-data">
+          <h2>레시피 등록하기</h2>
+          <form name="postform" id="postform" class="postform" action="recipeBoard_reg" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="nickname" value="${userId }">
-          <input type="hidden" name="cat" value='1'>
+          <input type="hidden" name="cat" value='2'>
             <div class="form-group"><!-- 편의점, 상품명 div -->
                   <div class="cvsnum_div">
                <label for="cvsnum">편의점</label> 
@@ -176,7 +176,7 @@
                </div>
                <div class="productname_div">
                <label for="productname">상품명</label> 
-               <input type="text" class="form-productname form-control " id="productname" name="productname" />
+              <input type="text" class="form-productname form-control " id="productname" name="productname" />
                </div>
             </div><!-- 편의점, 상품명 div -->
 
