@@ -30,8 +30,8 @@
 	  var comnum;	//전체댓글수
 	  var wantpg=3;	//출력시 3페이지로 나누기 위한 변수
 	  cvsnum();
-	  heartChk();
 	  heartCnt();
+	  heartChk();
 	  
   
     var num=0;
