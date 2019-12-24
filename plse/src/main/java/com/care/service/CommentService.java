@@ -22,6 +22,7 @@ public class CommentService implements ICommentService {
 	public List<CommentDTO> comment_list(Model model) {
 		Map<String, Object> map = model.asMap();
 		CommentDTO dto = (CommentDTO)map.get("dto");	
+		dto.setContent(dto.getContent().replace("\r\n", "<br>"));
 		return dao.comment_list(dto.getBnum());
 	}
 	

@@ -145,4 +145,12 @@ public class BoardDAO {
 			return sqlSession.insert(namespace+".adminPost",dto);
 		}
 	
+	//내가 쓴 글
+	public List<BoardDTO> myboard_list(String nickname) {
+		return sqlSession.selectList(namespace+".myboard_list",nickname);
+	}
+	//좋아요 한 글
+	public List<BoardDTO> myheart_list(String nickname) {
+		return sqlSession.selectList(namespace+".myheart_list",nickname);
+	}
 }

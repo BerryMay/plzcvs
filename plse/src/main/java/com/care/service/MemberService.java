@@ -80,4 +80,27 @@ public class MemberService implements IMemberService{
 	public int userIdCheck(String id) {
 		return dao.userIdCheck(id);
 	}
+	
+	//회원정보보기
+	public void member_view(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		MemberDTO dto = dao.member_view(request);
+		
+		model.addAttribute("dto", dto);
+		
+	}
+	//회원정보 수정
+	public void member_modify(Model model) {
+		Map<String, Object> map = model.asMap();
+		MemberDTO dto = (MemberDTO)map.get("dto");
+		dao.member_modify(dto);		
+	}
+	//회원탈퇴
+	public void member_withdrawal(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String nick= request.getParameter("nickname");
+		dao.member_withdrawal(nick);
+	}
 }

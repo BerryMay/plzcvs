@@ -41,7 +41,7 @@
 	<div id="container">
 		<div id="list">
 			<h1>게시판</h1> 
-			<br><br>
+			
 		</div>
 		
 			<form action="cvs_search" id="cvsSearchForm" name="cvsSearchForm">
@@ -56,33 +56,33 @@
 		<div align="center">
 			<table class="table table-striped table-bordered table-hover" style="width: 100%;">
 				<thead>
-					<tr>
-						<th style=" border-radius: 10px;" width="10%" height="30px" >번호</th>
-						<th style=" border-radius: 10px;" width="10%" height="30px" >상품명</th>
-						<th style=" border-radius: 10px;" width="40%" height="30px">제목</th>
-						<th style=" border-radius: 10px;" width="10%" height="30px">작성자</th>
-						<th style=" border-radius: 10px;" width="20%" height="30px">작성일</th>
-						<th style=" border-radius: 10px;" width="10%" height="30px">조회</th>
+					<tr height="42px" >
+						<th style=" border-radius: 10px 0 0 0;" width="10%" >번호</th>
+						<th width="10%">상품명</th>
+						<th width="40%">제목</th>
+						<th width="10%">작성자</th>
+						<th width="20%">작성일</th>
+						<th style=" border-radius: 0 10px 0 0;" width="10%">조회</th>
 					</tr>
 				</thead>
 				<tbody>
 					
-				</tbody>
 				<c:forEach var="dto" items="${list }">
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
-						<td style="text-align: center">${dto.productname }</td>
-						<td><a href="detail?num=${dto.num}"  class="aw100">${dto.title }
-						<!-- hit 뜨게하는 코드 -->
-						<c:if test="${dto.hit >= 20}">
-                  			<span class="hit">best!</span>
-                		</c:if>
-                		</a></td>
+						<td style="text-align: center" title="${dto.productname }" >${dto.productname }</td>
+						<td><a href="detail?num=${dto.num}" class="aw100" title="${dto.title }">${dto.title }
+							<!-- hit 뜨게하는 코드 -->
+							<c:if test="${dto.hit >= 20}">
+		                  		<span class="hit">best!</span>
+		                	</c:if>
+						</a></td>
 						<td>${dto.nickname }</td>
 						<td style="text-align: center"><fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></td>
 						<td style="text-align: center">${dto.hit }</td>
 					</tr>
 				</c:forEach>
+				</tbody>
 			</table>
 			 <div id="paging">
 				<!-- 페이징 처리 -->

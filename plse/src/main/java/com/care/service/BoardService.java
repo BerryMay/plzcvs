@@ -44,6 +44,7 @@ public class BoardService implements IBoardService{
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
+		dto.setContent(dto.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("dto", dto);
 		HttpSession session = request.getSession();
 		session.setAttribute("price", dao.board_price(dto));
@@ -242,6 +243,22 @@ public class BoardService implements IBoardService{
 	//실시간검색어 리스트
 	public List<SearchCntDTO> searchCnt(){
 		return dao.searchCnt();
+	}
+	
+	//내가 쓴 글 가져오기
+	public List<BoardDTO> myboard_list(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		String nick= request.getParameter("nickname");
+		return  dao.myboard_list(nick);	
+	}
+	
+	//내가 좋아요 한 글 가져오기
+	public List<BoardDTO> myheart_list(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		String nickname= request.getParameter("nickname");
+		return  dao.myheart_list(nickname);	
 	}
 	
 }

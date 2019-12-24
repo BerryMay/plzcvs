@@ -135,7 +135,17 @@
   	</select>
 
   	<!-- 관리자 상품등록 -->
-<insert id="adminPost" parameterType="com.care.dto.CvsDTO">
-	insert into cvs(cvsnum,productnum,productname,price,gdsimg) values(#{cvsnum},#{productnum},#{productname},#{price},#{gdsimg})
-</insert>
+	<insert id="adminPost" parameterType="com.care.dto.CvsDTO">
+		insert into cvs(cvsnum,productnum,productname,price,gdsimg) values(#{cvsnum},#{productnum},#{productname},#{price},#{gdsimg})
+	</insert>
+
+	<!-- 내가쓴글 -->
+  	<select id="myboard_list" resultType="Bdto" parameterType="String">
+		select * from board where nickname=#{nickname} order by num desc
+	</select> 	
+  	<!-- 내가 좋아요 한 글 -->
+  	<select id="myheart_list" resultType="Bdto" parameterType="String">
+		select * from board where num in (select bnum from heart where nickname=#{nickname}) order by num desc
+	</select>
+	
 	</mapper>

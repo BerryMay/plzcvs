@@ -28,7 +28,7 @@
 	  var endPage;	//끝페이지
 	  var comnum;	//전체댓글수
 	  var wantpg=3;	//출력시 3페이지로 나누기 위한 변수
-  
+	  
   
     var num=0;
 

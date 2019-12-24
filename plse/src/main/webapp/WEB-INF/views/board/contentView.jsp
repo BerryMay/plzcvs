@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -184,6 +186,7 @@
                          html += "<h5 class='time'>"+savedate+"</h5>";
                          html += "</div>";
                          html += "<p class='com_con' id='"+num++ +"'>"+data[i].content+"</p>";
+                         console.log(data[i].content);
                          html += "</div>";
                          html += "</li>";
                      }
@@ -441,7 +444,7 @@
                             <c:if test="${dto.gdsimg != null }">
                              	<div><img src="${dto.gdsimg }"/></div>
                              </c:if>
-                            <div class="content_div"> ${dto.content }</div>
+                            <div class="content_div">${dto.content }</div>
 
                         </div> <!--col-md-6 close-->
 
