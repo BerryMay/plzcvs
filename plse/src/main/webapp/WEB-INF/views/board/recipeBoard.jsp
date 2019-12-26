@@ -29,13 +29,13 @@
 		<div align="center">
 			<table class="table table-striped table-bordered table-hover" style="width: 100%;">
 				<thead>
-					<tr>
-						<th style=" border-radius: 10px;" width="10%" height="30px" >번호</th>
-						<th style=" border-radius: 10px;" width="10%" height="30px" >상품명</th>
-						<th style=" border-radius: 10px;" width="40%" height="30px">제목</th>
-						<th style=" border-radius: 10px;" width="10%" height="30px">작성자</th>
-						<th style=" border-radius: 10px;" width="20%" height="30px">작성일</th>
-						<th style=" border-radius: 10px;" width="10%" height="30px">조회</th>
+					<tr height="42px" >
+						<th style=" border-radius: 10px 0 0 0;" width="10%" >번호</th>
+						<th width="10%">상품명</th>
+						<th width="40%">제목</th>
+						<th width="10%">작성자</th>
+						<th width="20%">작성일</th>
+						<th style=" border-radius: 0 10px 0 0;" width="10%">조회</th>
 					</tr>
 				</thead>
 				<tbody>

@@ -522,7 +522,7 @@
   		var ck = 0;
   		
   		if(k!=null){ck=1; currentPage=1;nowp = currentPage;}
-  		else{ck = Number($('.actived').text());}
+  		else{ck = Number($('#mypost').find(".actived").text());}
   		  
   		  $table.on('repaginate', function() {
   			//기본적으로 모두 감춘다, 현재페이지+1 곱하기 현재페이지까지 보여준다
@@ -630,7 +630,7 @@
 	     function myheart_list(){
 	    	 var user= "<%=(String)session.getAttribute("userId")%>";
 	     	 var nick = {"nickname":user};
-	    	console.log(nick);
+	    	
 	        $.ajax({
 	           type:"POST",
 	           url:"myheart_list",
@@ -669,7 +669,7 @@
 	               } 
 	               
 	               $(".table-heart tbody").html(html);
-	               heart_page();
+	               heart_page(1);
 
 	           },
 	           error:function(data){console.log("에러");},
@@ -677,9 +677,10 @@
 	     
 	     };
 		  // 좋아요 페이지 처리
-		  	function heart_page(){ 
-
-		  		 $('.table-heart tbody').each(function() {	
+		  	function heart_page(n){ 
+				
+		  		 $('.table-heart tbody').each(function() {
+		  			 var currentPage =0;
 		  			//length로 원래 리스트의 전체길이구함
 			  		  var numRows = comnum;
 			  		  //Math.ceil를 이용하여 반올림
@@ -693,13 +694,14 @@
 		  		  var $table = $(this);    	  		  
 		  		  var $pager = $('<div class="pager" align="center" id="remo"></div>');
 		  		
-		  		var ck = Number($('.actived').text());
-		  		
+		  		 ck = Number($('#heartpost').find(".actived").text());
+		  		console.log(ck);
 		  		  //페이지를 클릭하면 다시 셋팅
-		  		  $table.bind('repaginate', function() {
+		  		  $table.on('repaginate', function() {
 		  			//기본적으로 모두 감춘다, 현재페이지+1 곱하기 현재페이지까지 보여준다
 			  		   $table.find('tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
-			  		   $("#remo").html(" ");
+			  		   $(".pager").empty();
+			  		   //$("#heartpost").find(".pager")
 			  		   
 			  		   if (numPages > 1) {     // 한페이지 이상이면
 			  				    if (currentPage < 5 && (numPages-currentPage) >= 5) {   // 현재 5p 이하이면
@@ -757,7 +759,7 @@
 			  		           $table.trigger('repaginate');
 			  		           $($(".page-number")[endp-nowp+1]).addClass('actived').siblings().removeClass('actived');
 			  		   }).appendTo($pager).addClass('clickable');
-			  		     
+			  		
 			  		    console.log(ck);
 			  		    if(ck<="1" || ck== 'Nan'){	
 			   				 //0, 1페이지라면    				
@@ -768,14 +770,13 @@
 				 				if(ck>numPages){
 			   			 			$($(".page-number")[endp-nowp+1]).addClass('actived');
 				 				}else{
-				 					$($(".page-number")[ck+1]).addClass('actived');
-								
+				 					$($(".page-number")[ck+1]).addClass('actived');								
 				 				}
 			  			}
 		  		  });
 
-						if($('.table-heart').next().hasClass('pager')){ 	$("#remo").remove();	}
-			   			 	 
+						if($('.table-heart').next().hasClass('pager')){ 	$(".pager").remove();	}
+							 
 						$pager.insertAfter($('.table-heart'));
 			   			$table.trigger('repaginate');
 			   			
