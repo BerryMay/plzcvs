@@ -17,11 +17,11 @@
           var x = document.getElementById("nav");
             var btn = document.getElementById("nav_btn");
             console.log(x.style.left);
-          if (x.style.left == '-95%' || x.style.left == '') {
-            x.style.left = 0;
+          if (x.style.left == '-99%' || x.style.left == '') {
+            x.style.left = '-5%';
               btn.innerHTML="<i class='fas fa-angle-left fa-2x'></i>";
           } else {
-            x.style.left = '-95%';
+            x.style.left = '-99%';
               btn.innerHTML="<i class='fas fa-angle-right fa-2x'></i>";
           }
         }
@@ -67,6 +67,7 @@
 
 		<header>
 			<ul id="top">
+<!-- 
 				<li><c:choose>
 						<c:when test="${userId == null }">
 							<a href="login">로그인</a>
@@ -81,6 +82,19 @@
 				<li><a href="board">리뷰게시판</a></li>
 				<li><a href="recipeBoard">레시피게시판</a></li>
 				<li><a href="map">지도</a></li>
+ -->
+				<c:choose>
+					<c:when test="${userId == null }">
+						<li><a href="login">로그인</a></li>|
+						<li><a href="register">회원가입</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="logout">${userId } 로그아웃</a></li>|
+						<li><a href="mypage?nickname=${userId}">마이페이지</a></li>
+					</c:otherwise>
+				</c:choose>
+				<!-- <li><a href="board">리뷰게시판</a></li>
+				<li><a href="recipeBoard">레시피게시판</a></li> -->
 			</ul>
 				
 			<h1 id="logo">
@@ -97,8 +111,10 @@
 			<nav id="nav">
 				<ul>
 					<li><a href="board">리뷰 게시판</a></li>
-					<li><a href="#">레시피 게시판</a></li>
-					<li><a href="#">그래프</a></li>
+					<li><a href="recipeBoard">레시피 게시판</a></li>
+					<li><a href="#">선호도 조사</a></li>
+					<li><a href="#">편의점 찾기</a></li>
+					<li><a href="#">이벤트 보기</a></li>
 				</ul>
 				<button id="nav_btn" onclick="stop('nav')">
 					<i class="fas fa-angle-right fa-2x"></i>

@@ -1,0 +1,249 @@
+@charset "UTF-8";
+
+.masthead-text {
+	height: 300px;
+}
+
+.form-control {
+	height: 50px;
+}
+
+.login-or {
+	position: relative;
+	font-size: 18px;
+	color: #aaa;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.span-or {
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: -2px;
+	margin-left: -25px;
+	background-color: #fff;
+	width: 50px;
+	text-align: center;
+}
+
+.hr-or {
+	background-color: #cdcdcd;
+	height: 1px;
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+
+#login-dp {
+	min-width: 250px;
+	padding: 14px 14px 0;
+	overflow: hidden;
+	background-color: rgba(255, 255, 255, .8);
+}
+
+#login-dp .help-block {
+	font-size: 12px
+}
+
+#login-dp .social-buttons {
+	margin: 12px 0
+}
+
+#login-dp .social-buttons a {
+	width: 49%;
+}
+
+#login-dp .form-group {
+	margin-bottom: 10px;
+}
+
+.btn-fb {
+	color: #fff;
+	background-color: #3b5998;
+}
+
+.btn-fb:hover {
+	color: #fff;
+	background-color: #496ebc
+}
+
+.btn-tw {
+	color: #fff;
+	background-color: #55acee;
+}
+
+.btn-tw:hover {
+	color: #fff;
+	background-color: #59b5fa;
+}
+
+@media ( max-width :768px) {
+	#login-dp {
+		background-color: inherit;
+		color: #fff;
+	}
+	#login-dp .bottom {
+		background-color: inherit;
+		border-top: 0 none;
+	}
+}
+
+body {
+	font-family: 'Lato', sans-serif;
+}
+
+.progress {
+	height: 5px;
+}
+
+.form-horizontal {
+	padding: 25px 20px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+}
+
+.modal {
+	text-align: center;
+	padding: 0 !important;
+}
+
+.modal:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+	margin-right: -4px;
+}
+
+.modal-dialog {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+}
+
+.divider {
+	position: absolute;
+	height: 2px;
+	border: 1px solid #eee;
+	width: 100%;
+	top: 10px;
+	z-index: -5;
+}
+
+.ex-account {
+	position: relative;
+}
+
+.ex-account p {
+	background-color: rgba(255, 255, 255, 0.41);
+}
+
+select:hover {
+	color: #444645;
+	background: #ddd;
+}
+
+.block-help {
+	font-weight: 300;
+}
+
+.mar-top-bot-50 {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.hide {
+	display: none;
+}
+
+
+.form-btn_btn {
+	background-color: #ffcccc; 
+	color: #808080; 
+	border:none;
+	height: 50px;
+	border-radius: 10px;
+}
+.form-btn_btn:hover {
+	background-color: #ff9999; 
+	color: #fff; 
+}
+.table-list td{
+	border:1px solid #ddd;
+	
+}
+.table-list thead th{
+	border:none;
+}
+
+/* 말줄임표 */
+.table td{
+	pdisplay: table-cell;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.table {
+	table-layout: fixed;
+	width: 100%;
+	white-space: nowrap;
+}
+.table th {
+	table-layout: fixed;
+	white-space: pre-wrap;
+}
+
+
+.btn-outline-secondary{
+	color: #6c757d;
+    background-color: transparent;
+    background-image: none;
+    border-color: #6c757d;
+    height: 50px;
+}
+.btn-outline-secondary:hover {
+	color: #fff;
+    background-color: #6c757d;
+    background-image: none;
+    border-color: #6c757d; 
+}
+h2{margin-bottom:20px;padding:20px;}
+
+/* 메뉴 */
+.mymenu_div{width:80%; height:50px; margin:0 auto;}
+.myMenu {padding:0; margin: 0; width: 100%; height: inherit; border-radius: 10px 10px 0 0; overflow: hidden;}
+.myMenu li {float:left; width:33.333%;  height: inherit;}
+.myMenu li button{display:block; width:100%; height:100%; 
+					text-align: center; line-height:50px; background-color:#ffcccc;
+					border:none; transition:0.3s; cursor:pointer; 
+}
+.myMenu li button:hover{color:#fff; background-color:#666; }
+.myMenu li button.active{color:#fff; background-color:#808080;}
+
+.sec_content{clear:both; margin: 0 auto; width:90%; min-width:320px;
+		padding:20px 15px; display:none;
+		 border: 2px solid #808080; border-radius: 10px;}
+.sec_content:first-of-type{display: block;}
+/* 소제목 */
+h3{display:none;}
+
+/* 회원정보 */
+.info_div{
+	width:50%; margin:0 auto;
+	overflow:hidden;
+}
+.form-btn{
+	
+	width:50%; float:left;
+	padding-left:5px;
+}
+.form-btn .form-btn_btn{
+	width:100%; 
+	border-radius: 5px;	
+}
+
+
+#categoryForm{
+	text-align: left; margin-bottom: 10px;
+}

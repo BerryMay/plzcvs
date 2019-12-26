@@ -381,9 +381,9 @@
 								
 								
    								<!-- recapcha -->
-   
-   								<div class="g-recaptcha" data-sitekey="6LcyXMcUAAAAAOA8wS0BEcF5PDkaN5bZjyfbmGJa
-								"></div>
+   								<div class="form-group">						
+   									<div class="g-recaptcha" data-sitekey="6LcyXMcUAAAAAOA8wS0BEcF5PDkaN5bZjyfbmGJa"></div>
+								</div>
 								<br>							
 								 
 								<!-- Submit -->

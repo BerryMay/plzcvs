@@ -28,4 +28,17 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace+".userIdCheck",id);
 		
 	}
+	//회원정보
+	public MemberDTO member_view(HttpServletRequest request) {
+		String nick = (String)request.getParameter("nickname");
+		return sqlSession.selectOne(namespace+".view",nick);		
+	}
+	//회원수정
+	public int member_modify(MemberDTO dto) {
+		return sqlSession.update(namespace+".member_modify",dto);		
+	}
+	//회원탈퇴
+	public int member_withdrawal(String nick) {
+		return sqlSession.delete(namespace+".member_withdrawal",nick);			
+	}
 }
