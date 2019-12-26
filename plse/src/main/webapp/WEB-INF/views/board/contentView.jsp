@@ -35,6 +35,8 @@
 	  heartCnt();
 	  heartChk();
 	  
+	  
+	  
   
     var num=0;
 
@@ -82,12 +84,13 @@
     	})
 
     
-    function heartChk(){
+    $(document).ready(function heartChk(){
     	$.ajax({
     		url:"board_heartChk",
     		type:"POST",
     		data:$("#board_heart").serialize(),
 			success:function(data){
+				console.log("들어가시는지");
 				$("button").addClass('btn_unlike');
 	    	    $('.ani_heart_m').addClass('hi');
 	    	    $('.ani_heart_m').removeClass('bye');
