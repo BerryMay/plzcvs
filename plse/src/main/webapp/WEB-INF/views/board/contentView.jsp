@@ -34,8 +34,11 @@
 	  cvsnum();
 	  heartCnt();
 	  heartChk();
+<<<<<<< HEAD
 	  
 	  
+=======
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 	  
   
     var num=0;
@@ -176,6 +179,7 @@
                  if(data.length > 0){
                      for(i=0; i<data.length; i++){
 		                   var savedate = moment(data[i].savedate).format('YYYY년 MM월 DD일 HH:mm:ss');
+		                   var content = data[i].content.replace("\r\n", "<br>");
                          html += "<li class='comment'>";
                          html += "<div class='comment-body'><div class='comment-heading'>";
                          html += "<h4 class='user'>"+data[i].nickname+" </h4>"
@@ -188,8 +192,7 @@
                          }
                          html += "<h5 class='time'>"+savedate+"</h5>";
                          html += "</div>";
-                         html += "<p class='com_con' id='"+num++ +"'>"+data[i].content+"</p>";
-                         console.log(data[i].content);
+                         html += "<p class='com_con' id='"+num++ +"'>"+content+"</p>";
                          html += "</div>";
                          html += "</li>";
                      }
@@ -213,67 +216,7 @@
        
        };
        
-       /* 댓글수정 클릭시  폼으로 바꾸기*/
-      function modComment(btn, cnum){ 
-    	   console.log(cnum);
-    	 var con=$(btn).parent().parent().next().text();
-    	var user = "<%=(String)session.getAttribute("userId")%>";
-      	 var htmls = "";
-      	 
-      	htmls += "<form id='modcommentform'><div class='input-group'>";
-      	htmls += "<textarea class='form-control' id='con' name='content' row='3'>"+con+"</textarea>";
-      	htmls += "<input type='button' class='btn sub' id='btn_comment_modify' value='완료' />";
-      	htmls += "<input type='hidden' name='cnum' value='"+ cnum +"'>";
-      	htmls += "<input type='hidden' name='nickname' value='"+ user +"'>";
-      	htmls += "</div'></form>";
-
-      	 
-      	$(btn).parent().parent().next().html(htmls);
-      	
-      	
-	      //댓글 수정완료 버튼 클릭 이벤트(ajax로처리)
-	      $('#btn_comment_modify').click(function(){
-	        console.log("완료버튼을 누름");
-	         
-	        $.ajax({
-	            type:"POST",
-	            url:"comment_modify",
-	            data:$("#modcommentform").serialize(),
-	           
-	            success:function(data){
-	         	   console.log("댓글 수정하기");
-					console.log(data.content);
-					
-	         	  $(btn).parent().parent().next().html(data.content);
-	         	   
-	            },error:function(data){console.log("에러");},
-	         })
-	         
-	      });
-       }
        
-       
-      /* 댓글삭제 클릭시*/
-      function delComment(btn, cnum){ 
-		var dnum = {"cnum":cnum};
-      	
-      	$.ajax({
-	            type:"POST",
-	            url:"comment_delete",
-	            data: dnum,
-	            dataType: 'text',
-	           
-	            success:function(data){
-	         	   console.log("댓글 삭제하기");
-	         	  listReply();
-	         	  
-	         	   
-	            },error:function(data){console.log("에러");},
-	         })
-      	
-       }
-      
-
       // 댓글 페이지 처리
      	function page(){ 
 
@@ -392,6 +335,69 @@
      		}
 
       });
+    </script>
+    <script type="text/javascript">
+    /* 댓글수정 클릭시  폼으로 바꾸기*/
+    function modComment(btn, cnum){ 
+  	  
+  	 	var con=$(btn).parent().parent().next().text();
+  		var user = "<%=(String)session.getAttribute("userId")%>";
+    	var htmls = "";
+    	 
+    	htmls += "<form id='modcommentform'><div class='input-group'>";
+    	htmls += "<textarea class='form-control' id='con' name='content' row='3'>"+con+"</textarea>";
+    	htmls += "<input type='button' class='btn sub' id='btn_comment_modify' value='완료' />";
+    	htmls += "<input type='hidden' name='cnum' value='"+ cnum +"'>";
+    	htmls += "<input type='hidden' name='nickname' value='"+ user +"'>";
+    	htmls += "</div'></form>";
+
+    	 
+    	$(btn).parent().parent().next().html(htmls);
+    	
+    	
+	      //댓글 수정완료 버튼 클릭 이벤트(ajax로처리)
+	      $('#btn_comment_modify').click(function(){
+	        console.log("완료버튼을 누름");
+	         
+	        $.ajax({
+	            type:"POST",
+	            url:"comment_modify",
+	            data:$("#modcommentform").serialize(),
+	           
+	            success:function(data){
+	         	   console.log("댓글 수정하기");
+					console.log(data.content);
+					
+	         	  $(btn).parent().parent().next().html(data.content);
+	         	   
+	            },error:function(data){console.log("에러");},
+	         })
+	         
+	      });
+     }
+     
+     
+    /* 댓글삭제 클릭시*/
+    function delComment(btn, cnum){ 
+		var dnum = {"cnum":cnum};
+    	
+    	$.ajax({
+	            type:"POST",
+	            url:"comment_delete",
+	            data: dnum,
+	            dataType: 'text',
+	           
+	            success:function(data){
+	         	   console.log("댓글 삭제하기");
+	         	  listReply();
+	         	  
+	         	   
+	            },error:function(data){console.log("에러");},
+	         })
+    	
+     }
+    
+
     </script>
 	
 
