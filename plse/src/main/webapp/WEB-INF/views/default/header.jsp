@@ -39,7 +39,7 @@
 				for(i=0; i<data.length; i++){
 					output += "<tr>"
 					output += "<th>"+(i+1)+"</th>"
-					output += "<th><a href=board_search?content="+data[i].title+">"+data[i].title+"</a></th>";
+					output += "<th><a href=board_SearchCntOk?content="+data[i].title+">"+data[i].title+"</a></th>";
 					output += "</tr>"
 					if(i == 4) break;
 				}
@@ -67,22 +67,6 @@
 
 		<header>
 			<ul id="top">
-<!-- 
-				<li><c:choose>
-						<c:when test="${userId == null }">
-							<a href="login">로그인</a>
-						</c:when>
-						<c:otherwise>
-							<a href="logout">${userId } 로그아웃</a>
-						</c:otherwise>
-					</c:choose></li>|
-				<c:if test="${userId == null }">
-					<li><a href="register">회원가입</a></li>|
-				</c:if>
-				<li><a href="board">리뷰게시판</a></li>
-				<li><a href="recipeBoard">레시피게시판</a></li>
-				<li><a href="map">지도</a></li>
- -->
 				<c:choose>
 					<c:when test="${userId == null }">
 						<li><a href="login">로그인</a></li>|
@@ -93,8 +77,6 @@
 						<li><a href="mypage?nickname=${userId}">마이페이지</a></li>
 					</c:otherwise>
 				</c:choose>
-				<!-- <li><a href="board">리뷰게시판</a></li>
-				<li><a href="recipeBoard">레시피게시판</a></li> -->
 			</ul>
 				
 			<h1 id="logo">
@@ -113,7 +95,7 @@
 					<li><a href="board">리뷰 게시판</a></li>
 					<li><a href="recipeBoard">레시피 게시판</a></li>
 					<li><a href="#">선호도 조사</a></li>
-					<li><a href="#">편의점 찾기</a></li>
+					<li><a href="map">편의점 찾기</a></li>
 					<li><a href="#">이벤트 보기</a></li>
 				</ul>
 				<button id="nav_btn" onclick="stop('nav')">

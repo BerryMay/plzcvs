@@ -127,7 +127,7 @@
   	</select>
   	<!-- 실시간검색어 클릭시 검색(컬럼 전체검색) -->
   	<select id="searchSelect" parameterType="Bdto" resultType="Bdto">
-  		select * from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%'
+  		select * from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%' order by num desc
   	</select>
 
   	<!-- 관리자 상품등록 -->
