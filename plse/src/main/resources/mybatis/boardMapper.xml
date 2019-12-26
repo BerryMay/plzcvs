@@ -27,11 +27,7 @@
   		select * from board where num=#{num}
   	</select>
   	
-  	
-  	
-  	
-  	
-  	
+ 
   	<!-- 게시글 조회수 증가 -->
   	<update id="upHit">
   		update board set hit=hit+1 where num=#{num}
@@ -57,7 +53,7 @@
   	
   	<!-- 편의점별 검색 -->
   	<select id="cvs_search" parameterType="Bdto" resultType="Bdto" >
-  		select * from board where cvsnum=#{cvsnum}
+  		select * from board where cvsnum=#{cvsnum} and cat='1'
   	</select>
   	
   	
@@ -131,7 +127,7 @@
   	</select>
   	<!-- 실시간검색어 클릭시 검색(컬럼 전체검색) -->
   	<select id="searchSelect" parameterType="Bdto" resultType="Bdto">
-  		select * from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%'
+  		select * from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%' order by num desc
   	</select>
 
   	<!-- 관리자 상품등록 -->
