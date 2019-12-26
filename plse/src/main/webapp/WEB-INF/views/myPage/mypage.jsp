@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="utf-8"%>
+
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>마이페이지</title>
 	<script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script> <!-- 기본 jquery -->
 	<script  type="text/javascript" src="js/jquery-ui.js"></script>
@@ -425,16 +429,13 @@
     	 myboard_list();   	 
      });
 	  
-     function myboard_list_before(k){   	 
-    	 myboard_list(k);   	 
-     }
+
      
      //내가 쓴 글 목록부르기
      function myboard_list(k){
     	 console.log(k);
     	 if(k!=null){ console.log("k is not null");}
-    	
-    	var j=k; this.j=j;
+
     	
     	 var category =document.getElementById("category").value;
     	 
@@ -521,7 +522,7 @@
   		  var $pager = $('<div class="pager" align="center" id="remo"></div>');
   		var ck = 0;
   		
-  		if(k!=null){ck=1; currentPage=1;nowp = currentPage;}
+  		if(k!=null){ck=1; currentPage=1; nowp = currentPage;}
   		else{ck = Number($('#mypost').find(".actived").text());}
   		  
   		  $table.on('repaginate', function() {

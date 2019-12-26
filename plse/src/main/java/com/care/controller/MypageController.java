@@ -1,5 +1,7 @@
 package com.care.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,11 +42,12 @@ public class MypageController {
 	
 	//회원정보 수정
 	@RequestMapping(value = "/member_modify")
-	public String member_modify(Model model, MemberDTO dto) {
+	public String member_modify(Model model, MemberDTO dto) throws UnsupportedEncodingException {
 		model.addAttribute("dto", dto);
-		System.out.println(dto.getNickname());
 		ms.member_modify(model);
-		return "redirect:/mypage?nickname="+dto.getNickname();
+		
+		String nick = URLEncoder.encode(dto.getNickname(),"UTF-8");//url에 한글 안깨지게 보내는 것
+		return "redirect:/mypage?nickname="+nick;
 	}
 	
 	
