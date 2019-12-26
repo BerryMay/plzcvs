@@ -23,7 +23,7 @@
 	<jsp:include page="../default/header.jsp" />
 	<div id="container">
 		<div id="list">
-			<h1>게시판</h1> 
+			<h1>레시피게시판</h1> 
 			<br><br>
 		</div>
 		<div align="center">
@@ -60,18 +60,19 @@
 		        <!-- 페이징 구간 -->
 		      </div>
 			<div align="right">
-				<button class="btn" type="button" onclick="location.href='post'"><i class="fas fa-pen-fancy"></i> &nbsp; 글쓰기</button>
+				<input type="button" value="글쓰기" onclick="location.href='post'"
+					style="border-radius: 10px;" height="30px">
 			</div>
 		</div>
-		<div class="search_div">
-			<form action="board_search" id="searchForm" name="searchForm">
-				<select name="title" class="form-cvsnum form-control">
-					<option value="productname">상품명</option>
-					<option value="title">제목</option>
-					<option value="nickname">작성자</option>
-				</select>
-				<input type="text" class="search_text" name="content"/>
-				<input type="button" class="btn search_btn" value="검색" onclick="javascript:sChk()"/>
+		<div align="center">
+			<form action="recipeBoard_search" id="searchForm" name="searchForm">
+			<select name="title" class="form-cvsnum form-control">
+				<option value="productname">상품명</option>
+				<option value="title">제목</option>
+				<option value="nickname">작성자</option>
+			</select>
+			<input type="text" name="content"/>
+			<input type="button" value="검색" onclick="javascript:sChk()"/>
 			</form>
 		</div>
 	</div>

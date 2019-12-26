@@ -47,6 +47,8 @@ public class BoardDAO {
 	public int board_delete(int num) {
 		return sqlSession.delete(namespace+".board_delete",num);
 	}
+	
+	//게시판 서치
 	public List<BoardDTO> board_search(BoardDTO dto) {
 		//검색할때 실시간검색어를 위한 검색기록 저장
 		search_reg(dto);
@@ -58,6 +60,23 @@ public class BoardDAO {
 			return sqlSession.selectList(namespace+".board_search",dto);
 		}
 	}
+
+	//레시피 서치
+	public List<BoardDTO> recipeBoard_search(BoardDTO dto) {
+		search_reg(dto);
+		if(dto.getTitle() == null) {
+			//실시간검색어 클릭시 검색
+			return sqlSession.selectList(namespace+".searchSelect",dto);
+		}else {
+			//일반적인 검색 수행시
+		return sqlSession.selectList(namespace+".recipeBoard_search",dto);
+		}
+	}
+	//게시판 검색
+	public List<BoardDTO> cvs_search(BoardDTO dto) {
+		return sqlSession.selectList(namespace+".cvs_search",dto);
+	}
+
 	
 	public String board_productimg(BoardDTO dto) {
 		return sqlSession.selectOne(namespace+".board_productimg",dto);
@@ -83,13 +102,25 @@ public class BoardDAO {
 		return sqlSession.selectList(namespace+".board_commentList",bnum);
 	}
 	
-	// paging
+	// 리뷰 토탈페이지
 		public int getTotalPage() {
 			return sqlSession.selectOne(namespace+".board_getTotalPage");
 		}
 		
+	// 리세피 토탈페이지
+		public int recipeGetTotalPage() {
+			return sqlSession.selectOne(namespace+".recipeBoard_getTotalPage");
+		}
+		
+		
+		
+	//리뷰페이지
 		public List<BoardDTO> page_board_list(PageCount pc) {
 			return sqlSession.selectList(namespace+".board_pagingList",pc);
+		}
+	//레시피페이지
+		public List<BoardDTO> recipePage_board_list(PageCount pc) {
+			return sqlSession.selectList(namespace+".recipeBoard_pagingList",pc);
 		}
 		
 		

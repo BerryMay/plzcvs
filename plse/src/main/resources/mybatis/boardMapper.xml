@@ -8,19 +8,26 @@
 	
 	<!-- 게시글 리스트 -->
 	<select id="board_list" resultType="Bdto">
-		select * from board order by num desc
+		select * from board where cat='1' order by num desc; 
 	</select>
+	
+	<!-- 레시피 리스트 -->
+	<select id="recipeBoard_list" resultType="Bdto">
+		select * from board where cat='2' order by num desc; 
+	</select>
+	
 	
 	<!-- 게시글 작성 -->
 	<insert id="board_reg" parameterType="Bdto">
-		insert into board(num,title,nickname,hit,recommend,stars,productname,content,cvsnum,gdsimg) values(board_num_seq.nextval,#{title},#{nickname},0,0,#{stars},#{productname},#{content},#{cvsnum},#{gdsimg, jdbcType=VARCHAR})
+		insert into board(cat,num,title,nickname,hit,recommend,stars,productname,content,cvsnum,gdsimg) values(#{cat},board_num_seq.nextval,#{title},#{nickname},0,0,#{stars},#{productname},#{content},#{cvsnum},#{gdsimg, jdbcType=VARCHAR})
   	</insert>
   	
-  	<!-- 게시글 클릭한것 보여주기 -->
+  	<!-- 게시글/레시피 클릭한것 보여주기 -->
   	<select id="board_view" resultType="Bdto">
   		select * from board where num=#{num}
   	</select>
   	
+ 
   	<!-- 게시글 조회수 증가 -->
   	<update id="upHit">
   		update board set hit=hit+1 where num=#{num}
@@ -33,10 +40,23 @@
   	<delete id="board_delete">
   		delete from board where num=#{num}
   	</delete>
+  	
+  	
   	<!-- 게시글 검색 -->
   	<select id="board_search" parameterType="Bdto" resultType="Bdto" >
-  		select * from board where ${title} like '%'||#{content}||'%'
+  		select * from board where ${title} like '%'||#{content}||'%' and cat='1'
   	</select>
+  	<!-- 레시피 게시글 검색 -->
+  	<select id="recipeBoard_search" parameterType="Bdto" resultType="Bdto" >
+  		select * from board where ${title} like '%'||#{content}||'%' and cat='2'
+  	</select>
+  	
+  	<!-- 편의점별 검색 -->
+  	<select id="cvs_search" parameterType="Bdto" resultType="Bdto" >
+  		select * from board where cvsnum=#{cvsnum} and cat='1'
+  	</select>
+  	
+  	
   	<!-- 가격 가져오기 -->
   	<select id="board_price" resultType="int">
 		select price from cvs where productname=#{productname} and cvsnum=#{cvsnum}
@@ -60,12 +80,25 @@
 
 	<!-- 토탈페이지 -->
 	<select id="board_getTotalPage" resultType="int">
-		select count(*) from board
+		select count(*) from board where cat='1' 
 	</select>
+	
+	<!-- 레시피페이지 토탈페이지 -->
+	<select id="recipeBoard_getTotalPage" resultType="int">
+		select count(*) from board where cat='2' 
+	</select>
+	
 	<!-- 페이징 리스트 가져오기 -->
 	<select id="board_pagingList" parameterType="Pdto" resultType="Bdto">
-		select B.* from(select rownum rn, A.* from (select * from board order by num desc)A)B where rn between #{startPage} and #{endPage}
+		select B.* from(select rownum rn, A.* from (select * from board where cat='1' order by num desc)A)B where rn between #{startPage} and #{endPage}
 	</select>
+	
+	<!-- 레시피 페이징리스트 가져오기 -->
+	<select id="recipeBoard_pagingList" parameterType="Pdto" resultType="Bdto">
+		select B.* from(select rownum rn, A.* from (select * from board where cat='2' order by num desc)A)B where rn between #{startPage} and #{endPage}
+	</select>
+	
+	
 	<!-- 상품이미지 가져오기 -->
 		<select resultType="String" id="board_productimg">
 			select gdsimg from cvs c where c.cvsnum = #{cvsnum} and c.productname = #{productname}
@@ -75,6 +108,7 @@
   		select productname from cvs where cvsnum=#{cvsnum}
   	</select>
   	
+
   	<!-- 실시간검색어 테이블에 같은값이 있는지 확인 -->
   	<select id="search_chk" parameterType="Bdto" resultType="Object">
   		select * from searchCnt where title=#{content} and dates= (TO_CHAR(sysdate,'yy-mm-dd'))
@@ -95,6 +129,7 @@
   	<select id="searchSelect" parameterType="Bdto" resultType="Bdto">
   		select * from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%'
   	</select>
+
   	<!-- 관리자 상품등록 -->
 <insert id="adminPost" parameterType="com.care.dto.CvsDTO">
 	insert into cvs(cvsnum,productnum,productname,price,gdsimg) values(#{cvsnum},#{productnum},#{productname},#{price},#{gdsimg})

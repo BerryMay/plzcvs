@@ -7,6 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시판 리스트</title>
+<!-- js파일-->
+    <script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    
+
+    
 <!-- Bootstrap -->
 <link rel="stylesheet" href="css/board.css" type="text/css" />
 <script type="text/javascript">
@@ -18,6 +24,17 @@
 		}
 	}
 </script>
+
+<script type="text/javascript">
+
+	$(function(){
+		$("#cvssearchs").change(function(){
+			document.cvsSearchForm.submit();
+		});
+	});
+</script>
+
+
 </head>
 <body>
 	<jsp:include page="../default/header.jsp" />
@@ -26,6 +43,17 @@
 			<h1>게시판</h1> 
 			<br><br>
 		</div>
+		
+		<form action="cvs_search" id="cvsSearchForm" name="cvsSearchForm">
+	<select name="cvsnum" id="cvssearchs" class="form-cvsnum form-control">
+		<option value="0">편의점선택</option>
+		<option value="1">gs25</option>
+		<option value="2">cu</option>
+		<option value="3">세븐일레븐</option>
+	</select>
+	</form>
+	
+
 		<div align="center">
 			<table class="table table-striped table-bordered table-hover" style="width: 100%;">
 				<thead>
@@ -60,18 +88,19 @@
 		        <!-- 페이징 구간 -->
 		      </div>
 			<div align="right">
-				<button class="btn" type="button" onclick="location.href='post'"><i class="fas fa-pen-fancy"></i> &nbsp; 글쓰기</button>
+				<input type="button" value="글쓰기" onclick="location.href='post'"
+					style="border-radius: 10px;" height="30px">
 			</div>
 		</div>
-		<div class="search_div">
+		<div align="center">
 			<form action="board_search" id="searchForm" name="searchForm">
-				<select name="title" class="form-cvsnum form-control">
-					<option value="productname">상품명</option>
-					<option value="title">제목</option>
-					<option value="nickname">작성자</option>
-				</select>
-				<input type="text" class="search_text" name="content"/>
-				<input type="button" class="btn search_btn" value="검색" onclick="javascript:sChk()"/>
+			<select name="title" class="form-cvsnum form-control">
+				<option value="productname">상품명</option>
+				<option value="title">제목</option>
+				<option value="nickname">작성자</option>
+			</select>
+			<input type="text" name="content"/>
+			<input type="button" value="검색" onclick="javascript:sChk()"/>
 			</form>
 		</div>
 	</div>

@@ -24,4 +24,8 @@ public class MemberDAO {
 		HttpSession session = request.getSession();
 		session.removeAttribute("userId");
 	}
+	public int userIdCheck(String id) {
+		return sqlSession.selectOne(namespace+".userIdCheck",id);
+		
+	}
 }

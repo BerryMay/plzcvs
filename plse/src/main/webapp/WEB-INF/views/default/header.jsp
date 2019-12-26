@@ -79,6 +79,8 @@
 					<li><a href="register">회원가입</a></li>|
 				</c:if>
 				<li><a href="board">리뷰게시판</a></li>
+				<li><a href="recipeBoard">레시피게시판</a></li>
+				<li><a href="map">지도</a></li>
 			</ul>
 				
 			<h1 id="logo">
