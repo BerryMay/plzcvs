@@ -30,7 +30,9 @@
 	  heartCnt(); //좋아요 카운트
 	  heartChk();	//좋아요 했는지 체크
     });
-    
+    function replaceAll(str, searchStr, replaceStr) {
+    	  return str.split(searchStr).join(replaceStr);
+    }
     //좋아요 버튼 클릭시
     $(function() {
 	    $('#likebtn').click(function(){
@@ -123,7 +125,9 @@
     /* 댓글수정 클릭시  폼으로 바꾸기*/
     function modComment(btn, cnum){ 
   	  
-  	 	var con=$(btn).parent().parent().next().text();
+  	 	var content_comment=$(btn).parent().parent().next().html();
+  	 	var con =  replaceAll(content_comment,"<br>","\r\n");
+  	 	//var con = content_comment.replace("<br>","\r\n");
   		var user = "<%=(String)session.getAttribute("userId")%>";
     	var htmls = "";
     	 
@@ -151,7 +155,10 @@
 	         	   console.log("댓글 수정하기");
 					console.log(data.content);
 					
-	         	  $(btn).parent().parent().next().html(data.content);
+					var mod_comment=data.content.replace("\r\n","<br>");
+					
+					
+	         	  $(btn).parent().parent().next().html(mod_comment);
 	         	   
 	            },error:function(data){console.log("에러");},
 	         })
@@ -237,6 +244,7 @@
                      for(i=0; i<data.length; i++){
 		                   var savedate = moment(data[i].savedate).format('YYYY년 MM월 DD일 HH:mm:ss');
 		                   var content = data[i].content.replace("\r\n", "<br>");
+		                   //var content = replaceAll(data[i].content,"\r\n","<br>");
                          html += "<li class='comment'>";
                          html += "<div class='comment-body'><div class='comment-heading'>";
                          html += "<h4 class='user'>"+data[i].nickname+" </h4>"
@@ -249,7 +257,7 @@
                          }
                          html += "<h5 class='time'>"+savedate+"</h5>";
                          html += "</div>";
-                         html += "<p class='com_con' id='"+num++ +"'>"+content+"</p>";
+                         html += "<pre class='com_con' id='"+num++ +"'>"+content+"</pre>";
                          html += "</div>";
                          html += "</li>";
                      }
