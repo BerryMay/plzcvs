@@ -52,11 +52,20 @@ public class LoginController {
 		ms.register(model);
 		return "login/registerChk";
 	}
+	
 	@RequestMapping(value = "/user/idCheck", method = RequestMethod.GET)
 	@ResponseBody
 	public int idCheck(@RequestParam("id") String id) {
-
 		return ms.userIdCheck(id);
 	}
 	
+	//이메일 인증 코드
+	@RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
+	public String emailConfirm(MemberDTO dto,Model model) throws Exception {
+		dto.setAuthstatus(1);
+		ms.updateAuthstatus(dto);
+		model.addAttribute("Authstatus", 1);
+		model.addAttribute("dto", dto);
+		return "login/emailChk";
+	}
 }

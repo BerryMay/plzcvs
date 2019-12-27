@@ -5,7 +5,9 @@ create table member(
   age date,
   gender varchar2(20),
   mail varchar2(30),
-  point number(38)
+  point number(38),
+  AUTHKEY varchar2(50),
+  Authstatus number(5)
 );
 
 create table cvs(

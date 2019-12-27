@@ -281,4 +281,4 @@ public class BoardController {
 	public List<SearchCntDTO> board_searchCnt(){
 		return bs.searchCnt();
 	}
-	}
+}
