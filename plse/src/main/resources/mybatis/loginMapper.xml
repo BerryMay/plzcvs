@@ -8,10 +8,10 @@
 	<select id="login" resultType="Mdto">
   		select * from member where id=#{id} and pw=#{pw}
   	</select>
-  	<insert id="register" parameterType="Mdto" >
-  		insert into member values(#{id},#{pw},#{nickname},#{age},#{gender},#{mail},0)
-  	</insert>
   	
+  	<insert id="register" parameterType="Mdto" >
+  		insert into member(id,pw,nickname,age,gender,mail,point,authkey) values(#{id},#{pw},#{nickname},#{age},#{gender},#{mail},0,#{authkey})
+  	</insert>
   	
   	<select id="userIdCheck" parameterType="Mdto" resultType="int">
   		select count(*) from member where id = #{id}
@@ -31,5 +31,8 @@
 	<delete id="member_withdrawal"  parameterType="String">
   		delete from member where nickname=#{nickname}
   	</delete>
-  	
+  	<!-- 이메일 인증 완료 -->
+  	<update id="updateAuthstatus" parameterType="Mdto">
+  		update member set Authstatus = 1 where id = #{id} and authkey = #{authkey}
+  	</update>
 	</mapper>

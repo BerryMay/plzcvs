@@ -18,12 +18,14 @@
 		}
 	}
 </script>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate value="${now }" pattern="yyyy.MM.dd" var="today"/>
 </head>
 <body>
 	<jsp:include page="../default/header.jsp" />
 	<div id="container">
 		<div id="list">
-			<h1>레시피게시판</h1> 
+			<h1>레시피 게시판</h1> 
 			<br><br>
 		</div>
 		<div align="center">
@@ -42,17 +44,24 @@
 					
 				</tbody>
 				<c:forEach var="dto" items="${list }">
+				<fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
 						<td style="text-align: center">${dto.productname }</td>
 						<td><a href="recipeDetail?num=${dto.num}"  class="aw100">${dto.title }
+							<c:if test="${dto.gdsimg != null }">
+								<input type="text" class="contentimg" readonly="readonly">
+							</c:if>
 						<!-- hit 뜨게하는 코드 -->
 						<c:if test="${dto.hit >= 20}">
                   			<span class="hit">best!</span>
                 		</c:if>
                 		</a></td>
 						<td>${dto.nickname }</td>
-						<td style="text-align: center"><fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></td>
+						<td style="text-align: center">
+							<c:if test="${today == savedate }"><fmt:formatDate value="${dto.savedate}" pattern="kk:mm"/></c:if>
+							<c:if test="${today != savedate }">${savedate }</c:if>
+						</td>
 						<td style="text-align: center">${dto.hit }</td>
 					</tr>
 				</c:forEach>

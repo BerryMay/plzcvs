@@ -31,7 +31,7 @@
 
 	<!-- 업로드 패스 설정 --> 
 <beans:bean class="java.lang.String" id="uploadPath">
- <beans:constructor-arg value="D:\YoungJunProject\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\plse\resources" />
+ <beans:constructor-arg value="D:\Project\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\plse\resources" />
 </beans:bean>
 
 <!-- 일반 파일 업로드 경로 -->
@@ -39,12 +39,26 @@
 <beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
  <beans:property name="maxUploadSize" value="10485760"/>
 </beans:bean>
-
-
+<!-- Mail 인증 관련 -->
+	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" />
+		<beans:property name="username" value="plzcvs@gmail.com" />
+		<beans:property name="password" value="123123zZ!" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
 	<context:component-scan base-package="com.care.controller" />
 	<context:component-scan base-package="com.care.dao" />
 	<context:component-scan base-package="com.care.service" />
 	<context:component-scan base-package="com.care.file" />
+	<context:component-scan base-package="com.care.mail" />
 
 
 </beans:beans>

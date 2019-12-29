@@ -39,7 +39,6 @@ public class BoardController {
 		bs.pagingNum(model);
 		return "board/board";
 	}
-	
 	//레시피게시판보기
 	@RequestMapping(value = "/recipeBoard")
 	public String recipeBoard(Model model,HttpServletRequest request) {
@@ -49,7 +48,6 @@ public class BoardController {
 		return "board/recipeBoard";
 	}
 	
-	
 
 	//게시글 등록페이지
 	@RequestMapping(value = "/post")
@@ -57,49 +55,44 @@ public class BoardController {
 		return "board/boardPost";
 	}
 	//레시피 게시글 등록페이지
-		@RequestMapping(value = "/recipePost")
-		public String recipePost() {
-			return "board/recipePost";
-		}
-	
+	@RequestMapping(value = "/recipePost")
+	public String recipePost() {
+		return "board/recipePost";
+	}
 
-		//게시글 등록하기
-		@RequestMapping(value = "/board_reg", method = RequestMethod.POST )
-		public String board_reg(Model model,BoardDTO dto,MultipartFile file) throws Exception {
-			String imgUploadPath = uploadPath + File.separator + "imgUpload";
-			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-			String fileName = null;
-			if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
-				dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
-				System.out.println("컨트롤러 getGdsimg : " + dto.getGdsimg());
-			}else {
-				dto.setGdsimg(null);
-			}
-			bs.board_reg(dto);
-			return "redirect:board";
+	//게시글 등록하기
+	@RequestMapping(value = "/board_reg", method = RequestMethod.POST )
+	public String board_reg(Model model,BoardDTO dto,MultipartFile file) throws Exception {
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+			System.out.println("컨트롤러 getGdsimg : " + dto.getGdsimg());
+		}else {
+			dto.setGdsimg(null);
 		}
+		bs.board_reg(dto);
+		return "redirect:board";
+	}
+	//레시피 등록하기
+	@RequestMapping(value = "/recipeBoard_reg", method = RequestMethod.POST )
+	public String recipeBoard_reg(Model model,BoardDTO dto,MultipartFile file) throws Exception {
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+			System.out.println("컨트롤러 getGdsimg : " + dto.getGdsimg());
+		}else {
+			dto.setGdsimg(null);
+		}
+		bs.board_reg(dto);
+		return "redirect:recipeBoard";
+	}
 
-		
-		
-		
-		//레시피 등록하기
-				@RequestMapping(value = "/recipeBoard_reg", method = RequestMethod.POST )
-				public String recipeBoard_reg(Model model,BoardDTO dto,MultipartFile file) throws Exception {
-					String imgUploadPath = uploadPath + File.separator + "imgUpload";
-					String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-					String fileName = null;
-					if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-						fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
-						dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
-						System.out.println("컨트롤러 getGdsimg : " + dto.getGdsimg());
-					}else {
-						dto.setGdsimg(null);
-					}
-					bs.board_reg(dto);
-					return "redirect:recipeBoard";
-				}
-		
 		
 	//리뷰상세보기
 	@RequestMapping(value = "/detail")
@@ -108,7 +101,6 @@ public class BoardController {
 		bs.board_view(model);
 		return "board/contentView";
 	}
-	
 	//레시피상세보기
 	@RequestMapping(value = "/recipeDetail")
 	public String recipeDetail(Model model,HttpServletRequest request) {
@@ -118,9 +110,6 @@ public class BoardController {
 	}
 	
 	
-	
-	
-	
 	//게시글 수정페이지
 	@RequestMapping(value = "/board_modify")
 	public String board_modify(Model model,HttpServletRequest request) {
@@ -128,15 +117,15 @@ public class BoardController {
 		bs.board_view(model);
 		return "board/contentModify";
 	}
-	
 	//레시피 게시글 수정페이지
-		@RequestMapping(value = "/recipeBoard_modify")
-		public String recipeBoard_modify(Model model,HttpServletRequest request) {
-			model.addAttribute("request", request);
-			bs.board_view(model);
-			return "board/recipeContentModify";
-		}
+	@RequestMapping(value = "/recipeBoard_modify")
+	public String recipeBoard_modify(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		bs.board_view(model);
+		return "board/recipeContentModify";
+	}
 		
+	
 	//게시글 수정하기
 	@RequestMapping(value = "/board_modifyOk", method = RequestMethod.POST)
 	public String board_modifyOk(Model model,BoardDTO dto,MultipartFile file) throws Exception {
@@ -151,26 +140,20 @@ public class BoardController {
 		bs.board_modify(model);
 		return "redirect:detail?num="+dto.getNum();
 	}
-	
-	
 	//레시피 게시글 수정하기
-		@RequestMapping(value = "/recipeBoard_modifyOk", method = RequestMethod.POST)
-		public String recipeBoard_modifyOk(Model model,BoardDTO dto,MultipartFile file) throws Exception {
-			if(file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
-				new File(uploadPath + dto.getGdsimg()).delete();
-				String imgUploadPath = uploadPath + File.separator + "imgUpload";
-				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-				String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
-				dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
-			}
-			model.addAttribute("dto", dto);
-			bs.board_modify(model);
-			return "redirect:recipeDetail?num="+dto.getNum();
+	@RequestMapping(value = "/recipeBoard_modifyOk", method = RequestMethod.POST)
+	public String recipeBoard_modifyOk(Model model,BoardDTO dto,MultipartFile file) throws Exception {
+		if(file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
+			new File(uploadPath + dto.getGdsimg()).delete();
+			String imgUploadPath = uploadPath + File.separator + "imgUpload";
+			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+			String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
 		}
-		
-	
-	
-	
+		model.addAttribute("dto", dto);
+		bs.board_modify(model);
+		return "redirect:recipeDetail?num="+dto.getNum();
+	}
 	
 	
 	//게시글 삭제
@@ -180,17 +163,13 @@ public class BoardController {
 		bs.board_delete(model);
 		return "redirect:board";
 	}
-	
-	//게시글 삭제
-		@RequestMapping(value = "/recipeBoard_delete")
-		public String recipeBoard_delete(Model model,HttpServletRequest request) {
-			model.addAttribute("request", request);
-			bs.board_delete(model);
-			return "redirect:recipeBoard";
-		}
-	
-	
-	
+	//레시피게시글 삭제
+	@RequestMapping(value = "/recipeBoard_delete")
+	public String recipeBoard_delete(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		bs.board_delete(model);
+		return "redirect:recipeBoard";
+	}
 	
 	//게시글 검색
 	@RequestMapping(value = "/board_search")
@@ -199,7 +178,6 @@ public class BoardController {
 		bs.board_search(model);
 		return "board/boardSearch";
 	}
-	
 	//레시피 게시글 검색
 	@RequestMapping(value = "/recipeBoard_search")
 	public String recipeBoard_search(Model model,HttpServletRequest request) {
@@ -207,15 +185,20 @@ public class BoardController {
 		bs.recipeBoard_search(model);
 		return "board/recipeBoardSearch";
 	}
-	
+	//실시간검색어 클릭시 검색
+	@RequestMapping(value = "/board_SearchCntOk")
+	public String board_SearchCntOk(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		bs.board_search(model);
+		return "board/boardSearchCnt";
+	}
 	//편의점 검색
-		@RequestMapping(value = "/cvs_search")
-		public String cvs_search(Model model,HttpServletRequest request) {
-			System.out.println("컨트롤러실행");
-			model.addAttribute("request", request);
-			bs.cvs_search(model);
-			return "board/boardSearchCVS";
-		}
+	@RequestMapping(value = "/cvs_search")
+	public String cvs_search(Model model,HttpServletRequest request) {
+		model.addAttribute("request", request);
+		bs.cvs_search(model);
+		return "board/boardSearchCVS";
+	}
 	
 	//좋아요
 	@RequestMapping(value = "/board_heart")
@@ -298,4 +281,4 @@ public class BoardController {
 	public List<SearchCntDTO> board_searchCnt(){
 		return bs.searchCnt();
 	}
-	}
+}

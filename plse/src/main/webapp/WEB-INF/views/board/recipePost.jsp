@@ -200,7 +200,7 @@
                  <label for="pic" class="uploadlabel">파일첨부</label>                
                  <input class="upload-name" value="파일선택" disabled="disabled">    
                  <label for="ex_filename" class="upload">업로드</label> 
-                 <input type="file" name="file" id="ex_filename" class="upload-hidden">
+                 <input multiple="multiple" type="file" name="file" id="ex_filename" class="upload-hidden">
                  
             <!-- 파일 선택하면 파일명 보여지기 -->
             <script>

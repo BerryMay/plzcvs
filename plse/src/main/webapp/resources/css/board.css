@@ -161,3 +161,10 @@ div>#paging {
 	table-layout: fixed;
 	white-space: pre-wrap;
 }
+/* 사진업로드 게시글 표시하기*/
+.contentimg {
+	width: 13px;
+    height: 12px;
+     background: url('../resources/img/ico-img.gif') 0 0 no-repeat;
+     border: 0px;
+}

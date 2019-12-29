@@ -20,6 +20,7 @@ public class MemberDAO {
 	public int register(MemberDTO dto) {
 		return sqlSession.insert(namespace+".register",dto);
 	}
+	
 	public void logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.removeAttribute("userId");
@@ -40,5 +41,9 @@ public class MemberDAO {
 	//회원탈퇴
 	public int member_withdrawal(String nick) {
 		return sqlSession.delete(namespace+".member_withdrawal",nick);			
+	}
+	//이메일 인증 완료
+	public void updateAuthstatus(MemberDTO dto) {
+		sqlSession.update(namespace+".updateAuthstatus",dto);
 	}
 }
