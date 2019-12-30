@@ -63,3 +63,9 @@ cnt number(10)
 comments primary key 편집으로 들어가서 bnum에 추가해주세요
 그리고 모두 notnull 체크해주세용
 보드 테이블에 편집-제약조건-외래 키 들 삭제 시 종속 삭제 해주세용
+
+//2019.12.27
+cvs 테이블 - newproduct 컬럼 기본 값에 (TO_CHAR(sysdate,'yy-mm-dd')) 입력
+searchcnt 테이블  dates 컬럼 기본 값에 (TO_CHAR(sysdate,'yy-mm-dd')) 입력 
+DB에 날짜 입력하기 위해서입니다. 
+

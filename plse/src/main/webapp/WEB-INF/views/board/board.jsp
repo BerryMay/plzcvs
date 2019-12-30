@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +33,20 @@
 		}
 	}
 </script>
+
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now }" pattern="yyyy.MM.dd" var="today"/>
+
+
+<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowdate"></fmt:parseNumber>
+
+
+
+
+
+
+
+
 </head>
 <body>
 	<jsp:include page="../default/header.jsp" />
@@ -68,7 +82,9 @@
 					
 				<c:forEach var="dto" items="${list }">
 				<fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
-					<tr>
+				<fmt:formatDate value="${dto.newproduct}" pattern="yyyy.MM.dd" var="newproducts"/>
+				<fmt:parseNumber value="${dto.newproduct.time / (1000*60*60*24)}" integerOnly="true" var="chgDttm"></fmt:parseNumber>
+						<tr>
 						<td style="text-align: center">${dto.num }</td>
 						<td style="text-align: center">
 							<c:choose>
@@ -76,8 +92,15 @@
 								<c:when test="${dto.cvsnum == 2 }">세븐일레븐</c:when>
 								<c:when test="${dto.cvsnum == 3 }">CU</c:when>
 							</c:choose>
+						
+						</td>						
+						<!-- new 상품명 뜨는곳  --> 
+						<td style="text-align: center" title="${dto.productname }" >${dto.productname }
+							<c:if test="${nowdate - chgDttm < 30}">
+								<span class="hit">new!</span>
+							</c:if>
 						</td>
-						<td style="text-align: center" title="${dto.productname }" >${dto.productname }</td>
+						
 						<td><a href="detail?num=${dto.num}" class="aw100" title="${dto.title }">${dto.title }
 							<c:if test="${dto.gdsimg != null }">
 								<input type="text" class="contentimg" readonly="readonly">
