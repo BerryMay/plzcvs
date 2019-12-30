@@ -220,8 +220,8 @@ public class BoardService implements IBoardService{
 		
 		
 		
+		// 페이징된 리스트 가져오기
 		public void page_board_list(Model model) {
-			// 페이징된 리스트 가져오기
 			model.addAttribute("list", dao.page_board_list(pagingNum(model)));
 		}
 		

@@ -48,9 +48,9 @@
 		<form action="cvs_search" id="cvsSearchForm" name="cvsSearchForm">
 	<select name="cvsnum" id="cvssearchs" class="form-cvsnum form-control">
 		<option value="0">편의점선택</option>
-		<option value="1">gs25</option>
-		<option value="2">cu</option>
-		<option value="3">세븐일레븐</option>
+		<option value="1">GS25</option>
+		<option value="2">세븐일레븐</option>
+		<option value="3">CU</option>
 	</select>
 	</form>
 	

@@ -9,18 +9,19 @@
 </head>
 <body>
 <c:choose>
-	<c:when test="${ result == 1 }">
+	<c:when test="${ Authstatus == '1' }">
 			<script>
-				alert("가입하신 이메일로 인증메일을 발송하였습니다.");
-				location.href = "login";
+				alert("회원가입을 축하드립니다");
+				location.href = "loginChk?id=${dto.id}&pw=${dto.pw}";
 			</script>
 		</c:when>
 		<c:otherwise>
 			<script>
-				alert("회원가입에 실패하셨습니다. 여러번 실패 시 관리자에게 문의하세요");
-				location.href = "register";
+				alert("이메일 인증 오류");
+				location.href = "http://localhost:8989/practice/";
 			</script>
 		</c:otherwise>
 </c:choose>
+
 </body>
 </html>

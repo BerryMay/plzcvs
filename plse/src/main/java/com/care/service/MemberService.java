@@ -3,15 +3,19 @@ package com.care.service;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.care.dao.MemberDAO;
 import com.care.dto.MemberDTO;
+import com.care.mail.MailHandler;
+import com.care.mail.TempKey;
 import com.care.recaptcha.VerifyRecaptcha;
 
 import lombok.Getter;
@@ -22,6 +26,8 @@ public class MemberService implements IMemberService{
 	
 	@Autowired
 	private MemberDAO dao;
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	public void loginChk(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -32,9 +38,13 @@ public class MemberService implements IMemberService{
 		MemberDTO loginchk = dao.loginChk(dto);
 		try {
 			if(loginchk != null) {
-				// 성공시 세션 만들어줌
-				session.setAttribute("userId", loginchk.getNickname());
-				model.addAttribute("result", "ok");
+				if(loginchk.getAuthstatus() == 1) {
+					// 성공시 세션 만들어줌
+					session.setAttribute("userId", loginchk.getNickname());
+					model.addAttribute("result", "ok");
+				}else {
+					model.addAttribute("result", "no");
+				}
 			}else {
 				// 실패시
 				model.addAttribute("result", "fail");
@@ -65,8 +75,28 @@ public class MemberService implements IMemberService{
 		}
 		try {
 			if ( result == true ) {
+			String authkey = new TempKey().getKey(50, false);
+			dto.setAuthkey(authkey);
 			int re = dao.register(dto);
-			model.addAttribute("result", re); 
+			MailHandler sendMail = new MailHandler(mailSender);
+			
+			sendMail.setSubject("편편백서 회원가입 이메일 인증");
+			sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
+					.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
+					.append("<a href='http://localhost:8989/practice/emailConfirm?id=")
+					.append(dto.getId())
+					.append("&pw=")
+					.append(dto.getPw())
+					.append("&mail=")
+					.append(dto.getMail())
+					.append("&authkey=")
+					.append(authkey)
+					.append("' target='_blenk'>이메일 인증 확인</a>")
+					.toString());
+			sendMail.setFrom("plz@gmail.com", "편편백서");
+			sendMail.setTo(dto.getMail());
+			sendMail.send();
+			model.addAttribute("result", re);
 			}
 	} 
 		catch (Exception e) { System.out.println("회원가입오류" + e); }
@@ -102,5 +132,9 @@ public class MemberService implements IMemberService{
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String nick= request.getParameter("nickname");
 		dao.member_withdrawal(nick);
+	}
+	//이메일인증완료
+	public void updateAuthstatus(MemberDTO dto) {
+		dao.updateAuthstatus(dto);
 	}
 }

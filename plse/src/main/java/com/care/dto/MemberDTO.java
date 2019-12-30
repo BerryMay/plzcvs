@@ -13,5 +13,6 @@ public class MemberDTO {
 	private String gender;
 	private String mail;
 	private int point;
-	
+	private String authkey;
+	private int authstatus;
 }

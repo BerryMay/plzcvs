@@ -6,6 +6,17 @@
   <!-- mapper 만드는 곳 -->
 	<mapper namespace="com.care.mybatis.boardMapper">
 	
+
+	<!-- 게시글 리스트 -->
+	<select id="board_list" resultType="Bdto">
+	<!-- SELECT title, contents, (SELECT COUNT(*) AS cnt FROM COMMENTS WHERE COMMENTS.num = BOARD.num) as CommentTotalCnt FROM BOARD order by num desc-->
+		select b.*,(select count(*) as cnt from comments where cvs.bnum = board.num) from board b where cat='1' order by num desc
+	
+	<!-- select b.*,c.count(*) from board b,cvs c where b.num = c.bnum order by num desc-->
+
+	<!-- 	select * from board where cat='1' order by num desc; --> 
+	</select>
+
 	
 	<!-- 레시피 리스트 -->
 	<select id="recipeBoard_list" resultType="Bdto">
