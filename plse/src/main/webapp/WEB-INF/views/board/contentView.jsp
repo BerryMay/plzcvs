@@ -257,14 +257,11 @@
                  
                  if(data.length > 0){
                      for(i=0; i<data.length; i++){
-<<<<<<< HEAD
-                         var savedate = moment(data[i].savedate).format('YYYY년 MM월 DD일 HH:mm:ss');
-                         var content = data[i].content.replace("\r\n", "<br>");
-=======
+
 		                   var savedate = moment(data[i].savedate).format('YYYY년 MM월 DD일 HH:mm:ss');
 		                   var content = data[i].content.replace("\r\n", "<br>");
 		                   //var content = replaceAll(data[i].content,"\r\n","<br>");
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+
                          html += "<li class='comment'>";
                          html += "<div class='comment-body'><div class='comment-heading'>";
                          html += "<h4 class='user'>"+data[i].nickname+" </h4>"
@@ -416,7 +413,7 @@
             $pager.insertAfter($ul);
                $ul.trigger('repaginate');
 
-<<<<<<< HEAD
+
             });
            }
 
