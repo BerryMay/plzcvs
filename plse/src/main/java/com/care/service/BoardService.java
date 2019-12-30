@@ -30,15 +30,18 @@ public class BoardService implements IBoardService{
 	BoardDAO dao;
 	@Resource(name="uploadPath")
 	private String uploadPath;
+	
 	@Override
 	public void board_list(Model model) {
 		model.addAttribute("list", dao.board_list());
 	}
+	
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
 	public void board_reg(BoardDTO dto) throws Exception {
 		dao.board_reg(dto);
 	}
+	
 	@Override
 	public void board_view(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -50,6 +53,7 @@ public class BoardService implements IBoardService{
 		session.setAttribute("price", dao.board_price(dto));
 		session.setAttribute("productimg", dao.board_productimg(dto));
 	}
+	
 	@Override
 	public void board_modify(Model model) {
 		Map<String, Object> map = model.asMap();

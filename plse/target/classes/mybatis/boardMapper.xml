@@ -6,18 +6,21 @@
   <!-- mapper 만드는 곳 -->
 	<mapper namespace="com.care.mybatis.boardMapper">
 	
+
 	<!-- 게시글 리스트 -->
 	<select id="board_list" resultType="Bdto">
 	<!-- SELECT title, contents, (SELECT COUNT(*) AS cnt FROM COMMENTS WHERE COMMENTS.num = BOARD.num) as CommentTotalCnt FROM BOARD order by num desc-->
 		select b.*,(select count(*) as cnt from comments where cvs.bnum = board.num) from board b where cat='1' order by num desc
+	
 	<!-- select b.*,c.count(*) from board b,cvs c where b.num = c.bnum order by num desc-->
 
 	<!-- 	select * from board where cat='1' order by num desc; --> 
 	</select>
+
 	
 	<!-- 레시피 리스트 -->
 	<select id="recipeBoard_list" resultType="Bdto">
-		select * from board where cat='2' order by num desc; 
+		select * from board where cat='2' order by num desc
 	</select>
 	
 	
@@ -61,6 +64,10 @@
   	</select>
   	
   	
+  	<select id="cvs_newproduct" resultType="String">
+  		select newproduct from cvs where productname=#{productname} and cvsnum=#{cvsnum}
+  	</select>
+  	
   	<!-- 가격 가져오기 -->
   	<select id="board_price" resultType="int">
 		select price from cvs where productname=#{productname} and cvsnum=#{cvsnum}
@@ -94,7 +101,7 @@
 	
 	<!-- 페이징 리스트 가져오기 -->
 	<select id="board_pagingList" parameterType="Pdto" resultType="Bdto">
-		select B.* from(select rownum rn, A.* from (select * from board where cat='1' order by num desc)A)B where rn between #{startPage} and #{endPage}
+		select B.* from(select rownum rn, A.* from (select b.*, c.newproduct from board b, cvs c where b.cat='1' and b.productname=c.PRODUCTNAME order by num desc)A)B where rn between #{startPage} and #{endPage}
 	</select>
 	
 	<!-- 레시피 페이징리스트 가져오기 -->
