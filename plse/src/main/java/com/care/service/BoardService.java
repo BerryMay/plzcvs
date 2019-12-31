@@ -24,6 +24,7 @@ import com.care.dto.CvsDTO;
 import com.care.dto.PageCount;
 import com.care.dto.SearchCntDTO;
 import com.care.file.UploadFileUtils;
+import com.fasterxml.jackson.databind.BeanProperty.Bogus;
 @Service
 public class BoardService implements IBoardService{
 	@Autowired
@@ -46,6 +47,9 @@ public class BoardService implements IBoardService{
 		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
 		dto.setContent(dto.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("dto", dto);
+		try {
+			model.addAttribute("imgList", dao.imgList(request.getParameter("num")));		
+		} catch (Exception e) { System.out.println("사진 없음");}
 		HttpSession session = request.getSession();
 		session.setAttribute("price", dao.board_price(dto));
 		session.setAttribute("productimg", dao.board_productimg(dto));
@@ -260,5 +264,16 @@ public class BoardService implements IBoardService{
 		String nickname= request.getParameter("nickname");
 		return  dao.myheart_list(nickname);	
 	}
-	
+	//게시글작성시 이미지 저장
+	public void board_img(BoardDTO dto) {
+		dao.board_img(dto);
+	}
+	//게시글 수정시 사진 변경되면 기존 이미지 삭제
+	public void board_delImg(BoardDTO dto) {
+		dao.board_delImg(dto);
+	}
+	//시퀀스 조회
+	public int seqSelect() {
+		return dao.seqSelect();
+	}
 }

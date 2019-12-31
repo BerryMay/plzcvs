@@ -159,4 +159,17 @@ public class BoardDAO {
 	public List<BoardDTO> myheart_list(String nickname) {
 		return sqlSession.selectList(namespace+".myheart_list",nickname);
 	}
+	public void board_img(BoardDTO dto) {
+		sqlSession.insert(namespace+".board_img",dto);
+	}
+	public void board_delImg(BoardDTO dto) {
+		sqlSession.delete(namespace+".board_delImg",dto);
+	}
+	public int seqSelect() {
+		return sqlSession.selectOne(namespace+".seqSelect");
+	}
+	public List<BoardDTO> imgList(String num) {
+		System.out.println("imgList DAO 실행 ");
+		return sqlSession.selectList(namespace+".imgList",num);
+	}
 }
