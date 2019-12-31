@@ -25,7 +25,7 @@
     <script>
     
     $(document).ready(function($) {
-<<<<<<< HEAD
+
     var pagesu =10;  //페이지 번호 갯수
      var currentPage = 0; //현재페이지
      var numPerPage = 3;  //페이징시 표출되는 목록의갯수
@@ -38,8 +38,7 @@
      
   
     var num=0;
-=======
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+
 
 	  cvsnum();//편의점 분류하기
 	  heartCnt(); //좋아요 카운트
@@ -417,7 +416,7 @@
             });
            }
 
-      });
+     
     </script>
     <script type="text/javascript">
     /* 댓글수정 클릭시  폼으로 바꾸기*/
@@ -458,12 +457,7 @@
             
          });
      }
-=======
-     		 });
-     		}
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
-     
-<<<<<<< HEAD
+
      
     /* 댓글삭제 클릭시*/
     function delComment(btn, cnum){ 
@@ -486,15 +480,8 @@
      }
     
 
-=======
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
-    </script>
-<<<<<<< HEAD
-   
-=======
 
-	
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+    </script>
 
 </head>
 <body >

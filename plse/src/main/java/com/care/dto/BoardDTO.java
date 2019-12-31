@@ -21,4 +21,5 @@ public class BoardDTO {
 	private Date newproduct;
 	
 	private String cat; 
+	private int replycnt;
 }

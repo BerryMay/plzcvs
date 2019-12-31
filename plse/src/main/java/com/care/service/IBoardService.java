@@ -9,7 +9,7 @@ import com.care.dto.BoardDTO;
 import com.care.dto.CommentDTO;
 
 public interface IBoardService {
-	public void board_list(Model model);
+	public List<BoardDTO> board_list();
 	public void board_reg(BoardDTO dto) throws Exception;
 	public void board_view(Model model);
 	public void board_modify(Model model);

@@ -1,8 +1,5 @@
 package com.care.service;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.care.dao.BoardDAO;
 import com.care.dto.BoardDTO;
@@ -23,7 +19,7 @@ import com.care.dto.CommentDTO;
 import com.care.dto.CvsDTO;
 import com.care.dto.PageCount;
 import com.care.dto.SearchCntDTO;
-import com.care.file.UploadFileUtils;
+
 @Service
 public class BoardService implements IBoardService{
 	@Autowired
@@ -32,9 +28,10 @@ public class BoardService implements IBoardService{
 	private String uploadPath;
 	
 	@Override
-	public void board_list(Model model) {
-		model.addAttribute("list", dao.board_list());
+	public List<BoardDTO> board_list() {
+		return  dao.board_list();
 	}
+	
 	
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
@@ -264,5 +261,7 @@ public class BoardService implements IBoardService{
 		String nickname= request.getParameter("nickname");
 		return  dao.myheart_list(nickname);	
 	}
+
+	
 	
 }
