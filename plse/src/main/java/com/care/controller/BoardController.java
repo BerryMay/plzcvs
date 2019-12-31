@@ -37,6 +37,7 @@ public class BoardController {
 		// 페이징 처리하는 sql문 실행하기
 		bs.page_board_list(model);
 		bs.pagingNum(model);
+		
 		return "board/board";
 	}
 	//레시피게시판보기

@@ -35,6 +35,11 @@ public class BoardDAO {
 		upHit(num);
 		return sqlSession.selectOne(namespace+".board_view",num);
 	}
+	
+	public String cvs_newproduct(BoardDTO dto) {
+		return sqlSession.selectOne(namespace+".cvs_newproduct",dto);
+	}
+	
 	public int board_price(BoardDTO dto) {
 		return sqlSession.selectOne(namespace+".board_price", dto);
 	}

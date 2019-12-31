@@ -189,7 +189,7 @@
 		<div align="center">
 			<form action="#" id="categoryForm">
 			<label for ="category">게시판 선택</label>
-				<select name="category" id="category" onchange="myboard_list(this.value)">
+				<select name="category" id="category" class ="selectboard" click="myboard_list_before(this.value)">
 					<option value="0" selected="selected">모두보기</option>
 					<option value="1">리뷰게시판</option>
 					<option value="2">레시피게시판</option>
@@ -429,11 +429,14 @@
     	 myboard_list();   	 
      });
 	  
-
+     $(".selectboard").click(function myboard_list_before (){
+    	 myboard_list(k);   	 
+     });
      
      //내가 쓴 글 목록부르기
      function myboard_list(k){
     	 console.log(k);
+    	 currentPage = 0; 
     	 if(k!=null){ console.log("k is not null");}
 
     	
@@ -695,7 +698,7 @@
 		  		  var $table = $(this);    	  		  
 		  		  var $pager = $('<div class="pager" align="center" id="remo"></div>');
 		  		
-		  		 ck = Number($('#heartpost').find(".actived").text());
+		  		 ck = 0;
 		  		console.log(ck);
 		  		  //페이지를 클릭하면 다시 셋팅
 		  		  $table.on('repaginate', function() {

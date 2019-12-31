@@ -55,8 +55,17 @@
 								<c:when test="${dto.cvsnum == 3 }">CU</c:when>
 							</c:choose>
 						</td>
-						<td style="text-align: center">${dto.productname }</td>
+						<!-- new 상품명 뜨는곳  --> 
+						<td style="text-align: center" title="${dto.productname }" >${dto.productname }
+							<c:if test="${nowdate - chgDttm < 30}">
+								<span class="hit">new!</span>
+							</c:if>
+						</td>
 						<td><a href="detail?num=${dto.num}">${dto.title }
+							<!-- 댓글갯수 -->
+							<c:if test="${dto.replycnt != 0 }">
+								<span class="replycnt">(${dto.replycnt})</span>
+							</c:if> 
 							<c:if test="${dto.gdsimg != null }">
 								<input type="text" class="contentimg" readonly="readonly">
 							</c:if>

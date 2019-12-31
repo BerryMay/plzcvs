@@ -1,8 +1,5 @@
 package com.care.service;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.care.dao.BoardDAO;
 import com.care.dto.BoardDTO;
@@ -23,23 +19,31 @@ import com.care.dto.CommentDTO;
 import com.care.dto.CvsDTO;
 import com.care.dto.PageCount;
 import com.care.dto.SearchCntDTO;
+<<<<<<< HEAD
 import com.care.file.UploadFileUtils;
 import com.fasterxml.jackson.databind.BeanProperty.Bogus;
+=======
+
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 @Service
 public class BoardService implements IBoardService{
 	@Autowired
 	BoardDAO dao;
 	@Resource(name="uploadPath")
 	private String uploadPath;
+	
 	@Override
-	public void board_list(Model model) {
-		model.addAttribute("list", dao.board_list());
+	public List<BoardDTO> board_list() {
+		return  dao.board_list();
 	}
+	
+	
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
 	public void board_reg(BoardDTO dto) throws Exception {
 		dao.board_reg(dto);
 	}
+	
 	@Override
 	public void board_view(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -54,6 +58,7 @@ public class BoardService implements IBoardService{
 		session.setAttribute("price", dao.board_price(dto));
 		session.setAttribute("productimg", dao.board_productimg(dto));
 	}
+	
 	@Override
 	public void board_modify(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -264,6 +269,7 @@ public class BoardService implements IBoardService{
 		String nickname= request.getParameter("nickname");
 		return  dao.myheart_list(nickname);	
 	}
+<<<<<<< HEAD
 	//게시글작성시 이미지 저장
 	public void board_img(BoardDTO dto) {
 		dao.board_img(dto);
@@ -276,4 +282,9 @@ public class BoardService implements IBoardService{
 	public int seqSelect() {
 		return dao.seqSelect();
 	}
+=======
+
+	
+	
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 }

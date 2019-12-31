@@ -94,7 +94,7 @@
 				<ul>
 					<li><a href="board">리뷰 게시판</a></li>
 					<li><a href="recipeBoard">레시피 게시판</a></li>
-					<li><a href="#">선호도 조사</a></li>
+					<li><a href="chart">선호도 조사</a></li>
 					<li><a href="map">편의점 찾기</a></li>
 					<li><a href="#">이벤트 보기</a></li>
 				</ul>
