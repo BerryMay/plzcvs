@@ -261,7 +261,19 @@ public class BoardService implements IBoardService{
 		String nickname= request.getParameter("nickname");
 		return  dao.myheart_list(nickname);	
 	}
+	
 
+	//베스트 게시글 top3
+	@Override
+	public void board_best(Model model) {
+		model.addAttribute("best_list", dao.board_best());
+	}
+	
+	//레시피 베스트 게시글 top3
+	@Override
+	public void recipeBoard_best(Model model) {
+		model.addAttribute("best_list", dao.recipeBoard_best());
+	}
 	
 	
 }

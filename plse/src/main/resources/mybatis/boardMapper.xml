@@ -24,6 +24,11 @@
 	<insert id="board_reg" parameterType="Bdto">
 		insert into board(cat,num,title,nickname,hit,recommend,stars,productname,content,cvsnum,gdsimg) values(#{cat},board_num_seq.nextval,#{title},#{nickname},0,0,#{stars},#{productname},#{content},#{cvsnum},#{gdsimg, jdbcType=VARCHAR})
   	</insert>
+  	  	<!-- 게시글 작성시 포인트 주기:20점  -->
+  	<update id="point_post" parameterType="String">
+		<![CDATA[ update member set point= point+20, DAILYPOINTCHK= DAILYPOINTCHK+1 where NICKNAME =#{nick} and DAILYPOINTCHK <5 ]]>
+  	</update>
+  	
   	
   	<!-- 게시글/레시피 클릭한것 보여주기 -->
   	<select id="board_view" resultType="Bdto">
@@ -149,6 +154,16 @@
   	<!-- 내가 좋아요 한 글 -->
   	<select id="myheart_list" resultType="Bdto" parameterType="String">
 		select * from board where num in (select bnum from heart where nickname=#{nickname}) order by num desc
+	</select>
+	
+		
+	<!-- 리뷰 top3 리스트 -->
+	<select id="board_best" resultType="Bdto">
+		<![CDATA[ select * from (select * from board where cat='1' order by hit desc) where rownum <= 3 ]]>
+	</select>	
+	<!-- 레시피 top3 리스트 -->
+	<select id="recipeBoard_best" resultType="Bdto">
+		<![CDATA[ select * from (select * from board where cat='2' order by hit desc) where rownum <= 3 ]]>
 	</select>
 	
 	</mapper>

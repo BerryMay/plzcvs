@@ -32,8 +32,8 @@
 			<table class="table table-striped table-bordered table-hover" style="width: 100%;">
 				<thead>
 					<tr height="42px" >
-						<th style=" border-radius: 10px 0 0 0;" width="10%" >번호</th>
-						<th width="10%">상품명</th>
+						<th style=" border-radius: 10px 0 0 0;" width="5%" >번호</th>
+						<th width="15%">상품명</th>
 						<th width="40%">제목</th>
 						<th width="10%">작성자</th>
 						<th width="20%">작성일</th>
@@ -42,7 +42,32 @@
 				</thead>
 				<tbody>
 					
-				</tbody>
+				
+				<c:forEach var="bestDto" items="${best_list }">
+					<fmt:formatDate value="${bestDto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
+					
+					<!-- 레시피 베스트글 -->
+					<tr class="best_tr">
+						<td style="text-align: center">${bestDto.num }</td>
+					
+						<td style="text-align: center" title="${bestDto.productname }" >${bestDto.productname }</td>
+						<td><a href="recipeDetail?num=${bestDto.num}" class="aw100" title="${bestDto.title }">${bestDto.title }
+							<c:if test="${bestDto.gdsimg != null }">
+								<input type="text" class="contentimg" readonly="readonly">
+							</c:if>
+							<!-- hit 뜨게하는 코드 -->
+							<c:if test="${bestDto.hit >= 20}">
+		                  		<span class="hit">best!</span>
+		                	</c:if>
+						</a></td>
+						<td>${bestDto.nickname }</td>
+						<td style="text-align: center">
+							<c:if test="${today == savedate }"><fmt:formatDate value="${bestDto.savedate}" pattern="kk:mm"/></c:if>
+							<c:if test="${today != savedate }">${savedate }</c:if>
+						</td>
+						<td style="text-align: center">${bestDto.hit }</td>
+					</tr>
+				</c:forEach>
 				<c:forEach var="dto" items="${list }">
 				<fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
 					<tr>
@@ -65,6 +90,7 @@
 						<td style="text-align: center">${dto.hit }</td>
 					</tr>
 				</c:forEach>
+				</tbody>
 			</table>
 			 <div id="paging">
 				<!-- 페이징 처리 -->
