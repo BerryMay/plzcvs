@@ -189,9 +189,10 @@
 		<div align="center">
 			<form action="#" id="categoryForm">
 			<label for ="category">게시판 선택</label>
-				<select name="category" id="category" class ="selectboard" click="myboard_list_before(this.value)">
+				<select name="category" id="category" class ="selectboard" on
+				change="myboard_list_before(this.value)">
 					<option value="0" selected="selected">모두보기</option>
-					<option value="1">리뷰게시판</option>
+					<option value="1" >리뷰게시판</option>
 					<option value="2">레시피게시판</option>
 				</select>
 			</form>
