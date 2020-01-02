@@ -94,6 +94,7 @@
 							</c:choose>
 						
 						</td>						
+					
 						<!-- new 상품명 뜨는곳  --> 
 						<td style="text-align: center" title="${dto.productname }" >${dto.productname }
 							<c:if test="${nowdate - chgDttm < 30}">

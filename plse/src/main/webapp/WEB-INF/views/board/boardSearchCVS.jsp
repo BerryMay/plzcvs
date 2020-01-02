@@ -36,12 +36,14 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now }" pattern="yyyy.MM.dd" var="today"/>
+<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowdate"></fmt:parseNumber>
+
 </head>
 <body>
 	<jsp:include page="../default/header.jsp" />
 	<div id="container">
 		<div id="list">
-			<h1>리뷰 게시판</h1> 
+			<h1>편의점 별 리뷰 게시판</h1> 
 			<br><br>
 		</div>
 		
@@ -73,13 +75,17 @@
 				</tbody>
 				<c:forEach var="dto" items="${dto }">
 				<fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
+				<fmt:formatDate value="${dto.newproduct}" pattern="yyyy.MM.dd" var="newproducts"/>
+				<fmt:parseNumber value="${dto.newproduct.time / (1000*60*60*24)}" integerOnly="true" var="chgDttm"></fmt:parseNumber>
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
 						<td style="text-align: center"><c:choose>
 								<c:when test="${dto.cvsnum == 1 }">GS25</c:when>
 								<c:when test="${dto.cvsnum == 2 }">세븐일레븐</c:when>
 								<c:when test="${dto.cvsnum == 3 }">CU</c:when>
-							</c:choose></td>
+							</c:choose></td>					
+						
+							
 						<!-- new 상품명 뜨는곳  --> 
 						<td style="text-align: center" title="${dto.productname }" >${dto.productname }
 							<c:if test="${nowdate - chgDttm < 30}">

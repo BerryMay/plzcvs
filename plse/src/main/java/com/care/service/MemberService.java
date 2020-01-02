@@ -43,6 +43,7 @@ public class MemberService implements IMemberService{
 					// 성공시 세션 만들어줌
 					session.setAttribute("userId", loginchk.getNickname());
 					session.setAttribute("verify", loginchk.getVerify());
+					session.setAttribute("age", loginchk.getAge());
 					model.addAttribute("result", "ok");
 				}else {
 					model.addAttribute("result", "no");

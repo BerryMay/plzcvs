@@ -56,7 +56,7 @@
   	
   	<!-- 편의점별 검색 -->
   	<select id="cvs_search" parameterType="Bdto" resultType="Bdto" >
-  		select * from board where cvsnum=#{cvsnum} and cat='1'
+	select b.*,c.newproduct from board b, cvs c where b.cvsnum=#{cvsnum} and b.cat='1' and b.productname=c.PRODUCTNAME order by num desc
   	</select>
   	
   	

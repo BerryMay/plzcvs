@@ -49,7 +49,9 @@ public class BoardController {
 		return "board/recipeBoard";
 	}
 	
-
+	//게시글에 값 넣어주기 
+	
+	
 	//게시글 등록페이지
 	@RequestMapping(value = "/post")
 	public String post() {
@@ -198,6 +200,10 @@ public class BoardController {
 	public String cvs_search(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
 		bs.cvs_search(model);
+		bs.recipePagingNum(model);
+		
+		
+	
 		return "board/boardSearchCVS";
 	}
 	
