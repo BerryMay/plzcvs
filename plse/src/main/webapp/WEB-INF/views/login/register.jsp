@@ -258,8 +258,7 @@
 							<form action="registerChk" id="Mregister" method="post" role="form" class="form"
 								accept-charset="UTF-8">
 								
-								
-									
+															
 								<!-- id 지정 -->
 								<div class="form-group">
 								<input type="text" id="id" name="id" class="form-control" placeholder="Id" required>
