@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="utf-8"%>
 
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -11,21 +12,21 @@
 <meta charset="utf-8">
 <title>마이페이지</title>
 	<script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script> <!-- 기본 jquery -->
-	<script  type="text/javascript" src="js/jquery-confirm.js"></script><!-- confirm띄우기  -->
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css"><!-- confirm창 css  -->
+	<script  type="text/javascript" src="js/jquery-ui.js"></script>
+	<link rel="stylesheet" href="css/contentView2.css" type="text/css" />
+	
+	
 	<link
 		href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 		rel="stylesheet" id="bootstrap-css"> 
-		
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>	
-	<script src="resources/js/moment.js"></script><!-- 시간띄우기 -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/board.css" type="text/css" />
 	
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
-	<link rel="stylesheet" href="css/board.css" type="text/css" />
 	<link rel="stylesheet" href="css/mypage.css" type="text/css" />
 
+	<script src="resources/js/moment.js"></script>
 
 
 </head>
@@ -35,8 +36,7 @@
 	      location.href="login";
 	   </script>
 	</c:if>
-	<%@ include file="../default/header_ajax.jsp" %> 
-	
+	<jsp:include page="../default/header.jsp" />
 	
 	
 	<h2>마이 페이지</h2>
@@ -65,12 +65,7 @@
 					id="reg_nickname" name="nickname" class="form-control"
 					value="${dto.nickname }" placeholder="Nickname" required readonly>
 			</div>
-			<!-- point -->
-			<div class="form-group">
-				<label>Point</label> 
-				<input type="text" id="point" name="point" class="form-control"
-					value="${dto.point }" required readonly>
-			</div>
+			
 			
 			<div class="form-group" style="text-align: left">
 			<label>성별 </label> 	
@@ -177,6 +172,9 @@
 			</div>
 			<div class="form-btn">
 				<input  class="form-btn_btn"  type="button" id="conf_btn" value="회원 탈퇴" />
+					<div id="confirm" title="회원 탈퇴"  class="hide">
+						<p>정말로 탈퇴하시겠습니까?</p>
+					</div>
 			</div>
 		</form>
 	</div>
@@ -191,11 +189,10 @@
 		<div align="center">
 			<form action="#" id="categoryForm">
 			<label for ="category">게시판 선택</label>
-				<select name="category" id="category" class ="selectboard" on
-				change="myboard_list_before(this.value)">
-					<option value="0" selected="selected">모두보기</option>
-					<option value="1" >리뷰게시판</option>
-					<option value="2">레시피게시판</option>
+				<select name="category" id="category" class ="selectboard" >
+					<option value="0"  selected="selected">모두보기</option>
+					<option value="1"  >리뷰게시판</option>
+					<option value="2" >레시피게시판</option>
 				</select>
 			</form>
 			<table class="table table-striped table-list table-hover" style="width: 100%;">
@@ -250,21 +247,22 @@
 
 		//회원탈퇴
 		$("#conf_btn").click(function(){
-			var user = '<%=(String)session.getAttribute("userId")%>';
-			$.confirm({
-			    title: '회원탈퇴',
-			    content: '작성했던 글이 모두 삭제됩니다.<br>정말로 탈퇴하시겠습니까?',
-			    buttons: {
-			        "예": function () {
-			            alert("회원탈퇴가 정상적으로 이루어졌습니다. 안녕히 가세요!");
+			var user = "<%=(String)session.getAttribute("+userId+")%>";
+			$("#confirm").dialog({
+				resizable:false, height:"auto", width:400, modal:true,
+				buttons:{
+					"예":function(){
+						$(this).dialog("close");
+						alert("회원탈퇴가 정상적으로 이루어졌습니다. 안녕히 가세요!");
 						location.href='withdrawal?nickname='+user;
-			        },
-			        "아니요": function () {
-			            location.href='mypage?nickname='+user;
-			        }
-			        
-			    }
-			}); 
+					},
+					"아니요":function(){
+						$(this).dialog("close");												
+						location.href='mypage?nickname='+user;
+						
+					}
+				}
+			})
 			
 		});
 
@@ -418,7 +416,7 @@
 	//---------------------------------------------------------------
 	
 	var pagesu =10;  //페이지 번호 갯수
-	  var currentPage = 0; //현재페이지
+	  var currentPage ; //현재페이지
 	  var numPerPage = 5;  //페이징시 표출되는 목록의갯수
 	  var endPage;	//끝페이지
 	  var comnum;	//전체댓글수
@@ -429,17 +427,20 @@
 
      $(".myboard").click(function(){
     	 myboard_list();   	 
+    	 console.log("여기는 언제 출력이 되지요?");
      });
 	  
-     $(".selectboard").click(function myboard_list_before (){
-    	 myboard_list(k);   	 
+     $(".selectboard").change(function myboard_list_before(){
+    	
+    	 console.log($(".selectboard").val());
+    	 myboard_list($(".selectboard").val());    
      });
      
      //내가 쓴 글 목록부르기
-     function myboard_list(k){
-    	 console.log(k);
+     function myboard_list(){
+    	 
     	 currentPage = 0; 
-    	 if(k!=null){ console.log("k is not null");}
+    	
 
     	
     	 var category =document.getElementById("category").value;
@@ -498,7 +499,7 @@
                            
                endPage = Math.ceil(comnum/wantpg); 
                
-               list_page(k);
+               list_page();
 
            },
            error:function(data){console.log("에러");},
@@ -506,9 +507,9 @@
      
      };
   // 내가 쓴 글 페이지 처리
-  	function list_page(j){ 
-	  var k = j;
-	  this.k=k;
+  	function list_page(){ 
+	
+	  
 	 
 	  
   		 $('.table-list tbody').each(function() {
@@ -525,10 +526,9 @@
 	  		  
   		  var $table = $(this);     		 
   		  var $pager = $('<div class="pager" align="center" id="remo"></div>');
-  		var ck = 0;
+  		var ck =1;
   		
-  		if(k!=null){ck=1; currentPage=1; nowp = currentPage;}
-  		else{ck = Number($('#mypost').find(".actived").text());}
+  
   		  
   		  $table.on('repaginate', function() {
   			//기본적으로 모두 감춘다, 현재페이지+1 곱하기 현재페이지까지 보여준다
@@ -560,7 +560,7 @@
 	  		   
 	  		   // [처음]
 	  		   $('<span class="page-number" cursor: "pointer"><i class="fas fa-angle-double-left"></i></span>').bind('click', {newPage: page},function(event) {
-	  		          currentPage = 0;   
+	  		          currentPage = 0;     
 	  		          $table.trigger('repaginate');  
 	  		          $($(".page-number")[2]).addClass('actived').siblings().removeClass('actived');
 	  		      }).appendTo($pager).addClass('clickable');
@@ -594,12 +594,8 @@
 	  		   }).appendTo($pager).addClass('clickable');
 	  		     
 	  		 //console.log(k);
-	  		   if(k!=null){
-	  			   ck=1;
-	  		 		$($(".page-number")[2]).addClass('actived');
-	  		 		
-	  		   }
-	  		   console.log(ck);
+	  		   
+	  		   console.log("ck의 값 : " +ck);
 	  		    if(ck<="1" || ck== 'Nan'){	
 	   				 //0, 1페이지라면    				
 	   				$($(".page-number")[2]).addClass('actived');
@@ -766,7 +762,7 @@
 			  		           $($(".page-number")[endp-nowp+1]).addClass('actived').siblings().removeClass('actived');
 			  		   }).appendTo($pager).addClass('clickable');
 			  		
-			  		    console.log(ck);
+			  		    console.log("ck의 값 조아요 " + ck);
 			  		    if(ck<="1" || ck== 'Nan'){	
 			   				 //0, 1페이지라면    				
 			   				$($(".page-number")[2]).addClass('actived');
