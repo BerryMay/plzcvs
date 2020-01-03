@@ -59,6 +59,10 @@
 							<c:if test="${bestDto.gdsimg != null }">
 								<input type="text" class="contentimg" readonly="readonly">
 							</c:if>
+							<!-- 댓글갯수 -->
+							<c:if test="${bestDto.replycnt != 0 }">
+								<span class="replycnt">(${bestDto.replycnt})</span>
+							</c:if> 
 							<!-- hit 뜨게하는 코드 -->
 							<c:if test="${bestDto.hit >= 20}">
 		                  		<span class="hit">best!</span>
