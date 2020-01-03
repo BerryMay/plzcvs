@@ -532,17 +532,11 @@
                         <div class="col-md-6">      
                        
                             <p style="display:none;">  내 용</p>
-<<<<<<< HEAD
                             <c:if test="${imgList != null}">
         	                    <c:forEach var="img" items="${imgList }">
         	                    	<img src="${img.gdsimg }" class="ProductImg">
     	                        </c:forEach>
                             </c:if>
-=======
-                            <c:if test="${dto.gdsimg != null }">
-                                <div><img src="${dto.gdsimg }"/></div>
-                             </c:if>
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
                             <div class="content_div">${dto.content }</div>
 
                         </div> <!--col-md-6 close-->

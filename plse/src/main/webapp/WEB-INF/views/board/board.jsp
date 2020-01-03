@@ -59,9 +59,9 @@
 			<form action="cvs_search" id="cvsSearchForm" name="cvsSearchForm">
 	<select name="cvsnum" id="cvssearchs" class="form-cvsnum form-control">
 		<option value="0">편의점선택</option>
-		<option value="1">gs25</option>
+		<option value="1">GS25</option>
 		<option value="2">세븐일레븐</option>
-		<option value="3">cu</option>
+		<option value="3">CU</option>
 	</select>
 	</form>
 		
@@ -79,7 +79,47 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+				<!-- 베스트 게시글 3개띄우기 -->	
+				<c:forEach var="bestDto" items="${best_list }">
+					<fmt:formatDate value="${bestDto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
+					<fmt:formatDate value="${bestDto.newproduct}" pattern="yyyy.MM.dd" var="newproducts"/>
+					<fmt:parseNumber value="${bestDto.newproduct.time / (1000*60*60*24)}" integerOnly="true" var="chgDttm"></fmt:parseNumber>
+				
+					<tr class="best_tr">
+						<td style="text-align: center">${bestDto.num }</td>
+						<td style="text-align: center">
+							<c:choose>
+								<c:when test="${bestDto.cvsnum == 1 }">GS25</c:when>
+								<c:when test="${bestDto.cvsnum == 2 }">세븐일레븐</c:when>
+								<c:when test="${bestDto.cvsnum == 3 }">CU</c:when>
+							</c:choose>
+						</td>
+						
+						<!-- new 상품명 뜨는곳  --> 
+						<td style="text-align: center" title="${bestDto.productname }" >${bestDto.productname }
+							<c:if test="${nowdate - chgDttm < 30}">
+								<span class="new">new!</span>
+							</c:if>
+						</td>
+						
+						<td><a href="detail?num=${bestDto.num}" class="aw100" title="${bestDto.title }">${bestDto.title }
+							<c:if test="${bestDto.gdsimg != null }">
+								<input type="text" class="contentimg" readonly="readonly">
+							</c:if>
+							<!-- hit 뜨게하는 코드 -->
+							<c:if test="${bestDto.hit >= 20}">
+		                  		<span class="hit">best!</span>
+		                	</c:if>
+						</a></td>
+						<td>${bestDto.nickname }</td>
+						<td style="text-align: center">
+							<c:if test="${today == savedate }"><fmt:formatDate value="${bestDto.savedate}" pattern="kk:mm"/></c:if>
+							<c:if test="${today != savedate }">${savedate }</c:if>
+						</td>
+						<td style="text-align: center">${bestDto.hit }</td>
+					</tr>
+				</c:forEach>
+								
 				<c:forEach var="dto" items="${list }">
 				<fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
 				<fmt:formatDate value="${dto.newproduct}" pattern="yyyy.MM.dd" var="newproducts"/>
@@ -94,10 +134,11 @@
 							</c:choose>
 						
 						</td>						
+					
 						<!-- new 상품명 뜨는곳  --> 
 						<td style="text-align: center" title="${dto.productname }" >${dto.productname }
 							<c:if test="${nowdate - chgDttm < 30}">
-								<span class="hit">new!</span>
+								<span class="new">new!</span>
 							</c:if>
 						</td>
 						

@@ -23,6 +23,7 @@ import com.care.recaptcha.VerifyRecaptcha;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Service
 public class MemberService implements IMemberService{
 	
@@ -43,6 +44,8 @@ public class MemberService implements IMemberService{
 				if(loginchk.getAuthstatus() == 1) {
 					// 성공시 세션 만들어줌
 					session.setAttribute("userId", loginchk.getNickname());
+					session.setAttribute("verify", loginchk.getVerify());
+					session.setAttribute("age", loginchk.getAge());
 					model.addAttribute("result", "ok");
 				}else {
 					model.addAttribute("result", "no");
@@ -53,6 +56,7 @@ public class MemberService implements IMemberService{
 			}			
 		} catch (Exception e) { System.out.println("로그인 오류" + e); }
 	}
+	
 	
 	public void register(Model model) {
 		Map<String, Object> map = model.asMap();

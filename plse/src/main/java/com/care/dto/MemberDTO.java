@@ -15,4 +15,5 @@ public class MemberDTO {
 	private int point;
 	private String authkey;
 	private int authstatus;
+	private int verify; 
 }

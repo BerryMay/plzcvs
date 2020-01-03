@@ -5,14 +5,17 @@
 
 	<!-- mapper 만드는 곳 -->
 	<mapper namespace="com.care.mybatis.loginMapper">
+	<!-- 로그인 -->
 	<select id="login" resultType="Mdto">
   		select * from member where id=#{id} and pw=#{pw}
   	</select>
   	
+  	<!-- 회원가입  -->
   	<insert id="register" parameterType="Mdto" >
-  		insert into member(id,pw,nickname,age,gender,mail,point,authkey) values(#{id},#{pw},#{nickname},#{age},#{gender},#{mail},0,#{authkey})
+  		insert into member(id,pw,nickname,age,gender,mail,point,authkey,verify) values(#{id},#{pw},#{nickname},#{age},#{gender},#{mail},500,#{authkey},0)
   	</insert>
   	
+  	<!-- 아이디 중복체크 -->
   	<select id="userIdCheck" parameterType="Mdto" resultType="int">
   		select count(*) from member where id = #{id}
   	</select>

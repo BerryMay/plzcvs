@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -156,6 +157,7 @@
 </script>
 <meta charset="UTF-8">
    <title>게시판 등록</title>   
+
 </head>
 <body >
 <c:if test="${userId == null }">
@@ -173,6 +175,9 @@
           <form name="postform" id="postform" class="postform" action="board_reg" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="nickname" value="${userId }">
           <input type="hidden" name="cat" value='1'>
+          
+   
+          
             <div class="form-group"><!-- 편의점, 상품명 div -->
                   <div class="cvsnum_div">
                <label for="cvsnum">편의점</label> 
