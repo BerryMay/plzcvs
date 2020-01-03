@@ -132,6 +132,7 @@ public class MemberService implements IMemberService{
 		MemberDTO dto = (MemberDTO)map.get("dto");
 		dao.member_modify(dto);		
 	}
+
 	//회원탈퇴
 	public void member_withdrawal(Model model) {
 		Map<String, Object> map = model.asMap();

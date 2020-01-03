@@ -6,10 +6,9 @@
 <head>
    <script type="text/javascript">
       function bChk(){
-         if(document.postform.productname.value==""){
-            alert("상품명을 입력해주세요")
-         }else if(document.postform.stars.value==""){
-            alert("별점을 매겨주세요")
+         if(document.postform.stars.value==""){
+            alert("별점을을 입력해주세요")
+        
          }else if(document.postform.title.value==""){
             alert("제목을 입력해주세요")
          }else if(document.postform.content.value==""){
@@ -32,8 +31,13 @@
 
    <script type="text/javascript">
    
-   $(document).ready(function($) {
+   
 
+<<<<<<< HEAD
+	                 
+
+
+=======
 		var productnames = new Array(); //상품이름 담을 배열
 	   
 	      $(function(){      
@@ -79,21 +83,8 @@
 	                   });     
 	               },error:function(data){console.log("상품명 불러오기에러");},
 	            })//ajax 끝
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 
-	         }) 
-
-	         $("#productname").autocomplete({
-	              source: productnames,
-	              select: function(event, ui) {
-	            	 
-	                  console.log(ui.item.value);                  
-	              },
-	              focus: function(event, ui) {
-	                  return false;
-	              }
-	          });     
-	      });//자동완성 끝
-	      
       
       
       //별점 script
@@ -169,19 +160,12 @@
           <form name="postform" id="postform" class="postform" action="recipeBoard_reg" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="nickname" value="${userId }">
           <input type="hidden" name="cat" value='2'>
+          
             <div class="form-group"><!-- 편의점, 상품명 div -->
-                  <div class="cvsnum_div">
-               <label for="cvsnum">편의점</label> 
-               <select name="cvsnum" class="form-cvsnum form-control">
-                  <option value="1">GS25</option>
-                  <option value="2">세븐일레븐</option>
-                  <option value="3">CU</option>
-               </select> 
-               </div>
-               <div class="productname_div">
-               <label for="productname">상품명</label> 
-              <input type="text" class="form-productname form-control " id="productname" name="productname" />
-               </div>
+                  
+              <input type="hidden" name="cvsnum" value='1'>
+              <input type="hidden" name="productname" value='피자빵'>
+              
             </div><!-- 편의점, 상품명 div -->
 
               <div class="form-group"><!-- 별점 div  -->

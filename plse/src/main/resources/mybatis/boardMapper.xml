@@ -9,7 +9,9 @@
 
 	<!-- 게시글 리스트 -->
 	<select id="board_list" resultType="Bdto">
+
 		select * from board
+
 	</select>
 
 	
@@ -23,17 +25,24 @@
 	<insert id="board_reg" parameterType="Bdto">
 		insert into board(cat,num,title,nickname,hit,recommend,stars,productname,content,cvsnum,gdsimg) values(#{cat},#{num},#{title},#{nickname},0,0,#{stars},#{productname},#{content},#{cvsnum},#{gdsimg, jdbcType=VARCHAR})
   	</insert>
+
+  	<!-- 레시피 게시글 작성 -->
+	<insert id="recipeboard_reg" parameterType="Bdto">
+		insert into board(cat,num,title,nickname,hit,recommend,stars,content,gdsimg) values(#{cat},board_num_seq.nextval,#{title},#{nickname},0,0,#{stars},#{content},#{gdsimg, jdbcType=VARCHAR})
+  	</insert>
+
   	  	<!-- 게시글 작성시 포인트 주기:20점  -->
   	<update id="point_post" parameterType="String">
 		<![CDATA[ update member set point= point+20, DAILYPOINTCHK= DAILYPOINTCHK+1 where NICKNAME =#{nick} and DAILYPOINTCHK <5 ]]>
   	</update>
-  	
+
   	
   	<!-- 게시글/레시피 클릭한것 보여주기 -->
   	<select id="board_view" resultType="Bdto">
   		select * from board where num=#{num}
   	</select>
   	
+  
  
   	<!-- 게시글 조회수 증가 -->
   	<update id="upHit">
@@ -43,9 +52,23 @@
   	<update id="board_modify" parameterType="Bdto">
   		update board set cvsnum=#{cvsnum}, productname=#{productname}, stars=#{stars}, title=#{title}, content=#{content}, gdsimg=#{gdsimg} where num=#{num}
   	</update>
+  	
+  	<!-- 레시피 게시글 수정 -->
+  	<update id="recipeBoard_modify" parameterType="Bdto">
+  		update board set stars=#{stars}, title=#{title}, content=#{content}, gdsimg=#{gdsimg} where num=#{num}
+  	</update>
+  	
   	<!-- 게시글 삭제 -->
   	<delete id="board_delete">
   		delete from board where num=#{num}
+  	</delete>
+  	<!-- 게시글 삭제시 댓글 삭제 -->
+  	<delete id="content_commentlist_delete">
+  		DELETE FROM COMMENTS  WHERE bnum = #{num}
+  	</delete>
+  	<!-- 게시글 삭제시 좋아요 삭제 -->
+  	<delete id="content_heart_delete">
+  		DELETE FROM HEART  WHERE bnum = #{num}
   	</delete>
   	
   	
@@ -58,11 +81,7 @@
   		select * from board where ${title} like '%'||#{content}||'%' and cat='2' order by num desc
   	</select>
   	
-  	<!-- 편의점별 검색 -->
-  	<select id="cvs_search" parameterType="Bdto" resultType="Bdto" >
-		select b.*,c.newproduct from board b, cvs c where b.cvsnum=#{cvsnum} and b.cat='1' and b.productname=c.PRODUCTNAME order by num desc
-  	</select>
-  	
+
   	
   	<select id="cvs_newproduct" resultType="String">
   		select newproduct from cvs where productname=#{productname} and cvsnum=#{cvsnum}
@@ -99,6 +118,9 @@
 		select count(*) from board where cat='2' 
 	</select>
 	
+
+	
+	
 	<!-- 페이징된 게시판 리스트 가져오기 -->
 	<select id="board_pagingList" parameterType="Pdto" resultType="Bdto">
 		 select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt, c.newproduct  from board b, cvs c where b.cat='1' and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B where rn between #{startPage} and #{endPage}
@@ -108,6 +130,15 @@
 	<select id="recipeBoard_pagingList" parameterType="Pdto" resultType="Bdto">
 		select B.* from(select rownum rn, A.* from (select * from board where cat='2' order by num desc)A)B where rn between #{startPage} and #{endPage}
 	</select>
+	
+	<!-- cvs별 페이징리스트 가져오기 -->
+	<select id="cvsPageBoard_pagingList" parameterType="Pdto" resultType="Bdto">
+		select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt,
+c.newproduct  from board b, cvs c where b.cat=#{cat} and b.cvsnum=#{cvsnum} and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B 
+where rn between #{startPage} and #{endPage}
+	</select>
+	
+	
 	
 	
 	<!-- 상품이미지 가져오기 -->
@@ -140,6 +171,12 @@
   	<select id="searchSelect" parameterType="Bdto" resultType="Bdto">
   		select * from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%' order by num desc
   	</select>
+
+
+  	<select id="cvs_search" parameterType="Bdto" resultType="Bdto" >
+		select b.*,c.newproduct from board b, cvs c where b.cvsnum=#{cvsnum} and b.cat='1' and b.productname=c.PRODUCTNAME order by num desc
+  	</select>
+  	
 
   	<!-- 관리자 상품등록 -->
 	<insert id="adminPost" parameterType="com.care.dto.CvsDTO">
@@ -174,7 +211,7 @@
 		
 	<!-- 리뷰 top3 리스트 -->
 	<select id="board_best" resultType="Bdto">
-		<![CDATA[ select * from (select * from board where cat='1' order by hit desc) where rownum <= 3 ]]>
+		<![CDATA[ select B.* from (select  A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt from board b where b.cat='1' order by hit desc)A)B where rownum <= 3 ]]>
 	</select>	
 	<!-- 레시피 top3 리스트 -->
 	<select id="recipeBoard_best" resultType="Bdto">

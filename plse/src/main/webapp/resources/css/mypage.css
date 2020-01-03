@@ -206,7 +206,7 @@ table {
 	white-space: pre-wrap;
 }
 
-.table-list td{
+.table thead>tr>th, .table tbody>tr>td {
 	border:1px solid #ddd;
 	
 }

@@ -35,15 +35,22 @@ public class BoardDAO {
 		}		
 		return result;
 	}
+
+	public int recipeboard_reg(BoardDTO dto) {
+		return sqlSession.insert(namespace+".recipeboard_reg",dto);
+	}
+
 	//게시글 등록시 포인트 주기
 	public int point_post(String nick) {
 		return sqlSession.update(namespace+".point_post",nick);
+
 	}
 	
 	public BoardDTO board_view(int num) {
 		upHit(num);
 		return sqlSession.selectOne(namespace+".board_view",num);
 	}
+	
 	
 	public String cvs_newproduct(BoardDTO dto) {
 		return sqlSession.selectOne(namespace+".cvs_newproduct",dto);
@@ -58,7 +65,14 @@ public class BoardDAO {
 	public int board_modify(BoardDTO dto) {
 		return sqlSession.update(namespace+".board_modify",dto);
 	}
+	public int recipeBoard_modify(BoardDTO dto) {
+		return sqlSession.update(namespace+".recipeBoard_modify",dto);
+	}
+	
+	//게시글 삭제
 	public int board_delete(int num) {
+		sqlSession.delete(namespace+".content_commentlist_delete",num);
+		sqlSession.delete(namespace+".content_heart_delete",num);
 		return sqlSession.delete(namespace+".board_delete",num);
 	}
 	
@@ -125,6 +139,9 @@ public class BoardDAO {
 		public int recipeGetTotalPage() {
 			return sqlSession.selectOne(namespace+".recipeBoard_getTotalPage");
 		}
+	
+		
+		
 		
 		
 		
@@ -136,6 +153,7 @@ public class BoardDAO {
 		public List<BoardDTO> recipePage_board_list(PageCount pc) {
 			return sqlSession.selectList(namespace+".recipeBoard_pagingList",pc);
 		}
+	
 		
 		
 	//상품명 자동완성

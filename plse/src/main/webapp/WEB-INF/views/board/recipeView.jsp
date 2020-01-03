@@ -12,7 +12,6 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-rating.js"></script>
 	<link rel="stylesheet" href="css/contentView.css" type="text/css" />
-	<link rel="stylesheet" href="css/contentView2.css" type="text/css" />
 
     <!--댓글-->
     <script src="resources/js/moment.js"></script>
@@ -22,7 +21,7 @@
     
     <script>
     
-    var pagesu =10;  //페이지 번호 갯수
+ 	  var pagesu =10;  //페이지 번호 갯수
 	  var currentPage = 0; //현재페이지
 	  var numPerPage = 3;  //페이징시 표출되는 목록의갯수
 	  var endPage;	//끝페이지
@@ -106,18 +105,7 @@
 		});
 	}
        
-    //편의점분류
-    function cvsnum(){
-    	var cvs ="";
-        switch(${ dto.cvsnum }){
-           case 1: cvs="GS25"; break;
-           case 2: cvs="세븐일레븐"; break;
-           case 3: cvs="CU"; break;
-        }
-        document.getElementById("cvs").innerText+=cvs
-     
-    }
-    
+   
     
        //댓글
        $(document).ready(function(){
@@ -385,7 +373,7 @@
 
 
 </head>
-<body onload="heartChk();heartCnt();cvsnum()">
+<body onload="heartChk();heartCnt();">
 <jsp:include page="../default/header.jsp" />
     <section class="sec">
 
@@ -393,25 +381,28 @@
             <p class="date"> <fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></p>
             <div class="profile-head">
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <img src="${productimg }" class="img-responsive" />
-                     <p class="form-group star_div">별점:
-                   		<input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
-                	</p>  
+                
+                    
                 </div>
                 <!--col-md-4 col-sm-4 col-xs-12 close-->
 
-
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                    <ul>
-                       <li><h5>${dto.title }</h5></li>
-                        <li> 작성자 : ${dto.nickname }</li>
-                        <li id="cvs"> 편의점 : &nbsp;</li>
-                      
-                        <li> 상품명: ${dto.productname }</li>
-                        <li> 가격: ${price }</li>
+				
+                     
+                <div align="left">
+                    <ul >
+                       <li><h5 align="left">${dto.title }</h5></li>
+                       <li>&nbsp;작성자 : ${dto.nickname }</li>
+                   
+               	
+					<li>	                     
+                     <p class="form-group star_p" style="text-align: left; font-size:15px;" >별점:
+                   		<input type="hidden" class="rating" name="stars" value="${dto.stars }" disabled/>
+                	 </p>  
+                      </li>
+                	 
                     </ul>
 
-                </div>
+                
                 <!--col-md-5 col-sm-5 col-xs-12 close-->
 
             </div>
