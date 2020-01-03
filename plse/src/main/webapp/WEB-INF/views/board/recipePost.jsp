@@ -107,6 +107,8 @@
           
             <div class="form-group"><!-- 편의점, 상품명 div -->
                   
+              <input type="hidden" name="cvsnum" value='1'>
+              <input type="hidden" name="productname" value='피자빵'>
               
             </div><!-- 편의점, 상품명 div -->
 

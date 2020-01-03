@@ -5,9 +5,7 @@
 <head>
 	<script type="text/javascript">
 		function bChk(){
-			if(document.postform.productname.value==""){
-				alert("상품명을 입력해주세요")
-			}else if(document.postform.stars.value==""){
+			if(document.postform.stars.value==""){
 				alert("별점을 매겨주세요")
 			}else if(document.postform.title.value==""){
 				alert("제목을 입력해주세요")
@@ -44,37 +42,10 @@
 		})
 
 			
-			$(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기				
-				if(this.value == '1'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//gs일때								
-				else if(this.value =='2'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//세븐일때									
-				else if(this.value == '3'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//Cu일때					
+							
 				
-				//바뀌면 목록을 새로 불러온다.
-				$.ajax({
-					type:'get', url:"productname_autocomplete", data:cvsnum,
-					success:function(data){
-						if(data.length > 0){
-							productnames=new Array();
-		                     for(i=0; i<data.length; i++){
-		                    	 productnames;
-		                    	 productnames.push(data[i]);    //각각의 상품명 값을 넣어준다          	 
-		                     }   
-		                }
-					},error:function(data){console.log("상품명 불러오기에러");},
-				})//ajax 끝
-
-			}) 
-
-			$("#productname").autocomplete({
-		        source: productnames,
-		        select: function(event, ui) {
-		            console.log(ui.item.value);		            
-		        },
-		        focus: function(event, ui) {
-		            return false;
-		        }
-		    });     
-		});//자동완성 끝
+				
+			
 		
 		
 		//별점 script
@@ -133,20 +104,7 @@
     		
     		<form id="postform" name="postform" class="postform" action="recipeBoard_modifyOk" method="POST" enctype="multipart/form-data">
     			<input type="hidden" name="num" value="${dto.num }"/>
-    			<div class="form-group"><!-- 편의점, 상품명 div -->
-				<div class="cvsnum_div">
-					<label for="cvsnum">편의점</label> 
-					<select name="cvsnum" class="form-cvsnum form-control">
-						<option value="1">GS25</option>
-						<option value="2">세븐일레븐</option>
-						<option value="3">CU</option>
-					</select> 
-					</div>
-					<div class="productname_div">
-					<label for="productname">상품명</label> 
-					<input type="text" class="form-productname form-control " id="productname" name="productname" value="${dto.productname }"/>
-					</div>
-				</div><!-- 편의점, 상품명 div -->
+    			
 
     		    <div class="form-group star_div"><!-- 별점 div  -->
     		        <label for="star">별점</label>

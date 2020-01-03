@@ -33,10 +33,15 @@
 .table>tbody>tr>#title {
 	text-align: left;
 }
-
+/* .table{
+	border-bottom: 1px solid #ddd;
+} */
 div>#paging {
+	margin-top:10px;
 	text-align: center;
 }
+
+.new{color:#ff0000; font-size: .75em; vertical-align:30%; line-height: 1em;}
 
 .hit {
 	animation-name: blink;
@@ -91,10 +96,8 @@ div>#paging {
 	outline-offset: -2px
 }
 
-.btn:hover, .btn:focus{
-	
-	text-decoration: none;
-	
+.btn:hover, .btn:focus{	
+	text-decoration: none;	
 	color: #808080;
 	background-color: #ffcccc;
 	border-color: #ff9999
@@ -167,4 +170,9 @@ div>#paging {
     height: 12px;
      background: url('../resources/img/ico-img.gif') 0 0 no-repeat;
      border: 0px;
+}
+/* top3 css */
+.best_tr{background-color: #ddcccc;}
+.best_tr:nth-of-type(3) {
+	border-bottom: 2px solid #dd9999;
 }

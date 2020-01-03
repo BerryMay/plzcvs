@@ -98,7 +98,7 @@
               }
           });     
       });//자동완성 끝
-      
+      r
       
       //별점 script
         $(function () {
@@ -149,11 +149,7 @@
       </script>
    <meta charset="UTF-8">
    <title>게시판 등록</title>   
-   
-   
-  
-   
-   
+
 </head>
 <body >
 <c:if test="${userId == null }">

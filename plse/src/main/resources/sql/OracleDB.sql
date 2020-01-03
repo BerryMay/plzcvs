@@ -71,3 +71,33 @@ cvs 테이블 - newproduct 컬럼 기본 값에 (TO_CHAR(sysdate,'yy-mm-dd')) �
 searchcnt 테이블  dates 컬럼 기본 값에 (TO_CHAR(sysdate,'yy-mm-dd')) 입력 
 DB에 날짜 입력하기 위해서입니다. 
 
+
+//2020.01.03
+게시글 등록시 포인트주는 것 하루 5개 제한을 위한 DB추가사항입니다.
+
+member 테이블 - DAILYPOINTCHK 컬럼 추가, 기본값 : 0
+update member set dailypointchk = 0;
+--멤버전원 포인트 0으로 초기화
+ 
+ALTER SYSTEM SET JOB_QUEUE_PROCESSES = 10;
+
+-- TRUNC(SYSDATE+1) : 매일 밤 12시에 job 수행
+  
+  DECLARE
+     X NUMBER;
+ BEGIN
+    SYS.DBMS_JOB.SUBMIT
+
+    ( job            => x
+     ,what          => 'update member set dailypointchk = 0;'
+     ,next_date   => to_date('30-12-2019 00:00:00','dd/mm/yyyy hh24:mi:ss')
+     ,interval      => 'TRUNC(SYSDATE + 1)'
+     ,no_parse   => TRUE
+    );
+
+    SYS.DBMS_OUTPUT.PUT_LINE('Job Number is : ' || to_char(x));
+
+ END;
+
+ /
+ commit;

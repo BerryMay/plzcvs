@@ -15,6 +15,10 @@
 		<insert id="comment_create" parameterType="Cdto">
 			insert into comments(bnum, content, nickname, cnum) values(#{bnum}, #{content}, #{nickname}, comment_num_seq.nextval)
 	  	</insert>
+  		<!-- 댓글 작성시 포인트 주기:2점  -->
+	  	<update id="point_comment" parameterType="String">
+	  		update member set point= point+2 where NICKNAME = #{nick}
+	  	</update>
   	
   		<!-- 댓글 수정 -->
 	  	<update id="comment_modify" parameterType="Cdto">

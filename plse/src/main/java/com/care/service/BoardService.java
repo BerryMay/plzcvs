@@ -55,8 +55,12 @@ public class BoardService implements IBoardService{
 		dto.setContent(dto.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("dto", dto);
 		HttpSession session = request.getSession();
+		try {
 		session.setAttribute("price", dao.board_price(dto));
 		session.setAttribute("productimg", dao.board_productimg(dto));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 	@Override
@@ -66,8 +70,12 @@ public class BoardService implements IBoardService{
 		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
 		dto.setContent(dto.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("dto", dto);
-		HttpSession session = request.getSession();
-		session.setAttribute("productimg", dao.board_productimg(dto));
+		try {
+			HttpSession session = request.getSession();
+			session.setAttribute("productimg", dao.board_productimg(dto));			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 	@Override
@@ -280,7 +288,19 @@ public class BoardService implements IBoardService{
 		String nickname= request.getParameter("nickname");
 		return  dao.myheart_list(nickname);	
 	}
+	
 
+	//베스트 게시글 top3
+	@Override
+	public void board_best(Model model) {
+		model.addAttribute("best_list", dao.board_best());
+	}
+	
+	//레시피 베스트 게시글 top3
+	@Override
+	public void recipeBoard_best(Model model) {
+		model.addAttribute("best_list", dao.recipeBoard_best());
+	}
 	
 	
 }

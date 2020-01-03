@@ -29,10 +29,21 @@ public class BoardDAO {
 	}
 	@RequestMapping(method = RequestMethod.POST)
 	public int board_reg(BoardDTO dto) {
-		return sqlSession.insert(namespace+".board_reg",dto);
+		int result = sqlSession.insert(namespace+".board_reg",dto);
+		if(result==1) { 
+			point_post(dto.getNickname());//포인트 주기
+		}		
+		return result;
 	}
+
 	public int recipeboard_reg(BoardDTO dto) {
 		return sqlSession.insert(namespace+".recipeboard_reg",dto);
+	}
+
+	//게시글 등록시 포인트 주기
+	public int point_post(String nick) {
+		return sqlSession.update(namespace+".point_post",nick);
+
 	}
 	
 	public BoardDTO board_view(int num) {
@@ -168,5 +179,14 @@ public class BoardDAO {
 	//좋아요 한 글
 	public List<BoardDTO> myheart_list(String nickname) {
 		return sqlSession.selectList(namespace+".myheart_list",nickname);
+	}
+	
+	//베스트 게시글 top3
+	public List<BoardDTO> board_best() {
+		return sqlSession.selectList(namespace+".board_best");
+	}
+	//레시피 베스트 게시글 top3
+	public List<BoardDTO> recipeBoard_best() {
+		return sqlSession.selectList(namespace+".recipeBoard_best");
 	}
 }

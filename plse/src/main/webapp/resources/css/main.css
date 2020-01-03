@@ -1,7 +1,7 @@
 @charset "UTF-8";
 *{margin:0;padding:0;}
   ul,li{list-style:none;}
-  #slide{height:500px;position:relative;overflow:hidden;}
+  #slide{height:500px;position:relative;overflow:hidden;margin-top: 30px;}
   #slide ul{width:400%;height:100%;transition:1s;}
   #slide ul:after{content:"";display:block;clear:both;}
   #slide li{float:left;width:25%;height:100%;}
@@ -23,13 +23,8 @@
 /*GLOBALS*/
 *{margin:0; padding:0; list-style:none;}
 a{text-decoration:none; color:#666;}
-<<<<<<< HEAD
-
-body, hmtl{ font-family: 'Anton', sans-serif;}
-=======
 a:hover{color:#ff9999;}
 body, hmtl{background: white; font-family: 'Anton', sans-serif;}
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 
 
 #wrapper{

@@ -98,11 +98,7 @@ body {
 	height: 5px;
 }
 
-.form-horizontal {
-	padding: 25px 20px;
-	border: 1px solid #eee;
-	border-radius: 5px;
-}
+
 
 .modal {
 	text-align: center;
@@ -170,6 +166,46 @@ select:hover {
 	background-color: #ff9999; 
 	color: #fff; 
 }
+
+/* 테이블 */
+table {
+	max-width: 100%;
+	background-color: transparent
+}
+
+/*테이블 짝수 홀수 줄 배경주기 */
+.table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{
+	background-color: #f9f9f9
+}
+.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+	background-color: #f5f5f5
+}
+
+.table {
+	width: 100%;
+	margin-bottom: 20px;
+	text-align: center;
+	table-layout: fixed;
+	white-space: nowrap;
+}
+.table>thead {
+	background-color: #ff9999;
+}
+
+.table thead>tr>th, .table tbody>tr>td {
+	padding: 8px;
+	line-height: 1.428571429;
+	vertical-align: top;
+	border-top: 1px solid #ddd
+}
+
+.table thead>tr>th {
+	vertical-align: bottom;
+	border-bottom: 2px solid #ff9999;
+	table-layout: fixed;
+	white-space: pre-wrap;
+}
+
 .table-list td{
 	border:1px solid #ddd;
 	
@@ -184,16 +220,6 @@ select:hover {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.table {
-	table-layout: fixed;
-	width: 100%;
-	white-space: nowrap;
-}
-.table th {
-	table-layout: fixed;
-	white-space: pre-wrap;
-}
-
 
 .btn-outline-secondary{
 	color: #6c757d;
@@ -208,6 +234,7 @@ select:hover {
     background-image: none;
     border-color: #6c757d; 
 }
+/* 페이지 제목 */
 h2{margin-bottom:20px;padding:20px;}
 
 /* 메뉴 */
@@ -247,3 +274,53 @@ h3{display:none;}
 #categoryForm{
 	text-align: left; margin-bottom: 10px;
 }
+
+
+/*브라우저에 색상 적용하기*/
+.form-control:-moz-placeholder { color: #999}
+.form-control::-moz-placeholder { color: #999}
+.form-control:-ms-input-placeholder { color: #999}
+.form-control::-webkit-input-placeholder { color: #999}
+
+/* input-group */
+.input-group {
+	position: relative;
+	
+	margin:0 auto 26px;
+	height: 56px;	
+}
+
+/* 댓글 페이징 */
+#remo{display:block; margin-bottom:16px; 
+height: 24px; line-height: 24px; color: #999;}
+
+/* 페이징 번호 */
+.page-number{ margin:0 3px;}
+.clickable {cursor: pointer;}
+.clickable:hover {text-decoration: underline;}
+.actived{ color:#ff9999; font-size: 1.5em;}
+
+/* 사진업로드 게시글 표시하기*/
+.contentimg {
+	width: 13px;
+    height: 12px;
+     background: url('../resources/img/ico-img.gif') 0 0 no-repeat;
+     border: 0px;
+}
+/* new */
+.new {color:red;}
+/* best 깜빡임 */
+.hit {
+	animation-name: blink;
+	animation-duration: 1.5s;
+	animation-timing-function: ease;
+	animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+	from {color: white; font-weight: bold;}
+	30% {color: yellow; font-weight: bold;}
+	to {color: red; font-weight: bold;}
+}
+
+
