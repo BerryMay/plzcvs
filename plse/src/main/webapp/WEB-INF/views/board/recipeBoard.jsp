@@ -56,6 +56,7 @@
 					
 						
 						<td><a href="recipeDetail?num=${bestDto.num}" class="aw100" title="${bestDto.title }">${bestDto.title }
+						
 							<c:if test="${bestDto.gdsimg != null }">
 								<input type="text" class="contentimg" readonly="readonly">
 							</c:if>
@@ -81,6 +82,10 @@
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
 						<td><a href="recipeDetail?num=${dto.num}"  class="aw100">${dto.title }
+							<!-- 댓글갯수 -->
+							<c:if test="${dto.replycnt != 0 }">
+								<span class="replycnt">(${dto.replycnt})</span>
+							</c:if> 
 							<c:if test="${dto.gdsimg != null }">
 								<input type="text" class="contentimg" readonly="readonly">
 							</c:if>

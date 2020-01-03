@@ -27,8 +27,8 @@ public class GoogleChartController {
  
     //@ResponseBody //화면으로 넘어가는 것이 아닌 데이터를 리턴하는 경우 사용
     
-    @RequestMapping("cart_money_list.do")
-    public JSONObject cart_money_list() {
+    @RequestMapping("chart_list")
+    public JSONObject chart_list() {
         return gservice.getChartData();
     }
 

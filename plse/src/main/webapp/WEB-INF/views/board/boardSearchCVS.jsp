@@ -132,10 +132,10 @@
 							</c:if>
 						</td>
 						
-						<td><a href="detail?num=${dto.num}" class="aw100" title="${dto.title }">${dto.title } 
+						<td><a href="detail?num=${dto.num}" class="aw100" title="${dto.title }">${dto.title }
 							<!-- 댓글갯수 -->
 							<c:if test="${dto.replycnt != 0 }">
-								<span class="replycnt">(${dto.replycnt})</span>
+								<span class="replycnt">(${dto.replycnt}) </span>
 							</c:if> 
 							<c:if test="${dto.gdsimg != null }">
 								<input type="text" class="contentimg" readonly="readonly">

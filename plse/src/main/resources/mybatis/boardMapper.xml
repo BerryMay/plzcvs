@@ -10,7 +10,7 @@
 	<!-- 게시글 리스트 -->
 	<select id="board_list" resultType="Bdto">
 
-		select * from board
+		select * from board order by productname
 
 	</select>
 
@@ -128,7 +128,7 @@
 	
 	<!-- 레시피 페이징리스트 가져오기 -->
 	<select id="recipeBoard_pagingList" parameterType="Pdto" resultType="Bdto">
-		select B.* from(select rownum rn, A.* from (select * from board where cat='2' order by num desc)A)B where rn between #{startPage} and #{endPage}
+		select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt, c.newproduct  from board b, cvs c where b.cat='2' and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B where rn between #{startPage} and #{endPage}
 	</select>
 	
 	<!-- cvs별 페이징리스트 가져오기 -->
@@ -215,7 +215,7 @@ where rn between #{startPage} and #{endPage}
 	</select>	
 	<!-- 레시피 top3 리스트 -->
 	<select id="recipeBoard_best" resultType="Bdto">
-		<![CDATA[ select * from (select * from board where cat='2' order by hit desc) where rownum <= 3 ]]>
+		<![CDATA[  select B.* from (select A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt from board b where cat='2' order by hit desc)A)B where rownum <= 3 ]]>
 	</select>
 	
 	</mapper>

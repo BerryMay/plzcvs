@@ -1,9 +1,6 @@
 package com.care.service;
 
-
-
-
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,60 +19,82 @@ public class GoogleChartService implements IGoogleChartService {
 
 	@Inject
 	BoardService bser;
-    //CartService cartService; 
-    //장바구니 서비스에 있는 값들을 가져오기 위해서 의존성을 주입
-	
-	//{"변수명" : [{},{},{}], "변수명" : "값"}
+    
 	public  JSONObject getChartData() {
-		 // getChartData메소드를 호출하면
-        //db에서 리스트 받아오고, 받아온걸로 json형식으로 만들어서 리턴을 해주게 된다.
+		
         List<BoardDTO> items = bser.board_list();
+        items.add(new BoardDTO());
+        List<String> productName = new ArrayList<String>();
+        List<Integer> hitList = new ArrayList<Integer>();
+        int hitt = 0;
+        for(int i =0; i<items.size()-1; i++) {
+        	if(items.get(i).getProductname().equals(items.get(i+1).getProductname())) {
+        		hitt += items.get(i).getHit();
+        	} else {
+        		if(hitt!=0) {
+        			hitt += items.get(i).getHit();
+        			hitList.add(hitt); 
+        			hitt = 0;
+        		}
+        		else {
+        			hitt += items.get(i).getHit();
+        			hitList.add(hitt);
+        		}
+        		productName.add(items.get(i).getProductname());
+        		hitt = 0;
+        	}
+        }
         
-        //리턴할 json 객체
-        JSONObject data = new JSONObject(); //{}
+        for (int i = 0; i < productName.size(); i++) {
+        	System.out.println(productName.get(i));
+        	System.out.println(hitList.get(i));
+		}
         
-        //json의 칼럼 객체
+      
+        JSONObject data = new JSONObject();
+        
+        
         JSONObject col1 = new JSONObject();
         JSONObject col2 = new JSONObject();
         
         
-        //json 배열 객체, 배열에 저장할때는 JSONArray()를 사용
+        
         JSONArray title = new JSONArray();
-        col1.put("label","상품명"); //col1에 자료를 저장 ("필드이름","자료형")
+        col1.put("label","상품명"); 
         col1.put("type", "string");
         col2.put("hit", "조회수");
         col2.put("type", "number");
        
         
-        //테이블행에 컬럼 추가
+     
         title.add(col1);
         title.add(col2);
         
-        //json 객체에 타이틀행 추가
-        data.put("cols", title);//제이슨을 넘김
-        //이런형식으로 추가가된다. {"cols" : [{"label" : "상품명","type":"string"}
-        //,{"label" : "금액", "type" : "number"}]}
+
+        data.put("cols", title);
+    
         
-        JSONArray body = new JSONArray(); //json 배열을 사용하기 위해 객체를 생성
-        for (BoardDTO dto : items) { //items에 저장된 값을 dto로 반복문을 돌려서 하나씩 저장한다.
+        JSONArray body = new JSONArray(); 
+        for (int i = 0; i < productName.size(); i++) {
+        	JSONObject name = new JSONObject();
+            name.put("v", productName.get(i)); 
             
-            JSONObject name = new JSONObject(); //json오브젝트 객체를 생성
-            name.put("v", dto.getProductname()); //name변수에 dto에 저장된 상품의 이름을 v라고 저장한다.
+            JSONObject hit = new JSONObject(); 
+            hit.put("v", hitList.get(i)); 
             
-            JSONObject hit = new JSONObject(); //json오브젝트 객체를 생성
-            hit.put("v", dto.getHit()); //name변수에 dto에 저장된 금액을 v라고 저장한다.
-            
-            JSONArray row = new JSONArray(); //json 배열 객체 생성 (위에서 저장한 변수를 칼럼에 저장하기위해)
-            row.add(name); //name을 row에 저장 (테이블의 행)
-            row.add(hit); //name을 row에 저장 (테이블의 행)
+            JSONArray row = new JSONArray(); 
+            row.add(name); 
+            row.add(hit); 
             
             JSONObject cell = new JSONObject(); 
-            cell.put("c", row); //cell 2개를 합쳐서 "c"라는 이름으로 추가
-            body.add(cell); //레코드 1개 추가
-                
-        }
-        data.put("rows", body); //data에 body를 저장하고 이름을 rows라고 한다.
+            cell.put("c", row); 
+            body.add(cell); 
+		}  
         
-        return data; //이 데이터가 넘어가면 json형식으로 넘어가게되서 json이 만들어지게 된다.
+
+
+        data.put("rows", body); 
+        
+        return data; 
     }
 }
