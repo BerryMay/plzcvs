@@ -9,7 +9,11 @@
 
 	<!-- 게시글 리스트 -->
 	<select id="board_list" resultType="Bdto">
+<<<<<<< HEAD
 	select * from board where cat='1' order by num desc;
+=======
+		select * from board
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 	</select>
 
 	
@@ -21,7 +25,7 @@
 	
 	<!-- 게시글 작성 -->
 	<insert id="board_reg" parameterType="Bdto">
-		insert into board(cat,num,title,nickname,hit,recommend,stars,productname,content,cvsnum,gdsimg) values(#{cat},board_num_seq.nextval,#{title},#{nickname},0,0,#{stars},#{productname},#{content},#{cvsnum},#{gdsimg, jdbcType=VARCHAR})
+		insert into board(cat,num,title,nickname,hit,recommend,stars,productname,content,cvsnum,gdsimg) values(#{cat},#{num},#{title},#{nickname},0,0,#{stars},#{productname},#{content},#{cvsnum},#{gdsimg, jdbcType=VARCHAR})
   	</insert>
 
   	<!-- 레시피 게시글 작성 -->
@@ -58,16 +62,16 @@
   	
   	<!-- 게시글 검색 -->
   	<select id="board_search" parameterType="Bdto" resultType="Bdto" >
-  		select * from board where ${title} like '%'||#{content}||'%' and cat='1'
+  		select * from board where ${title} like '%'||#{content}||'%' and cat='1' order by num desc
   	</select>
   	<!-- 레시피 게시글 검색 -->
   	<select id="recipeBoard_search" parameterType="Bdto" resultType="Bdto" >
-  		select * from board where ${title} like '%'||#{content}||'%' and cat='2'
+  		select * from board where ${title} like '%'||#{content}||'%' and cat='2' order by num desc
   	</select>
   	
   	<!-- 편의점별 검색 -->
   	<select id="cvs_search" parameterType="Bdto" resultType="Bdto" >
-	select b.*,c.newproduct from board b, cvs c where b.cvsnum=#{cvsnum} and b.cat='1' and b.productname=c.PRODUCTNAME order by num desc
+		select b.*,c.newproduct from board b, cvs c where b.cvsnum=#{cvsnum} and b.cat='1' and b.productname=c.PRODUCTNAME order by num desc
   	</select>
   	
   	
@@ -161,6 +165,22 @@
   	<select id="myheart_list" resultType="Bdto" parameterType="String">
 		select * from board where num in (select bnum from heart where nickname=#{nickname}) order by num desc
 	</select>
+	<!-- 시퀀스 조회 -->
+	<select id="seqSelect" resultType="int">
+		SELECT board_num_seq.nextval FROM DUAL
+	</select>
+	<!-- 사진 저장 -->
+	<insert id="board_img" parameterType="Bdto">
+		insert into img values(#{num},#{gdsimg})
+	</insert>
+	<!-- 사진 불러오기 -->
+	<select id="imgList" resultType="Bdto">
+		 select gdsimg from img where num = #{num}
+	</select>
+	<!-- 수정할때 사진바꾸면 사진 삭제 -->
+	<delete id="board_delImg" parameterType="Bdto">
+		delete from img where num = #{num}
+	</delete>
 	
 		
 	<!-- 리뷰 top3 리스트 -->

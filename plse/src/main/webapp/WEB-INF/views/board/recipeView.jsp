@@ -422,10 +422,12 @@
                         <div class="col-md-6">      
                        
                             <p style="display:none;">  내 용</p>
-                            <c:if test="${dto.gdsimg != null }">
-                             	<div><img src="${dto.gdsimg }"/></div>
-                             </c:if>
-                            <div class="content_div"> ${dto.content }</div>
+                            <c:if test="${imgList != null}">
+        	                    <c:forEach var="img" items="${imgList }">
+        	                    	<img src="${img.gdsimg }" class="ProductImg">
+    	                        </c:forEach>
+                            </c:if>
+	                        <div class="content_div"> ${dto.content }</div>
 
                         </div> <!--col-md-6 close-->
 
@@ -445,7 +447,6 @@
 						좋아요 : <label id="result"></label>
 					</div>
 				</div><!-- 좋아요  끝-->
-				
 				
             </div>
             <!--tab-pane close-->

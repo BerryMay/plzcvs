@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,7 +94,7 @@
           $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
         });//별점끝
       </script>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
 	<title>레시피 게시글 수정</title>
 </head>
 <body>
@@ -115,7 +116,14 @@
 	   		        <label for="title">제목</label>
 	   		        <input type="text" class="form-control" id="title" name="title" value="${dto.title }"/>
    		   	 	</div>
-   		   	 	<div class="select_img"><img src="${dto.gdsimg }" /></div>
+   		   	 	<div class="form-group-img"><!-- 사진 보여주는 div -->
+              		<label for="content">사진</label>
+              		<div class="select_img">
+	              		<c:forEach var="lmglist" items="${imgList }">
+	    	          		<img src="${lmglist.gdsimg }" class="ProductImg">
+    	          		</c:forEach>
+              		</div>
+              	</div>
     		    <div class="form-group"> <!-- 내용 -->
     		        <label for="content">내용</label>
     		        <textarea rows="15" class="form-control" id="content" name="content" >${dto.content }</textarea>
@@ -125,9 +133,45 @@
     		       <label for="pic" class="uploadlabel">파일첨부</label>   		       
     		       <input class="upload-name" value="파일선택" disabled="disabled">    
     		       <label for="ex_filename" class="upload">업로드</label> 
-    		       <input type="file" name="file" id="ex_filename" class="upload-hidden">
+    		       <input type="file" name="file" id="ex_filename" class="upload-hidden" multiple="multiple">
     		       <input type="hidden" name="gdsimg" value="${dto.gdsimg }">
+				<!-- 이미지 미리보기 -->
+            <script type="text/javascript">
+            var sel_files = [];
+            $(document).ready(function(){
+            	$("#ex_filename").on("change", handImg);
+            });
+            function fileUploadAction(){
+            	$("#ex_filename").trigger('click');
+            }
+            function handImg(e){
+            	sel_files = [];
+            	$(".select_img").empty();
+            	
+            	var files = e.target.files;
+            	var filesArr = Array.prototype.slice.call(files);
+            	var index = 0;
+            	filesArr.forEach(function(f) {
+            		if(!f.type.match("image.*")){
+            			alert("확장자는 이미지 확장자만 가능합니다.");
+            			return;
+            		}
+            		sel_files.push(f);
+            		
+            		var reader = new FileReader();
+            		reader.onload = function(e){
+            			var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImgAction("+index+")\" id=\"img_id_"+index+"\">"
+            			+"<img src=\""+e.target.result+"\" data-file="+f.name+"' class='ProductImg' title='클릭 시 지워집니다'>";
+            			
+            			$(".select_img").append(html);
+            			index++;
+            		}
+            		reader.readAsDataURL(f);
+            	});
+            }
+            </script>
 				<!-- 파일 선택하면 파일명 보여지기 -->
+				<!--
             <script>
                $(document).ready(function(){ 
                   var fileTarget = $('.filebox .upload-hidden'); 
@@ -148,6 +192,7 @@
                   }); 
                });
             </script>
+             -->
               </div><!-- 파일첨부 div -->
 
 				<div class="btns">

@@ -75,7 +75,7 @@
 					<a href="register" style="color: #ffffff;">회원가입 하러가기</a>
 				</div>
 				<div class="d-flex justify-content-center">
-					<a href="#" style="color: #ffffff;">비밀번호 찾기</a>
+					<a href="find_pw" style="color: #ffffff;">비밀번호 찾기</a>
 				</div>
 			</div>
 		</div>

@@ -114,7 +114,9 @@ input[type=file]:focus	{
 .form-group {
 	margin-bottom: 15px
 }
-
+.form-group-img {
+	display: flex; flex-flow: row;
+}
 
 @media ( min-width :1200px) {
 	.cvsnum_div{
@@ -514,3 +516,8 @@ input[type=file] {
 	background-color: #ff9999;
 }
 /*별점 끝*/
+/*게시글 사진등록 */
+.ProductImg {
+	width: 300px;
+	height: auto;
+}

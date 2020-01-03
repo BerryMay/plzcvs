@@ -1,5 +1,8 @@
 package com.care.controller;
 
+import java.io.UnsupportedEncodingException;
+
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +70,16 @@ public class LoginController {
 		model.addAttribute("Authstatus", 1);
 		model.addAttribute("dto", dto);
 		return "login/emailChk";
+	}
+	//비밀번호 찾기 폼
+	@RequestMapping(value = "/find_pw")
+	public String find_pw() {
+		return "login/find_pw";
+	}
+	//비밀번호 찾기 chk
+	@RequestMapping(value = "/find_pw_Chk")
+	public String find_pw_Chk(Model model,MemberDTO dto) throws MessagingException, UnsupportedEncodingException {
+		ms.find_pw_Chk(model,dto);
+		return "login/find_pw_Chk";
 	}
 }

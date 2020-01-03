@@ -64,30 +64,38 @@ public class BoardController {
 	public String recipePost() {
 		return "board/recipePost";
 	}
-
 	//게시글 등록하기
 	@RequestMapping(value = "/board_reg", method = RequestMethod.POST )
-	public String board_reg(Model model,BoardDTO dto,MultipartFile file) throws Exception {
+	public String board_reg(Model model,BoardDTO dto,List<MultipartFile> file) throws Exception {
+		int num = bs.seqSelect();
+		dto.setNum(num);
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
-		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
-			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
-			System.out.println("컨트롤러 getGdsimg : " + dto.getGdsimg());
+		if(file.get(0).getOriginalFilename() != null && file.get(0).getOriginalFilename() != "") {
+			dto.setGdsimg("1");
+			bs.board_reg(dto);
+			for (int i = 0; i < file.size(); i++) {
+				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.get(i).getOriginalFilename(), file.get(i).getBytes(), ymdPath); 
+				dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+				bs.board_img(dto);
+			}
 		}else {
 			dto.setGdsimg(null);
+			bs.board_reg(dto);
 		}
-		bs.board_reg(dto);
 		return "redirect:board";
 	}
 	//레시피 등록하기
 	@RequestMapping(value = "/recipeBoard_reg", method = RequestMethod.POST )
-	public String recipeBoard_reg(Model model,BoardDTO dto,MultipartFile file) throws Exception {
+	public String recipeBoard_reg(Model model,BoardDTO dto,List<MultipartFile> file) throws Exception {
+		int num = bs.seqSelect();
+		dto.setNum(num);
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
-		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+
+		if(file.get(0).getOriginalFilename() != null && file.get(0).getOriginalFilename() != "") {
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
 			System.out.println("컨트롤러 getGdsimg : " + dto.getGdsimg());
@@ -95,6 +103,20 @@ public class BoardController {
 			dto.setGdsimg(null);
 		}
 		bs.recipeboard_reg(dto);
+
+			if(file.get(0).getOriginalFilename() != null && file.get(0).getOriginalFilename() != "") {
+				dto.setGdsimg("1");
+				bs.board_reg(dto);
+				for (int i = 0; i < file.size(); i++) {				
+				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.get(i).getOriginalFilename(), file.get(i).getBytes(), ymdPath); 
+				dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+				bs.board_img(dto);
+				}
+			}else {
+				dto.setGdsimg(null);
+				bs.board_reg(dto);
+			}		
+
 		return "redirect:recipeBoard";
 	}
 
@@ -134,13 +156,17 @@ public class BoardController {
 	
 	//게시글 수정하기
 	@RequestMapping(value = "/board_modifyOk", method = RequestMethod.POST)
-	public String board_modifyOk(Model model,BoardDTO dto,MultipartFile file) throws Exception {
-		if(file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
-			new File(uploadPath + dto.getGdsimg()).delete();
-			String imgUploadPath = uploadPath + File.separator + "imgUpload";
-			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-			String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
-			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+	public String board_modifyOk(Model model,BoardDTO dto,List<MultipartFile> file) throws Exception {
+		if(file.get(0).getOriginalFilename() != null && !file.get(0).getOriginalFilename().equals("")) {
+			bs.board_delImg(dto);
+			for(int i=0; i<file.size(); i++) {
+				new File(uploadPath + dto.getGdsimg()).delete();
+				String imgUploadPath = uploadPath + File.separator + "imgUpload";
+				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+				String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.get(i).getOriginalFilename(), file.get(i).getBytes(), ymdPath); 
+				dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+				bs.board_img(dto);
+			}
 		}
 		model.addAttribute("dto", dto);
 		bs.board_modify(model);
@@ -148,13 +174,17 @@ public class BoardController {
 	}
 	//레시피 게시글 수정하기
 	@RequestMapping(value = "/recipeBoard_modifyOk", method = RequestMethod.POST)
-	public String recipeBoard_modifyOk(Model model,BoardDTO dto,MultipartFile file) throws Exception {
-		if(file.getOriginalFilename() != null && !file.getOriginalFilename().equals("")) {
-			new File(uploadPath + dto.getGdsimg()).delete();
-			String imgUploadPath = uploadPath + File.separator + "imgUpload";
-			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-			String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
-			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+	public String recipeBoard_modifyOk(Model model,BoardDTO dto,List<MultipartFile> file) throws Exception {
+		if(file.get(0).getOriginalFilename() != null && !file.get(0).getOriginalFilename().equals("")) {
+			bs.board_delImg(dto);
+			for(int i=0; i<file.size(); i++) {
+				new File(uploadPath + dto.getGdsimg()).delete();
+				String imgUploadPath = uploadPath + File.separator + "imgUpload";
+				String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+				String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.get(i).getOriginalFilename(), file.get(i).getBytes(), ymdPath); 
+				dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+				bs.board_img(dto);
+			}
 		}
 		model.addAttribute("dto", dto);
 		bs.board_modify(model);
@@ -164,16 +194,18 @@ public class BoardController {
 	
 	//게시글 삭제
 	@RequestMapping(value = "/board_delete")
-	public String board_delete(Model model,HttpServletRequest request) {
+	public String board_delete(Model model,HttpServletRequest request,BoardDTO dto) {
 		model.addAttribute("request", request);
 		bs.board_delete(model);
+		bs.board_delImg(dto);
 		return "redirect:board";
 	}
 	//레시피게시글 삭제
 	@RequestMapping(value = "/recipeBoard_delete")
-	public String recipeBoard_delete(Model model,HttpServletRequest request) {
+	public String recipeBoard_delete(Model model,HttpServletRequest request,BoardDTO dto) {
 		model.addAttribute("request", request);
 		bs.board_delete(model);
+		bs.board_delImg(dto);
 		return "redirect:recipeBoard";
 	}
 	

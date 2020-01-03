@@ -38,4 +38,12 @@
   	<update id="updateAuthstatus" parameterType="Mdto">
   		update member set Authstatus = 1 where id = #{id} and authkey = #{authkey}
   	</update>
+  	<!-- 비번찾기시 아디,이메일 여부 -->
+  	<select id="find_pw_Chk" parameterType="Mdto" resultType="Mdto">
+  		select * from member where id=#{id} and mail=#{mail}
+  	</select>
+  	<!-- 임시 비밀번호 업데이트-->
+  	<update id="updatePw" parameterType="Mdto">
+  		update member set pw=#{pw} where id=#{id}
+  	</update>
 	</mapper>

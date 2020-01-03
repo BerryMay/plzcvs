@@ -399,6 +399,16 @@ height: 24px; line-height: 24px; color: #999;}
 	.col-sm-6 {width: 100%;}
 	
 }
+/* 댓글 내용 창 */
+pre{
+	white-space: pre-wrap;
+	overflow: auto;
+	margin-bottom: 5px;
+}
+.ProductImg {
+	width: 300px;
+	height: auto;
+}
 
 @media ( min-width :992px) {
 	.container {max-width: 970px;}
@@ -453,5 +463,3 @@ textarea.form-control {height: auto;}
 	.form-control {display: inline-block}
 	
 }
-
-

@@ -147,7 +147,15 @@
         
    });
       </script>
-   <meta charset="UTF-8">
+<!-- 사진 클릭시 지우기 -->
+<script type="text/javascript">
+	function deleteImgAction(index) {
+		sel_files.splice(index, 1);
+		var img_id = "#img_id_" + index;
+		$(img_id).remove();
+	}
+</script>
+<meta charset="UTF-8">
    <title>게시판 등록</title>   
 
 </head>
@@ -193,9 +201,11 @@
               <div class="form-group"><!-- 제목란 -->
                     <label for="title">제목</label>
                     <input type="text" class="form-control" id="title" name="title" />
-                   </div>
-                   <!-- 사진 보여주는 div -->
-              <div class="select_img"><img src="" /></div>
+              </div>
+              <div class="form-group-img"><!-- 사진 보여주는 div -->
+              	<label for="content">사진</label>
+              	<div class="select_img"><img src=""/></div>
+              </div>
               <div class="form-group"> <!-- 내용 -->
                   <label for="content">내용</label>
                   <textarea rows="5" class="form-control" id="content" name="content" ></textarea>
@@ -205,10 +215,46 @@
                  <label for="pic" class="uploadlabel">파일첨부</label>                
                  <input class="upload-name" value="파일선택" disabled="disabled">    
                  <label for="ex_filename" class="upload">업로드</label> 
-                 <input type="file" name="file" id="ex_filename" class="upload-hidden">
+                 <input multiple="multiple" type="file" name="file" id="ex_filename" class="upload-hidden">
                  
+                 <!-- 이미지 미리보기 -->
+            <script type="text/javascript">
+            var sel_files = [];
+            $(document).ready(function(){
+            	$("#ex_filename").on("change", handImg);
+            });
+            function fileUploadAction(){
+            	$("#ex_filename").trigger('click');
+            }
+            function handImg(e){
+            	sel_files = [];
+            	$(".select_img").empty();
+            	
+            	var files = e.target.files;
+            	var filesArr = Array.prototype.slice.call(files);
+            	var index = 0;
+            	filesArr.forEach(function(f) {
+            		if(!f.type.match("image.*")){
+            			alert("확장자는 이미지 확장자만 가능합니다.");
+            			return;
+            		}
+            		sel_files.push(f);
+            		
+            		var reader = new FileReader();
+            		reader.onload = function(e){
+            			var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImgAction("+index+")\" id=\"img_id_"+index+"\">"
+            			+"<img src=\""+e.target.result+"\" data-file="+f.name+"' class='ProductImg' title='클릭 시 지워집니다'>";
+            			
+            			$(".select_img").append(html);
+            			index++;
+            		}
+            		reader.readAsDataURL(f);
+            	});
+            }
+            </script>
             <!-- 파일 선택하면 파일명 보여지기 -->
-            <script>
+            <!-- 
+             <script>
                $(document).ready(function(){ 
                   var fileTarget = $('.filebox .upload-hidden'); 
                   fileTarget.on('change', function(){ // 값이 변경되면
@@ -221,6 +267,7 @@
                      if(this.files && this.files[0]) { // 사진 보여주는 스크립트
                            var reader = new FileReader;
                            reader.onload = function(data) {
+                        	   console.log(data.target.result);
                             $(".select_img img").attr("src", data.target.result);        
                            }
                            reader.readAsDataURL(this.files[0]);
@@ -228,6 +275,7 @@
                   }); 
                });
             </script>
+             -->
               </div><!-- 파일첨부 div -->
                <%=request.getRealPath("/") %>
                <!-- 
