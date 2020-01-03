@@ -11,7 +11,9 @@ import com.care.dto.CommentDTO;
 public interface IBoardService {
 	public List<BoardDTO> board_list();
 	public void board_reg(BoardDTO dto) throws Exception;
+	public void recipeboard_reg(BoardDTO dto) throws Exception;
 	public void board_view(Model model);
+	public void recipeboard_view(Model model);
 	public void board_modify(Model model);
 	public void board_delete(Model model);
 	public void board_search(Model model);

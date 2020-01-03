@@ -40,6 +40,14 @@ public class BoardService implements IBoardService{
 	}
 	
 	@Override
+	@RequestMapping(method = RequestMethod.POST)
+	public void recipeboard_reg(BoardDTO dto) throws Exception {
+		dao.recipeboard_reg(dto);
+	}
+	
+	
+	
+	@Override
 	public void board_view(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
@@ -48,6 +56,17 @@ public class BoardService implements IBoardService{
 		model.addAttribute("dto", dto);
 		HttpSession session = request.getSession();
 		session.setAttribute("price", dao.board_price(dto));
+		session.setAttribute("productimg", dao.board_productimg(dto));
+	}
+	
+	@Override
+	public void recipeboard_view(Model model) {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
+		dto.setContent(dto.getContent().replace("\r\n", "<br>"));
+		model.addAttribute("dto", dto);
+		HttpSession session = request.getSession();
 		session.setAttribute("productimg", dao.board_productimg(dto));
 	}
 	

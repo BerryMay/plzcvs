@@ -24,12 +24,18 @@
 	<insert id="board_reg" parameterType="Bdto">
 		insert into board(cat,num,title,nickname,hit,recommend,stars,productname,content,cvsnum,gdsimg) values(#{cat},board_num_seq.nextval,#{title},#{nickname},0,0,#{stars},#{productname},#{content},#{cvsnum},#{gdsimg, jdbcType=VARCHAR})
   	</insert>
+  	<!-- 레시피 게시글 작성 -->
+	<insert id="recipeboard_reg" parameterType="Bdto">
+		insert into board(cat,num,title,nickname,hit,recommend,stars,content,gdsimg) values(#{cat},board_num_seq.nextval,#{title},#{nickname},0,0,#{stars},#{content},#{gdsimg, jdbcType=VARCHAR})
+  	</insert>
+  	
   	
   	<!-- 게시글/레시피 클릭한것 보여주기 -->
   	<select id="board_view" resultType="Bdto">
   		select * from board where num=#{num}
   	</select>
   	
+  
  
   	<!-- 게시글 조회수 증가 -->
   	<update id="upHit">

@@ -33,11 +33,11 @@
 				<thead>
 					<tr height="42px" >
 						<th style=" border-radius: 10px 0 0 0;" width="10%" >번호</th>
-						<th width="10%">상품명</th>
+						
 						<th width="40%">제목</th>
 						<th width="10%">작성자</th>
 						<th width="20%">작성일</th>
-						<th style=" border-radius: 0 10px 0 0;" width="10%">조회</th>
+						<th style=" border-radius: 0 10px 0 0;" width="20%">조회</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -47,7 +47,6 @@
 				<fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
-						<td style="text-align: center">${dto.productname }</td>
 						<td><a href="recipeDetail?num=${dto.num}"  class="aw100">${dto.title }
 							<c:if test="${dto.gdsimg != null }">
 								<input type="text" class="contentimg" readonly="readonly">

@@ -92,7 +92,7 @@ public class BoardController {
 		}else {
 			dto.setGdsimg(null);
 		}
-		bs.board_reg(dto);
+		bs.recipeboard_reg(dto);
 		return "redirect:recipeBoard";
 	}
 
@@ -108,9 +108,10 @@ public class BoardController {
 	@RequestMapping(value = "/recipeDetail")
 	public String recipeDetail(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
-		bs.board_view(model);
+		bs.recipeboard_view(model);
 		return "board/recipeView";
 	}
+	
 	
 	
 	//게시글 수정페이지

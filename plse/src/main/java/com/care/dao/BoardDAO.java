@@ -31,10 +31,15 @@ public class BoardDAO {
 	public int board_reg(BoardDTO dto) {
 		return sqlSession.insert(namespace+".board_reg",dto);
 	}
+	public int recipeboard_reg(BoardDTO dto) {
+		return sqlSession.insert(namespace+".recipeboard_reg",dto);
+	}
+	
 	public BoardDTO board_view(int num) {
 		upHit(num);
 		return sqlSession.selectOne(namespace+".board_view",num);
 	}
+	
 	
 	public String cvs_newproduct(BoardDTO dto) {
 		return sqlSession.selectOne(namespace+".cvs_newproduct",dto);
