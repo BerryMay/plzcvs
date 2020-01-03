@@ -12,7 +12,6 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-rating.js"></script>
 	<link rel="stylesheet" href="css/contentView.css" type="text/css" />
-	<link rel="stylesheet" href="css/contentView2.css" type="text/css" />
 
     <!--댓글-->
     <script src="resources/js/moment.js"></script>
@@ -396,7 +395,7 @@
                    
                	
 					<li>	                     
-                     <p class="form-group star_div" style="text-align: left; font-size:15px;" >&nbsp;별점:
+                     <p class="form-group star_p" style="text-align: left; font-size:15px;" >별점:
                    		<input type="hidden" class="rating" name="stars" value="${dto.stars }" disabled/>
                 	 </p>  
                       </li>

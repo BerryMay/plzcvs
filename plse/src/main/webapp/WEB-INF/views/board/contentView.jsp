@@ -14,7 +14,6 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
    <script type="text/javascript" src="js/bootstrap-rating.js"></script>
    <link rel="stylesheet" href="css/contentView.css" type="text/css" />
-   <link rel="stylesheet" href="css/contentView2.css" type="text/css" />
 
     <!--댓글-->
     <script src="resources/js/moment.js"></script>
@@ -32,13 +31,8 @@
      var endPage;   //끝페이지
      var comnum;   //전체댓글수
      var wantpg=3;   //출력시 3페이지로 나누기 위한 변수
-     cvsnum();
-     heartCnt();
-     heartChk();
-     
-  
-    var num=0;
 
+    var num=0;
 
 	  cvsnum();//편의점 분류하기
 	  heartCnt(); //좋아요 카운트
@@ -131,7 +125,7 @@
            case 2: cvs="세븐일레븐"; break;
            case 3: cvs="CU"; break;
         }
-        document.getElementById("cvs").innerText+=cvs
+        document.getElementById("cvs").innerText+=cvs;
      
     }
 
@@ -496,7 +490,7 @@
                     <img src="${productimg}" class="img-responsive" />
 
 
-                     <p class="form-group star_div">별점:
+                     <p class="form-group star_p">별점:
                          <input type="hidden" class="rating" name="stars" value="${ dto.stars }" disabled/>
                    </p>  
                 </div>

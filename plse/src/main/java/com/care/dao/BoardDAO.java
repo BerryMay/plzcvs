@@ -69,7 +69,10 @@ public class BoardDAO {
 		return sqlSession.update(namespace+".recipeBoard_modify",dto);
 	}
 	
+	//게시글 삭제
 	public int board_delete(int num) {
+		sqlSession.delete(namespace+".content_commentlist_delete",num);
+		sqlSession.delete(namespace+".content_heart_delete",num);
 		return sqlSession.delete(namespace+".board_delete",num);
 	}
 	
