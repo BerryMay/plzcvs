@@ -25,7 +25,15 @@ public class CommentDAO {
 	
 	//등록하기
 	public int comment_create(CommentDTO dto) {
-		return sqlSession.insert(namespace+".comment_create",dto);
+		int result = sqlSession.insert(namespace+".comment_create",dto);
+		if(result==1) {
+			point_comment(dto.getNickname());//포인트 주기
+		}		
+		return result;
+	}
+	//댓글 등록시 포인트 주기
+	public int point_comment(String nick) {
+		return sqlSession.update(namespace+".point_comment",nick);
 	}
 	//수정하기
 	public int comment_modify(CommentDTO dto) {

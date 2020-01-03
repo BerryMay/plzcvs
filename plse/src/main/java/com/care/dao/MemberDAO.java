@@ -46,4 +46,12 @@ public class MemberDAO {
 	public void updateAuthstatus(MemberDTO dto) {
 		sqlSession.update(namespace+".updateAuthstatus",dto);
 	}
+	//비밀번호 찾기 아이디,이메일 값 있는지 확인
+	public MemberDTO find_pw_Chk(MemberDTO dto) {
+		return sqlSession.selectOne(namespace+".find_pw_Chk",dto);
+	}
+	//비밀번호 찾기시 임시 비밀번호
+	public void updatePw(MemberDTO dto) {
+		sqlSession.update(namespace+".updatePw",dto);
+	}
 }

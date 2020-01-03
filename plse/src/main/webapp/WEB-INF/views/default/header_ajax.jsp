@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="css/header.css" type="text/css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-<!-- js파일-->
-  	<script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script>
+
    
 
 <script>
@@ -68,25 +67,17 @@
 		<header>
 			<ul id="top">
 				<c:choose>
-					
 					<c:when test="${userId == null }">
 						<li><a href="login">로그인</a></li>|
 						<li><a href="register">회원가입</a></li>
 					</c:when>
-					
-					<c:when test="${verify == 9 }">
-					<li><a href="logout">${userId } 로그아웃</a></li>|
-					<li><a href="adminPost">관리자페이지</a>
-					</c:when>
-					
 					<c:otherwise>
 						<li><a href="logout">${userId } 로그아웃</a></li>|
 						<li><a href="mypage?nickname=${userId}">마이페이지</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
-
-
+				
 			<h1 id="logo">
 				<a class="logo" href="http://localhost:8989/practice/"></a>
 			</h1>
@@ -102,7 +93,7 @@
 				<ul>
 					<li><a href="board">리뷰 게시판</a></li>
 					<li><a href="recipeBoard">레시피 게시판</a></li>
-					<li><a href="chart">선호도 조사</a></li>
+					<li><a href="#">선호도 조사</a></li>
 					<li><a href="map">편의점 찾기</a></li>
 					<li><a href="#">이벤트 보기</a></li>
 				</ul>

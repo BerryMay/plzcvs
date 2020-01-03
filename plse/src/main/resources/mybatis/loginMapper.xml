@@ -5,14 +5,17 @@
 
 	<!-- mapper 만드는 곳 -->
 	<mapper namespace="com.care.mybatis.loginMapper">
+	<!-- 로그인 -->
 	<select id="login" resultType="Mdto">
   		select * from member where id=#{id} and pw=#{pw}
   	</select>
   	
+  	<!-- 회원가입  -->
   	<insert id="register" parameterType="Mdto" >
-  		insert into member(id,pw,nickname,age,gender,mail,point,authkey) values(#{id},#{pw},#{nickname},#{age},#{gender},#{mail},0,#{authkey})
+  		insert into member(id,pw,nickname,age,gender,mail,point,authkey,verify) values(#{id},#{pw},#{nickname},#{age},#{gender},#{mail},500,#{authkey},0)
   	</insert>
   	
+  	<!-- 아이디 중복체크 -->
   	<select id="userIdCheck" parameterType="Mdto" resultType="int">
   		select count(*) from member where id = #{id}
   	</select>
@@ -34,5 +37,13 @@
   	<!-- 이메일 인증 완료 -->
   	<update id="updateAuthstatus" parameterType="Mdto">
   		update member set Authstatus = 1 where id = #{id} and authkey = #{authkey}
+  	</update>
+  	<!-- 비번찾기시 아디,이메일 여부 -->
+  	<select id="find_pw_Chk" parameterType="Mdto" resultType="Mdto">
+  		select * from member where id=#{id} and mail=#{mail}
+  	</select>
+  	<!-- 임시 비밀번호 업데이트-->
+  	<update id="updatePw" parameterType="Mdto">
+  		update member set pw=#{pw} where id=#{id}
   	</update>
 	</mapper>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="utf-8"%>
 
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -12,21 +11,21 @@
 <meta charset="utf-8">
 <title>마이페이지</title>
 	<script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script> <!-- 기본 jquery -->
-	<script  type="text/javascript" src="js/jquery-ui.js"></script>
-	<link rel="stylesheet" href="css/contentView2.css" type="text/css" />
-	
-	
+	<script  type="text/javascript" src="js/jquery-confirm.js"></script><!-- confirm띄우기  -->
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css"><!-- confirm창 css  -->
 	<link
 		href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 		rel="stylesheet" id="bootstrap-css"> 
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="css/board.css" type="text/css" />
+		
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>	
+	<script src="resources/js/moment.js"></script><!-- 시간띄우기 -->
 	
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
+	<link rel="stylesheet" href="css/board.css" type="text/css" />
 	<link rel="stylesheet" href="css/mypage.css" type="text/css" />
 
-	<script src="resources/js/moment.js"></script>
 
 
 </head>
@@ -36,7 +35,8 @@
 	      location.href="login";
 	   </script>
 	</c:if>
-	<jsp:include page="../default/header.jsp" />
+	<%@ include file="../default/header_ajax.jsp" %> 
+	
 	
 	
 	<h2>마이 페이지</h2>
@@ -65,7 +65,12 @@
 					id="reg_nickname" name="nickname" class="form-control"
 					value="${dto.nickname }" placeholder="Nickname" required readonly>
 			</div>
-			
+			<!-- point -->
+			<div class="form-group">
+				<label>Point</label> 
+				<input type="text" id="point" name="point" class="form-control"
+					value="${dto.point }" required readonly>
+			</div>
 			
 			<div class="form-group" style="text-align: left">
 			<label>성별 </label> 	
@@ -172,9 +177,6 @@
 			</div>
 			<div class="form-btn">
 				<input  class="form-btn_btn"  type="button" id="conf_btn" value="회원 탈퇴" />
-					<div id="confirm" title="회원 탈퇴"  class="hide">
-						<p>정말로 탈퇴하시겠습니까?</p>
-					</div>
 			</div>
 		</form>
 	</div>
@@ -189,9 +191,10 @@
 		<div align="center">
 			<form action="#" id="categoryForm">
 			<label for ="category">게시판 선택</label>
-				<select name="category" id="category" class ="selectboard" click="myboard_list_before(this.value)">
+				<select name="category" id="category" class ="selectboard" on
+				change="myboard_list_before(this.value)">
 					<option value="0" selected="selected">모두보기</option>
-					<option value="1">리뷰게시판</option>
+					<option value="1" >리뷰게시판</option>
 					<option value="2">레시피게시판</option>
 				</select>
 			</form>
@@ -247,22 +250,21 @@
 
 		//회원탈퇴
 		$("#conf_btn").click(function(){
-			var user = "<%=(String)session.getAttribute("+userId+")%>";
-			$("#confirm").dialog({
-				resizable:false, height:"auto", width:400, modal:true,
-				buttons:{
-					"예":function(){
-						$(this).dialog("close");
-						alert("회원탈퇴가 정상적으로 이루어졌습니다. 안녕히 가세요!");
+			var user = '<%=(String)session.getAttribute("userId")%>';
+			$.confirm({
+			    title: '회원탈퇴',
+			    content: '작성했던 글이 모두 삭제됩니다.<br>정말로 탈퇴하시겠습니까?',
+			    buttons: {
+			        "예": function () {
+			            alert("회원탈퇴가 정상적으로 이루어졌습니다. 안녕히 가세요!");
 						location.href='withdrawal?nickname='+user;
-					},
-					"아니요":function(){
-						$(this).dialog("close");												
-						location.href='mypage?nickname='+user;
-						
-					}
-				}
-			})
+			        },
+			        "아니요": function () {
+			            location.href='mypage?nickname='+user;
+			        }
+			        
+			    }
+			}); 
 			
 		});
 
