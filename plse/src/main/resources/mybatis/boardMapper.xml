@@ -9,11 +9,9 @@
 
 	<!-- 게시글 리스트 -->
 	<select id="board_list" resultType="Bdto">
-<<<<<<< HEAD
-	select * from board where cat='1' order by num desc;
-=======
+
 		select * from board
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+
 	</select>
 
 	
@@ -54,6 +52,12 @@
   	<update id="board_modify" parameterType="Bdto">
   		update board set cvsnum=#{cvsnum}, productname=#{productname}, stars=#{stars}, title=#{title}, content=#{content}, gdsimg=#{gdsimg} where num=#{num}
   	</update>
+  	
+  	<!-- 레시피 게시글 수정 -->
+  	<update id="recipeBoard_modify" parameterType="Bdto">
+  		update board set stars=#{stars}, title=#{title}, content=#{content}, gdsimg=#{gdsimg} where num=#{num}
+  	</update>
+  	
   	<!-- 게시글 삭제 -->
   	<delete id="board_delete">
   		delete from board where num=#{num}
@@ -69,11 +73,7 @@
   		select * from board where ${title} like '%'||#{content}||'%' and cat='2' order by num desc
   	</select>
   	
-  	<!-- 편의점별 검색 -->
-  	<select id="cvs_search" parameterType="Bdto" resultType="Bdto" >
-		select b.*,c.newproduct from board b, cvs c where b.cvsnum=#{cvsnum} and b.cat='1' and b.productname=c.PRODUCTNAME order by num desc
-  	</select>
-  	
+
   	
   	<select id="cvs_newproduct" resultType="String">
   		select newproduct from cvs where productname=#{productname} and cvsnum=#{cvsnum}
@@ -110,6 +110,9 @@
 		select count(*) from board where cat='2' 
 	</select>
 	
+
+	
+	
 	<!-- 페이징된 게시판 리스트 가져오기 -->
 	<select id="board_pagingList" parameterType="Pdto" resultType="Bdto">
 		 select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt, c.newproduct  from board b, cvs c where b.cat='1' and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B where rn between #{startPage} and #{endPage}
@@ -119,6 +122,15 @@
 	<select id="recipeBoard_pagingList" parameterType="Pdto" resultType="Bdto">
 		select B.* from(select rownum rn, A.* from (select * from board where cat='2' order by num desc)A)B where rn between #{startPage} and #{endPage}
 	</select>
+	
+	<!-- cvs별 페이징리스트 가져오기 -->
+	<select id="cvsPageBoard_pagingList" parameterType="Pdto" resultType="Bdto">
+		select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt,
+c.newproduct  from board b, cvs c where b.cat=#{cat} and b.cvsnum=#{cvsnum} and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B 
+where rn between #{startPage} and #{endPage}
+	</select>
+	
+	
 	
 	
 	<!-- 상품이미지 가져오기 -->
@@ -151,6 +163,12 @@
   	<select id="searchSelect" parameterType="Bdto" resultType="Bdto">
   		select * from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%' order by num desc
   	</select>
+
+
+  	<select id="cvs_search" parameterType="Bdto" resultType="Bdto" >
+		select b.*,c.newproduct from board b, cvs c where b.cvsnum=#{cvsnum} and b.cat='1' and b.productname=c.PRODUCTNAME order by num desc
+  	</select>
+  	
 
   	<!-- 관리자 상품등록 -->
 	<insert id="adminPost" parameterType="com.care.dto.CvsDTO">

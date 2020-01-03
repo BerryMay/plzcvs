@@ -76,13 +76,14 @@ public class BoardService implements IBoardService{
 		dto.setContent(dto.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("dto", dto);
 		try {
+			model.addAttribute("imgList", dao.imgList(request.getParameter("num")));	
 			HttpSession session = request.getSession();
 			session.setAttribute("productimg", dao.board_productimg(dto));			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	
+	//게시판 수정
 	@Override
 	public void board_modify(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -90,6 +91,17 @@ public class BoardService implements IBoardService{
 		BoardDTO dto = (BoardDTO)map.get("dto");
 		dao.board_modify(dto);
 	}
+	//레시피 게시판 수정
+	@Override
+	public void recipeBoard_modify(Model model) {
+		Map<String, Object> map = model.asMap();
+		//HttpServletRequest request = (HttpServletRequest)map.get("request");
+		BoardDTO dto = (BoardDTO)map.get("dto");
+		dao.recipeBoard_modify(dto);
+	}
+	
+	
+	
 	@Override
 	public void board_delete(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -188,6 +200,8 @@ public class BoardService implements IBoardService{
 			return dao.recipeGetTotalPage();
 		}
 		
+		
+		
 		// 가져온 게시글 갯수를 이용하여 페이징 계산하기
 		public PageCount pagingNum(Model model) {
 			int start = 0;
@@ -260,8 +274,9 @@ public class BoardService implements IBoardService{
 		}
 		
 		
-		@RequestMapping(method = RequestMethod.POST)
-		public void adminPost(CvsDTO dto) throws Exception{
+	//관리자 작성 
+	@RequestMapping(method = RequestMethod.POST)
+	public void adminPost(CvsDTO dto) throws Exception{
 			dao.adminPost(dto);
 			
 		}

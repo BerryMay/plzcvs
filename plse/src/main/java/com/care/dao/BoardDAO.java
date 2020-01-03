@@ -65,6 +65,10 @@ public class BoardDAO {
 	public int board_modify(BoardDTO dto) {
 		return sqlSession.update(namespace+".board_modify",dto);
 	}
+	public int recipeBoard_modify(BoardDTO dto) {
+		return sqlSession.update(namespace+".recipeBoard_modify",dto);
+	}
+	
 	public int board_delete(int num) {
 		return sqlSession.delete(namespace+".board_delete",num);
 	}
@@ -132,6 +136,9 @@ public class BoardDAO {
 		public int recipeGetTotalPage() {
 			return sqlSession.selectOne(namespace+".recipeBoard_getTotalPage");
 		}
+	
+		
+		
 		
 		
 		
@@ -143,6 +150,7 @@ public class BoardDAO {
 		public List<BoardDTO> recipePage_board_list(PageCount pc) {
 			return sqlSession.selectList(namespace+".recipeBoard_pagingList",pc);
 		}
+	
 		
 		
 	//상품명 자동완성

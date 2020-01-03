@@ -396,7 +396,7 @@
                    
                	
 					<li>	                     
-                     <p class="form-group star_div" style="text-align: left; font-size:small;" >별점:
+                     <p class="form-group star_div" style="text-align: left; font-size:15px;" >&nbsp;별점:
                    		<input type="hidden" class="rating" name="stars" value="${dto.stars }" disabled/>
                 	 </p>  
                       </li>
