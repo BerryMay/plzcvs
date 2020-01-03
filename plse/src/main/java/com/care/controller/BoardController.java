@@ -280,7 +280,7 @@ public class BoardController {
 	public String adminPost() {
 		return "admin/adminPost";
 	}
-	//물픔등록ok
+	///물픔등록ok
 	@RequestMapping(value = "/adminPostOk", method = RequestMethod.POST)
 	public String adminPost(Model model,CvsDTO dto,MultipartFile file) throws Exception {
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
