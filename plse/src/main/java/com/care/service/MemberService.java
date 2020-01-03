@@ -1,9 +1,11 @@
 package com.care.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -136,5 +138,33 @@ public class MemberService implements IMemberService{
 	//이메일인증완료
 	public void updateAuthstatus(MemberDTO dto) {
 		dao.updateAuthstatus(dto);
+	}
+	//비번찾기 확인
+	public void find_pw_Chk(Model model,MemberDTO dto) throws MessagingException, UnsupportedEncodingException {
+		MemberDTO mdto = dao.find_pw_Chk(dto);
+		if(mdto != null) {
+			String authkey = new TempKey().getKey(8, false);
+			MailHandler sendMail = new MailHandler(mailSender);
+			sendMail.setSubject("편편백서 임시 비밀번호 발급");
+			sendMail.setText(new StringBuffer().append("<h1>[임시 비밀번호 발급]</h1>")
+					.append("<p>"+dto.getId())
+					.append(" 님의 임시 비밀번호는 ")
+					.append("<b>"+authkey+"</b>")
+					.append(" 입니다</p>")
+					.append("<a href='http://localhost:8989/practice/login")
+					.append("' target='_blenk'>편편백서 바로가기</a>")
+					.toString());
+			sendMail.setFrom("plz@gmail.com", "편편백서");
+			sendMail.setTo(dto.getMail());
+			sendMail.send();
+			dto.setPw(authkey);
+			updatePw(dto);
+			model.addAttribute("result", 1);
+		}else {
+			model.addAttribute("result", 0);
+		}
+	}
+	public void updatePw(MemberDTO dto) {
+		dao.updatePw(dto);
 	}
 }

@@ -87,3 +87,14 @@ color: white;
 margin-left: 4px;
 }
 
+.findPw_btn{
+color: black;
+background-color: #ff9999;
+width: 100%;
+}
+
+.findPw_btn:hover{
+color: black;
+background-color: white;
+}
+

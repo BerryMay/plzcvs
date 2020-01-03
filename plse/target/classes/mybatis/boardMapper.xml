@@ -9,12 +9,7 @@
 
 	<!-- 게시글 리스트 -->
 	<select id="board_list" resultType="Bdto">
-<<<<<<< HEAD
-		select b.*,(select count(*) as cnt from comments where COMMENTS.bnum = board.num) from board b where cat='1' order by num desc
-=======
-	
 		select * from board
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 	</select>
 
 	

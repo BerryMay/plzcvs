@@ -19,12 +19,9 @@ import com.care.dto.CommentDTO;
 import com.care.dto.CvsDTO;
 import com.care.dto.PageCount;
 import com.care.dto.SearchCntDTO;
-<<<<<<< HEAD
 import com.care.file.UploadFileUtils;
 import com.fasterxml.jackson.databind.BeanProperty.Bogus;
-=======
 
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 @Service
 public class BoardService implements IBoardService{
 	@Autowired
@@ -269,7 +266,6 @@ public class BoardService implements IBoardService{
 		String nickname= request.getParameter("nickname");
 		return  dao.myheart_list(nickname);	
 	}
-<<<<<<< HEAD
 	//게시글작성시 이미지 저장
 	public void board_img(BoardDTO dto) {
 		dao.board_img(dto);
@@ -282,9 +278,5 @@ public class BoardService implements IBoardService{
 	public int seqSelect() {
 		return dao.seqSelect();
 	}
-=======
 
-	
-	
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 }
