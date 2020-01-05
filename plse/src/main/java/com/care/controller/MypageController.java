@@ -71,8 +71,6 @@ public class MypageController {
 	@ResponseBody
 	public List<BoardDTO> myboard_list(Model model, HttpServletRequest request) {
 		model.addAttribute("request", request);
-		List<BoardDTO> lb =bs.myboard_list(model);
-
 		return bs.myboard_list(model);
 	}
 

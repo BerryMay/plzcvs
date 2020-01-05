@@ -7,8 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시판 리스트</title>
-<!-- Bootstrap -->
 <link rel="stylesheet" href="css/board.css" type="text/css" />
+
 <script type="text/javascript">
 	function sChk(){
 		if(document.searchForm.content.value==""){
@@ -32,22 +32,54 @@
 			<table class="table table-striped table-bordered table-hover" style="width: 100%;">
 				<thead>
 					<tr height="42px" >
-						<th style=" border-radius: 10px 0 0 0;" width="5%" >번호</th>
-						<th width="15%">상품명</th>
+						<th style=" border-radius: 10px 0 0 0;" width="10%" >번호</th>
 						<th width="50%">제목</th>
 						<th width="10%">작성자</th>
-						<th width="10%">작성일</th>
+						<th width="20%">작성일</th>
 						<th style=" border-radius: 0 10px 0 0;" width="10%">조회</th>
 					</tr>
 				</thead>
 				<tbody>
+					<!-- 레시피 베스트글 -->
+				<c:forEach var="bestDto" items="${best_list }">
+					<fmt:formatDate value="${bestDto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
 					
-				</tbody>
+					
+					<tr class="best_tr">
+						<td style="text-align: center">${bestDto.num }</td>
+					
+						
+						<td><a href="recipeDetail?num=${bestDto.num}" class="aw100" title="${bestDto.title }">${bestDto.title }
+						
+							<c:if test="${bestDto.gdsimg != null }">
+								<input type="text" class="contentimg" readonly="readonly">
+							</c:if>
+							<!-- 댓글갯수 -->
+							<c:if test="${bestDto.replycnt != 0 }">
+								<span class="replycnt">(${bestDto.replycnt})</span>
+							</c:if> 
+							<!-- hit 뜨게하는 코드 -->
+							<c:if test="${bestDto.hit >= 20}">
+		                  		<span class="hit">best!</span>
+		                	</c:if>
+						</a></td>
+						<td>${bestDto.nickname }</td>
+						<td style="text-align: center">
+							<c:if test="${today == savedate }"><fmt:formatDate value="${bestDto.savedate}" pattern="kk:mm"/></c:if>
+							<c:if test="${today != savedate }">${savedate }</c:if>
+						</td>
+						<td style="text-align: center">${bestDto.hit }</td>
+					</tr>
+				</c:forEach>
+				<c:if test="${dto.size() == 0 }">
+					<tr>
+						<td style="text-align: center" colspan="5">검색결과가 없습니다.</td>
+					</tr>
+				</c:if>
 				<c:forEach var="dto" items="${dto }">
 				<fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
 					<tr>
 						<td style="text-align: center">${dto.num }</td>
-						<td style="text-align: center">${dto.productname }</td>
 						<td><a href="detail?num=${dto.num}">${dto.title }
 							<c:if test="${dto.gdsimg != null }">
 								<input type="text" class="contentimg" readonly="readonly">
@@ -65,6 +97,7 @@
 						<td style="text-align: center">${dto.hit }</td>
 					</tr>
 				</c:forEach>
+				</tbody>
 			</table>
 			 <div id="paging">
 		        <!-- 페이징 구간 -->

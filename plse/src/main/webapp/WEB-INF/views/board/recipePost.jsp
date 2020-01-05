@@ -19,74 +19,15 @@
       }
    </script>
    
-   <script  type="text/javascript" src="js/jquery.js"></script><!-- 별점관련 jquery -->
    <script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script> <!-- 기본 jquery -->
-   <script  type="text/javascript" src="js/jquery-ui.js"></script><!-- 자동완성관련 -->
+   <script  type="text/javascript" src="js/jquery.js"></script><!-- 별점관련 jquery -->
    <script type="text/javascript" src="js/bootstrap-rating.js"></script> <!-- 별점js -->
    <link rel="stylesheet" href="css/boardpost.css" type="text/css" /> <!-- 페이지 기본 css -->
-   <link rel="stylesheet" href="css/jquery-ui.css" type="text/css" /><!-- 자동완성관련 css -->
    
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
    <script type="text/javascript">
-   
-   
-
-<<<<<<< HEAD
-	                 
-
-
-=======
-		var productnames = new Array(); //상품이름 담을 배열
-	   
-	      $(function(){      
-	         var cvsnum ={"cvsnum":$(".form-cvsnum").val()};
-	         
-	         $.ajax({
-	            type:'get', url:"productname_autocomplete", data:cvsnum,
-	            success:function(data){
-	            	
-	               if(data.length > 0){
-	                        for(i=0; i<data.length; i++){
-	                           productnames.push(data[i]);                  
-	                        }   
-	                   }    
-	               
-	            },error:function(data){console.log("상품명 불러오기에러");},
-	      })
-	         
-	         $(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기            
-	            if(this.value == '1'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //gs일때                        
-	            else if(this.value =='2'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //세븐일때                           
-	            else if(this.value == '3'){   cvsnum ={"cvsnum":$(".form-cvsnum").val()};   }   //Cu일때               
-	            
-	            //바뀌면 목록을 새로 불러온다.
-	            $.ajax({
-	               type:'get', url:"productname_autocomplete", data:cvsnum,
-	               success:function(data){
-	                  if(data.length > 0){
-	                     productnames=new Array();//초기화
-	                           for(i=0; i<data.length; i++){                             
-	                              productnames.push(data[i]);    //각각의 상품명 값을 넣어준다              
-	                           }   
-	                      }
-	       
-	                  $("#productname").autocomplete({
-	                       source: productnames,
-	                       select: function(event, ui) {            
-	                           console.log(ui.item.value);                  
-	                       },
-	                       focus: function(event, ui) {
-	                           return false;
-	                       }
-	                   });     
-	               },error:function(data){console.log("상품명 불러오기에러");},
-	            })//ajax 끝
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
-
-      
-      
       //별점 script
         $(function () {
           $('input.check').on('change', function () { alert('Rating: ' + $(this).val());   });
@@ -128,9 +69,11 @@
           
           
           $('.rating').each(function () {
-            $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
+            $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); 
+            });
           $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
-        });//별점끝
+       
+       
    });
       </script>
 <!-- 사진 클릭시 지우기 -->
@@ -151,7 +94,7 @@
       location.href="login";
    </script>
 </c:if>
-<jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
+<%@ include file="../default/header_ajax.jsp" %> <!-- header파일 불러오기 -->
 
 <div class="container">
    <div class="row">
@@ -169,7 +112,7 @@
             </div><!-- 편의점, 상품명 div -->
 
               <div class="form-group"><!-- 별점 div  -->
-                  <label for="star">별점</label>
+                  <label for="star">추천도</label>
                   <input type="hidden" name="stars" class="rating" data-fractions="2"/> 
               </div><!-- 별점 div-->
               

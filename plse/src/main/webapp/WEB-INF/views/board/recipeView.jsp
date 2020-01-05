@@ -380,32 +380,16 @@
         <div class="container" style="margin: 30px auto;">
             <p class="date"> <fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd kk:mm"/></p>
             <div class="profile-head">
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                
-                    
-                </div>
-                <!--col-md-4 col-sm-4 col-xs-12 close-->
-
-				
-                     
-                <div align="left">
-                    <ul >
-                       <li><h5 align="left">${dto.title }</h5></li>
-                       <li>&nbsp;작성자 : ${dto.nickname }</li>
-                   
-               	
-					<li>	                     
-                     <p class="form-group star_p" style="text-align: left; font-size:15px;" >별점:
-                   		<input type="hidden" class="rating" name="stars" value="${dto.stars }" disabled/>
-                	 </p>  
-                      </li>
-                	 
-                    </ul>
-
-                
-                <!--col-md-5 col-sm-5 col-xs-12 close-->
-
-            </div>
+				<ul>
+					<li><h5 align="left">${dto.title }</h5></li>
+					<li>&nbsp;작성자 : ${dto.nickname }</li>
+					<li>
+						<p class="form-group star_p" style="text-align: left; font-size: 15px;">
+							추천도: <input type="hidden" class="rating" name="stars" value="${dto.stars }" disabled />
+						</p>
+					</li>
+				</ul>
+			</div>
             <!--profile-head close-->
         </div>
         <!--container close-->

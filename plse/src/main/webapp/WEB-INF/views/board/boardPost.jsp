@@ -21,8 +21,8 @@
       }
    </script>
    
-   <script  type="text/javascript" src="js/jquery.js"></script><!-- 별점관련 jquery -->
    <script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script> <!-- 기본 jquery -->
+   <script  type="text/javascript" src="js/jquery.js"></script><!-- 별점관련 jquery -->
    <script  type="text/javascript" src="js/jquery-ui.js"></script><!-- 자동완성관련 -->
    <script type="text/javascript" src="js/bootstrap-rating.js"></script> <!-- 별점js -->
    <link rel="stylesheet" href="css/boardpost.css" type="text/css" /> <!-- 페이지 기본 css -->
@@ -98,7 +98,7 @@
               }
           });     
       });//자동완성 끝
-      r
+
       
       //별점 script
         $(function () {
