@@ -38,7 +38,6 @@
 					}
 					
 					else{
-						
 						document.cvsSearchForm.submit();
 					}
 				});
