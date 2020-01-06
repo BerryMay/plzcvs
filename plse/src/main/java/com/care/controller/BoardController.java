@@ -47,7 +47,7 @@ public class BoardController {
 		model.addAttribute("request", request);
 		bs.recipeBoard_best(model);//레시피 베스트 게시글 가져오기
 		bs.recipePage_board_list(model);
-		//bs.recipePagingNum(model);
+		
 		return "board/recipeBoard";
 	}
 	
@@ -225,8 +225,7 @@ public class BoardController {
 	public String cvs_search(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
 		bs.board_best(model);//베스트 게시글 가져오기
-		
-		bs.cvs_search(model);
+		bs.page_cvs_search(model);
 		
 	
 		return "board/boardSearchCVS";

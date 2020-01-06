@@ -27,6 +27,14 @@ public class BoardDAO {
 	public List<BoardDTO> board_list() {
 		return sqlSession.selectList(namespace+".board_list");
 	}
+	
+	public List<BoardDTO> board_list2() {
+		return sqlSession.selectList(namespace+".board_list2");
+	}
+	public List<BoardDTO> board_list3() {
+		return sqlSession.selectList(namespace+".board_list3");
+	}
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public int board_reg(BoardDTO dto) {
 		int result = sqlSession.insert(namespace+".board_reg",dto);
@@ -139,7 +147,9 @@ public class BoardDAO {
 			return sqlSession.selectOne(namespace+".board_getTotalPage");
 		}
 		
-	// 리세피 토탈페이지
+	
+	
+		// 레시피 토탈페이지
 		public int recipeGetTotalPage() {
 			return sqlSession.selectOne(namespace+".recipeBoard_getTotalPage");
 		}
@@ -224,4 +234,16 @@ public class BoardDAO {
 	public List<BoardDTO> recipeBoard_best() {
 		return sqlSession.selectList(namespace+".recipeBoard_best");
 	}
+	
+	//페이징하기위해모두
+	public int cvsGetTotalPage(int cvsnum) {
+		return sqlSession.selectOne(namespace+".cvs_getTotalPage",cvsnum);
+	}
+	//페이징하는것과 동시에 모두가져오는거
+	public List<BoardDTO> cvspaging(PageCount pc) {
+		return sqlSession.selectList(namespace+".cvs_pagingList",pc);
+	}
+	
+	
+	
 }

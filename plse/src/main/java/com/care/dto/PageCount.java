@@ -8,4 +8,5 @@ public class PageCount {
 	private int startPage;
 	private int endPage;
 	private int totEndPage;
+	private int cvsnum;
 }

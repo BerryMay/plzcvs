@@ -16,6 +16,9 @@ google.load('visualization','1',{
 });
 
     google.setOnLoadCallback(drawChart);
+    google.setOnLoadCallback(drawChart2);
+    google.setOnLoadCallback(drawChart3);
+    
     function drawChart() {
         var jsonData = $.ajax({ 
             url : "chart_list",
@@ -31,8 +34,48 @@ google.load('visualization','1',{
                 chart.draw(data, {
                     title : "조회수 통계",
        
-                    width : 800,
+                    width : 700,
                     height : 500
+                });
+    }
+    
+    function drawChart2() {
+        var jsonData = $.ajax({ 
+            url : "chart_w",
+            dataType : "json",
+            async : false
+        }).responseText; 
+        console.log(jsonData);
+
+        var data = new google.visualization.DataTable(jsonData);
+        var chart = new google.visualization.PieChart(document.getElementById('chart_w')); //원형 그래프
+                chart.draw(data, {
+                    title : "여성선호식품",
+       
+                    width : 400,
+                    height : 300,
+                });
+    }
+    
+    function drawChart3() {
+        var jsonData = $.ajax({ 
+            url : "chart_m",
+            dataType : "json",
+            async : false
+        }).responseText; 
+        console.log(jsonData);
+
+        var data = new google.visualization.DataTable(jsonData);
+       /*  var chart
+          = new google.visualization.ColumnChart(document.getElementById('chart_m')); */
+          var chart = new google.visualization.PieChart(document.getElementById('chart_m')); //원형 그래프
+               
+                chart.draw(data, {
+                    title : "남성선호식품",
+       
+                    width : 400,
+                    height : 300,
+                  
                 });
     }
  
@@ -42,7 +85,10 @@ google.load('visualization','1',{
  <jsp:include page="../default/header.jsp" />
     <!-- 차트 출력 영역 -->
     <div id="chart_div" align="center"></div>
-    <!-- 차트가 그려지는 영역 -->
+ 	<div align="center" style="width: 800px; margin: 0 auto; ">
+	    <div id="chart_w" align="center" style="float: left;"></div>
+		<div id="chart_m" align="center" style="float: right;"></div>
+    </div>
     
     <jsp:include page="../default/footer.jsp" />
 </body>
