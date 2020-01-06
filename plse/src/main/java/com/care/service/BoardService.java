@@ -458,10 +458,10 @@ public class BoardService implements IBoardService{
 		// start 값 가져오기
 	//	BoardDTO dto = new BoardDTO();
 	//	dto.setCvsnum(Integer.parseInt(request.getParameter("cvsnum")));
-	
+		
 		int cvsnum = Integer.parseInt(request.getParameter("cvsnum"));
 		System.out.println(cvsnum);
-		
+		model.addAttribute("cvsnum",cvsnum);
 		if(request.getParameter("start") == null ) start = 0;
 		else start = Integer.parseInt(request.getParameter("start"));
 		

@@ -190,7 +190,7 @@
 				
 				<!-- 계산해서 페이지 번호 나타내주기 -->
 				<c:forEach begin="1" end="${pc.totEndPage }" step="1" var="cnt">
-					<a href="cvs_search?start=${cnt }">[${cnt }]</a>		
+					<a href="cvs_search?start=${cnt }&cvsnum=${cvsnum}">[${cnt }]</a>		
 				</c:forEach><br>
 				
 				<!-- 전체페이지 출력 -->
