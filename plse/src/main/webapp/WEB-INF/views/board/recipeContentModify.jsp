@@ -20,35 +20,10 @@
 	<script  type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap-rating.js"></script> <!-- 별점js -->
 	<link rel="stylesheet" href="css/boardpost.css" type="text/css" />
-	<script  type="text/javascript" src="js/jquery-ui.js"></script><!-- 자동완성관련 -->
-	<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" /><!-- 자동완성관련 css -->
     <!-- Font Awesome CSS -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
-<script type="text/javascript">
-		var productnames = new Array(); //상품이름 담을 배열
-	
-		$(function(){		
-			var cvsnum ={"cvsnum":$(".form-cvsnum").val()};
-			
-			$.ajax({
-				type:'get', url:"productname_autocomplete", data:cvsnum,
-				success:function(data){
-					if(data.length > 0){
-	                     for(i=0; i<data.length; i++){
-	                    	 productnames.push(data[i]);              	 
-	                     }   
-	                }			
-				},error:function(data){console.log("상품명 불러오기에러");},
-		})
-
-			
-							
-				
-				
-			
-		
-		
+	<script type="text/javascript">
 		//별점 script
         $(function () {
           $('input.check').on('change', function () { alert('Rating: ' + $(this).val());   });
@@ -108,7 +83,7 @@
     			
 
     		    <div class="form-group star_div"><!-- 별점 div  -->
-    		        <label for="star">별점</label>
+    		        <label for="star">추천도</label>
     		         <input type="hidden" id="stars" name="stars" class="rating" data-fractions="2" value="${dto.stars }"/>
     		    </div><!-- 별점 div-->
     		    

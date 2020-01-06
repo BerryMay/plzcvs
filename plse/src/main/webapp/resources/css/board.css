@@ -33,9 +33,9 @@
 .table>tbody>tr>#title {
 	text-align: left;
 }
-/* .table{
-	border-bottom: 1px solid #ddd;
-} */
+.table{
+	border-bottom:  1px solid rgba(0,0,0,.1);
+}
 div>#paging {
 	margin-top:10px;
 	text-align: center;

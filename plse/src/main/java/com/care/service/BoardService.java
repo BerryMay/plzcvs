@@ -298,6 +298,7 @@ public class BoardService implements IBoardService{
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		String nick= request.getParameter("nickname");
+		
 		return  dao.myboard_list(nick);	
 	}
 	

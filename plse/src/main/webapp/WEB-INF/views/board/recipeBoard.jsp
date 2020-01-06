@@ -33,24 +33,20 @@
 			<table class="table table-striped table-bordered table-hover" style="width: 100%;">
 				<thead>
 					<tr height="42px" >
-
 						<th style=" border-radius: 10px 0 0 0;" width="10%" >번호</th>
-						
-
-						
-						<th width="40%">제목</th>
+						<th width="50%">제목</th>
 						<th width="10%">작성자</th>
 						<th width="20%">작성일</th>
-						<th style=" border-radius: 0 10px 0 0;" width="20%">조회</th>
+						<th style=" border-radius: 0 10px 0 0;" width="10%">조회</th>
 					</tr>
 				</thead>
 				<tbody>
 					
-				
+				<!-- 레시피 베스트글 -->
 				<c:forEach var="bestDto" items="${best_list }">
 					<fmt:formatDate value="${bestDto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
 					
-					<!-- 레시피 베스트글 -->
+					
 					<tr class="best_tr">
 						<td style="text-align: center">${bestDto.num }</td>
 					

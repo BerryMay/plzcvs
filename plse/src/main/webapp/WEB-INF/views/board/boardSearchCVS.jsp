@@ -112,6 +112,11 @@
 						<td style="text-align: center">${bestDto.hit }</td>
 					</tr>
 				</c:forEach>
+				<c:if test="${dto.size() == 0 }">
+					<tr>
+						<td style="text-align: center" colspan="7">검색결과가 없습니다.</td>
+					</tr>
+				</c:if>
 				<c:forEach var="dto" items="${dto }">
 				<fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
 				<fmt:formatDate value="${dto.newproduct}" pattern="yyyy.MM.dd" var="newproducts"/>
@@ -128,7 +133,7 @@
 						<!-- new 상품명 뜨는곳  --> 
 						<td style="text-align: center" title="${dto.productname }" >${dto.productname }
 							<c:if test="${nowdate - chgDttm < 30}">
-								<span class="hit">new!</span>
+								<span class="new">new!</span>
 							</c:if>
 						</td>
 						

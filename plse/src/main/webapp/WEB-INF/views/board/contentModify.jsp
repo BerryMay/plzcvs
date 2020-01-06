@@ -18,12 +18,13 @@
 				document.postform.submit();
 			}
 		}
-	</script>	
-	<script  type="text/javascript" src="js/jquery.js"></script>
+	</script>
+	<script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script> <!-- 기본 jquery -->	
+	<script  type="text/javascript" src="js/jquery.js"></script><!-- 자동완성관련 -->
 	<script type="text/javascript" src="js/bootstrap-rating.js"></script> <!-- 별점js -->
-	<link rel="stylesheet" href="css/boardpost.css" type="text/css" />
 	<script  type="text/javascript" src="js/jquery-ui.js"></script><!-- 자동완성관련 -->
 	<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" /><!-- 자동완성관련 css -->
+	<link rel="stylesheet" href="css/boardpost.css" type="text/css" /><!-- 페이지 기본 css -->
     <!-- Font Awesome CSS -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 
@@ -127,7 +128,7 @@
 	<title>게시글 수정</title>
 </head>
 <body>
-<jsp:include page="../default/header.jsp" /><!-- header파일 불러오기 -->
+<%@ include file="../default/header_ajax.jsp" %> <!-- header파일 불러오기 -->
 
 	    <div class="container">
     		<h2>게시글 수정하기</h2>

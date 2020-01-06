@@ -12,22 +12,21 @@
 <meta charset="utf-8">
 <title>마이페이지</title>
 	<script type="text/javascript" src="resources/jquery-3.4.1.min.js"></script> <!-- 기본 jquery -->
-	<script  type="text/javascript" src="js/jquery-ui.js"></script>
-	<link rel="stylesheet" href="css/contentView2.css" type="text/css" />
-	
-	
+	<script  type="text/javascript" src="js/jquery-confirm.js"></script><!-- confirm띄우기  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css"><!-- confirm css  -->
+	<script src="resources/js/moment.js"></script><!-- 시간띄우기 -->
+
 	<link
 		href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 		rel="stylesheet" id="bootstrap-css"> 
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="css/board.css" type="text/css" />
 	
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
+	<link rel="stylesheet" href="css/board.css" type="text/css" />
 	<link rel="stylesheet" href="css/mypage.css" type="text/css" />
 
-	<script src="resources/js/moment.js"></script>
-
+	
 
 </head>
 <body>
@@ -65,7 +64,11 @@
 					id="reg_nickname" name="nickname" class="form-control"
 					value="${dto.nickname }" placeholder="Nickname" required readonly>
 			</div>
-			
+			<!-- point -->
+			<div class="form-group">
+				<label>Point</label> <input type="text" id="point" name="point" class="form-control"
+					value="${dto.point }" required readonly>
+			</div>
 			
 			<div class="form-group" style="text-align: left">
 			<label>성별 </label> 	
@@ -179,7 +182,6 @@
 		</form>
 	</div>
 
-		<!-- 쪽지 포인트 등급은 나중에 -->
 	</section>
 	
 	
@@ -247,22 +249,20 @@
 
 		//회원탈퇴
 		$("#conf_btn").click(function(){
-			var user = "<%=(String)session.getAttribute("+userId+")%>";
-			$("#confirm").dialog({
-				resizable:false, height:"auto", width:400, modal:true,
-				buttons:{
-					"예":function(){
-						$(this).dialog("close");
-						alert("회원탈퇴가 정상적으로 이루어졌습니다. 안녕히 가세요!");
+			var user = '<%=(String)session.getAttribute("userId")%>';
+			$.confirm({
+			    title: '회원탈퇴',
+			    content: '정말로 탈퇴하시겠습니까?',
+			    buttons: {
+			        "예": function () {
+			            alert("회원탈퇴가 정상적으로 이루어졌습니다. 안녕히 가세요!");
 						location.href='withdrawal?nickname='+user;
-					},
-					"아니요":function(){
-						$(this).dialog("close");												
-						location.href='mypage?nickname='+user;
-						
-					}
-				}
-			})
+			        },
+			        "아니요": function () {
+			            location.href='mypage?nickname='+user;
+			        }  
+			    }
+			}); 
 			
 		});
 
@@ -445,9 +445,11 @@
     	
     	 var category =document.getElementById("category").value;
     	 
-    	 var user= "<%=(String)session.getAttribute("userId")%>";
+    	 var user = '<%=(String)session.getAttribute("userId")%>';
+    	 
      	 var nick = {"nickname":user};
-    	
+     	var now = moment(); //현재시간
+     	 
         $.ajax({
            type:"POST",
            url:"myboard_list",
@@ -463,30 +465,40 @@
                if(data.length > 0){
                    for(i=0; i<data.length; i++){
                 	   var c= Number(data[i].cat);
-                	  
-                	   
+
                 	   if(category != 0){//0이면 모두, 1이면 리뷰, 2면 레시피
-                		   
-                	   		if(category != c) {comnum -= 1; continue;}
-                	   		
+                	   		if(category != c) {comnum -= 1; continue;}	
                 	   }
                 	  
                 	   var cat = (c==1)?"리뷰":"레시피";
                 	   var savedate = moment(data[i].savedate).format('YYYY.MM.DD');
+                	   var sd_dayCnt= moment.duration(now.diff(savedate)).asDays(); //현재시간과 savedate일수 차이
+                	   
+                	   var newproductdate = moment(data[i].newproduct).format('YYYY.MM.DD');
+                	   var np_dayCnt= moment.duration(now.diff(newproductdate)).asDays(); //현재시간과 newproductdate일수 차이
                 	   
                        html += "<tr>";
                        html += "<td style='text-align: center'>"+data[i].num +"</td>";
                        html += "<td style='text-align: center'>"+cat +"</td>";
-                       html += "<td style='text-align: center' title='"+data[i].productname +"'>"+data[i].productname +"</td>";
+                       html += "<td style='text-align: center' title='"+data[i].productname +"'>"+data[i].productname;
+                       
+                       //new띄우기
+                       if(np_dayCnt < 30){ html += "<span class='new'>new!</span>";	}  
+                       
+                       html += "</td>";
                        html += "<td><a href='detail?num="+data[i].num+"' class='aw100' title='"+data[i].title +"'>"+data[i].title;
-                       
-                       if(data[i].hit >= 20){
-                    	   html += "<span class='hit'>best!</span>";
-                       }
+                       	//댓글 수 표시하기				
+						if(data[i].replycnt != 0 ){
+							html += "<span class='replycnt'>("+data[i].replycnt+")</span>";
+						}
+                       	//베스트 띄우기
+                       if(data[i].hit >= 20){  html += "<span class='hit'>best!</span>"; }
 
-                       html += "</a></td>";
+                       html += "</a></td><td style='text-align: center'>";
+                       //작성일 표시하기
+                       if(sd_dayCnt < 1){ html +=moment(data[i].savedate).format('kk:mm')+"</td>";}
+                       else{ html += savedate+"</td>";}
                        
-                       html += "<td style='text-align: center'>"+savedate+"</td>";
                        html += "<td style='text-align: center'>"+data[i].hit+"</td>";
 
                        
@@ -508,10 +520,6 @@
      };
   // 내가 쓴 글 페이지 처리
   	function list_page(){ 
-	
-	  
-	 
-	  
   		 $('.table-list tbody').each(function() {
   			
   			//length로 원래 리스트의 전체길이구함
@@ -630,9 +638,10 @@
 	     
 	     //좋아요한 글 목록
 	     function myheart_list(){
-	    	 var user= "<%=(String)session.getAttribute("userId")%>";
+	    	 var user = '<%=(String)session.getAttribute("userId")%>';
 	     	 var nick = {"nickname":user};
-	    	
+	     	var now = moment(); //현재시간
+	     	
 	        $.ajax({
 	           type:"POST",
 	           url:"myheart_list",
@@ -644,24 +653,41 @@
 	              
 	               comnum = data.length;
 					endPage = Math.ceil(comnum/wantpg); 
-	               
+					
+					
 	               if(data.length > 0){
 	                   for(i=0; i<data.length; i++){
-	                	   
 			                   var savedate = moment(data[i].savedate).format('YYYY.MM.DD');
+			                   var sd_dayCnt= moment.duration(now.diff(savedate)).asDays(); //현재시간과 savedate일수 차이
+		                	   
+		                	   var newproductdate = moment(data[i].newproduct).format('YYYY.MM.DD');
+		                	   var np_dayCnt= moment.duration(now.diff(newproductdate)).asDays(); //현재시간과 newproductdate일수 차이
+		                	   
+	        
 	                       html += "<tr>";
 	                       html += "<td style='text-align: center'>"+data[i].num +"</td>";
-	                       html += "<td style='text-align: center' title='"+data[i].productname +"'>"+data[i].productname +"</td>";
-	                       html += "<td><a href='detail?num="+data[i].num+"' class='aw100' title='"+data[i].title +"'>"+data[i].title;
+	                       html += "<td style='text-align: center' title='"+data[i].productname +"'>"+data[i].productname;
 	                       
-	                       if(data[i].hit >= 20){
-	                    	   html += "<span class='hit'>best!</span>";
-	                       }
+	                       //new띄우기
+	                       if(np_dayCnt < 30){ html += "<span class='new'>new!</span>";	}  
+	                       
+	                       html += "</td>";
+	                       html += "<td><a href='detail?num="+data[i].num+"' class='aw100' title='"+data[i].title +"'>"+data[i].title;
+	                       	//댓글 수 표시하기				
+							if(data[i].replycnt != 0 ){
+								html += "<span class='replycnt'>("+data[i].replycnt+")</span>";
+							}
+	                       	//베스트 띄우기
+	                       if(data[i].hit >= 20){  html += "<span class='hit'>best!</span>"; }
 
 	                       html += "</a></td>";
-	                       
 	                       html += "<td style='text-align: center'>"+data[i].nickname+"</td>";
-	                       html += "<td style='text-align: center'>"+savedate+"</td>";
+	                       
+	                       html += "<td style='text-align: center'>";
+	                       //작성일 표시하기
+	                       if(sd_dayCnt < 1){ html +=moment(data[i].savedate).format('kk:mm')+"</td>";}
+	                       else{ html += savedate+"</td>";}
+	                       
 	                       html += "<td style='text-align: center'>"+data[i].hit+"</td>";
 
 	                       
