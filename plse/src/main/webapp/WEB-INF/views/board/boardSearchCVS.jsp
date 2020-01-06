@@ -28,13 +28,22 @@
 <script type="text/javascript">
 
 	$(function(){
-		$("#cvssearchs").change(function(){
-			if(cvssearchs.value ='9'){
-				location.href="board"
-			}else{
-				document.cvsSearchForm.submit();
-			}
-		});
+		
+			
+				$("#cvssearchs").change(function(){
+					
+					if(cvssearchs.value=='9' ){
+						
+						location.href="board"
+					}
+					
+					else{
+						document.cvsSearchForm.submit();
+					}
+				});
+				
+		
+		
 	});
 </script>
 
@@ -54,10 +63,10 @@
 		<form action="cvs_search" id="cvsSearchForm" name="cvsSearchForm">
 	<select name="cvsnum" id="cvssearchs" class="form-cvsnum form-control">
 		<option value="0">편의점선택</option>
-		<option value="9">모두보기</option>
 		<option value="1">GS25</option>
 		<option value="2">세븐일레븐</option>
 		<option value="3">CU</option>
+		<option value="9">모두보기</option>
 	</select>
 	</form>
 	
