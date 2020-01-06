@@ -82,6 +82,7 @@ public class BoardDAO {
 		search_reg(dto);
 		if(dto.getTitle() == null) {
 			//실시간검색어 클릭시 검색
+			System.out.println("실검클릭");
 			return sqlSession.selectList(namespace+".searchSelect",dto);
 		}else {
 			//일반적인 검색 수행시
@@ -99,6 +100,9 @@ public class BoardDAO {
 			//일반적인 검색 수행시
 		return sqlSession.selectList(namespace+".recipeBoard_search",dto);
 		}
+	}
+	public List<BoardDTO> board_searchCnt(BoardDTO dto){
+		return sqlSession.selectList(namespace+".searchSelect",dto);
 	}
 	//게시판 검색
 	public List<BoardDTO> cvs_search(BoardDTO dto) {
@@ -139,7 +143,15 @@ public class BoardDAO {
 		public int recipeGetTotalPage() {
 			return sqlSession.selectOne(namespace+".recipeBoard_getTotalPage");
 		}
-	
+		public int getSearchTotalPage(BoardDTO dto) {
+			return sqlSession.selectOne(namespace+".getSearchTotalPage",dto);
+		}
+		public int getRecipeSearchTotalPage(BoardDTO dto) {
+			return sqlSession.selectOne(namespace+".getRecipeSearchTotalPage",dto);
+		}
+		public int getSearchCntTotalPage(BoardDTO dto) {
+			return sqlSession.selectOne(namespace+".getSearchCntTotalPage",dto);
+		}
 		
 		
 		

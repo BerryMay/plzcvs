@@ -74,11 +74,17 @@
   	
   	<!-- 게시글 검색 -->
   	<select id="board_search" parameterType="Bdto" resultType="Bdto" >
-  		select * from board where ${title} like '%'||#{content}||'%' and cat='1' order by num desc
+  		select * from (select board.*, ROW_NUMBER() OVER(ORDER BY num desc) as rnum from board
+  		where ${title} like '%'||#{content}||'%' and cat='1')
+  		where rnum between #{start} and #{endpage}
+   	<!-- select * from board where ${title} like '%'||#{content}||'%' and cat='1' order by num desc -->
   	</select>
   	<!-- 레시피 게시글 검색 -->
   	<select id="recipeBoard_search" parameterType="Bdto" resultType="Bdto" >
-  		select * from board where ${title} like '%'||#{content}||'%' and cat='2' order by num desc
+  		select * from (select board.*, ROW_NUMBER() OVER(ORDER BY num desc) as rnum from board
+  		where ${title} like '%'||#{content}||'%' and cat='2')
+  		where rnum between #{start} and #{endpage}
+  		<!-- select * from board where ${title} like '%'||#{content}||'%' and cat='2' order by num desc -->
   	</select>
   	
 
@@ -118,6 +124,15 @@
 		select count(*) from board where cat='2' 
 	</select>
 	
+	<select id="getSearchTotalPage" resultType="int" parameterType="Bdto">
+		select count(*) from board where ${title} like '%'||#{content}||'%' and cat='1'
+	</select>
+	<select id="getRecipeSearchTotalPage" resultType="int" parameterType="Bdto">
+		select count(*) from board where ${title} like '%'||#{content}||'%' and cat='2'
+	</select>
+	<select id="getSearchCntTotalPage" resultType="int" parameterType="Bdto">
+		select count(*) from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%'
+	</select>
 
 	
 	
@@ -128,14 +143,17 @@
 	
 	<!-- 레시피 페이징리스트 가져오기 -->
 	<select id="recipeBoard_pagingList" parameterType="Pdto" resultType="Bdto">
-		select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt, c.newproduct  from board b, cvs c where b.cat='2' and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B where rn between #{startPage} and #{endPage}
+		select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*)
+    	from COMMENTS where bnum=b.num)replycnt  from board b
+    	where b.cat='2' order 
+    	by num desc)A)B where rn between #{startPage} and #{endPage}
 	</select>
 	
 	<!-- cvs별 페이징리스트 가져오기 -->
 	<select id="cvsPageBoard_pagingList" parameterType="Pdto" resultType="Bdto">
 		select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt,
-c.newproduct  from board b, cvs c where b.cat=#{cat} and b.cvsnum=#{cvsnum} and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B 
-where rn between #{startPage} and #{endPage}
+		c.newproduct  from board b, cvs c where b.cat=#{cat} and b.cvsnum=#{cvsnum} and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B 
+		where rn between #{startPage} and #{endPage}
 	</select>
 	
 	
@@ -169,7 +187,9 @@ where rn between #{startPage} and #{endPage}
   	</select>
   	<!-- 실시간검색어 클릭시 검색(컬럼 전체검색) -->
   	<select id="searchSelect" parameterType="Bdto" resultType="Bdto">
-  		select * from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%' order by num desc
+  		select * from (select board.*, ROW_NUMBER() OVER(ORDER BY num desc) as rnum from board
+  		where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%')
+  		where rnum between #{start} and #{endpage}
   	</select>
 
 

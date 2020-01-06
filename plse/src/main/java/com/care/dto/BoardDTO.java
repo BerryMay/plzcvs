@@ -19,7 +19,8 @@ public class BoardDTO {
 	private int cvsnum;
 	private String gdsimg;
 	private Date newproduct;
-	
 	private String cat; 
 	private int replycnt;
+	private int start;
+	private int endpage;
 }

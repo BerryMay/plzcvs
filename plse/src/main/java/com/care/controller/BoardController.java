@@ -217,7 +217,7 @@ public class BoardController {
 	@RequestMapping(value = "/board_SearchCntOk")
 	public String board_SearchCntOk(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
-		bs.board_search(model);
+		bs.board_searchCnt(model);
 		return "board/boardSearchCnt";
 	}
 	//편의점 검색
@@ -303,7 +303,6 @@ public class BoardController {
 	
 	public List<String> productname_autocomplete(Model model, HttpServletRequest request) {
 		
-		System.out.println("실행");
 		model.addAttribute("request", request);
 		return bs.productname_autocomplete(model);
 	}

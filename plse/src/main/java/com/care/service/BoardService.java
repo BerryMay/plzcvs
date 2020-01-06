@@ -114,9 +114,14 @@ public class BoardService implements IBoardService{
 	public void board_search(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		model.addAttribute("title", request.getParameter("title"));
+		model.addAttribute("content", request.getParameter("content"));
 		BoardDTO dto = new BoardDTO();
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
+		PageCount pc = searchPagingNum(model,dto);
+		dto.setStart(pc.getStartPage());
+		dto.setEndpage(pc.getEndPage());
 		model.addAttribute("dto", dao.board_search(dto));
 	}
 	
@@ -125,10 +130,28 @@ public class BoardService implements IBoardService{
 		public void recipeBoard_search(Model model) {
 			Map<String, Object> map = model.asMap();
 			HttpServletRequest request = (HttpServletRequest)map.get("request");
+			model.addAttribute("title", request.getParameter("title"));
+			model.addAttribute("content", request.getParameter("content"));
 			BoardDTO dto = new BoardDTO();
 			dto.setTitle(request.getParameter("title"));
 			dto.setContent(request.getParameter("content"));
+			PageCount pc = recipeSearchPagingNum(model,dto);
+			dto.setStart(pc.getStartPage());
+			dto.setEndpage(pc.getEndPage());
 			model.addAttribute("dto", dao.recipeBoard_search(dto));
+		}
+		
+		//실시간검색 클릭
+		public void board_searchCnt(Model model) {
+			Map<String, Object> map = model.asMap();
+			HttpServletRequest request = (HttpServletRequest)map.get("request");
+			model.addAttribute("content", request.getParameter("content"));
+			BoardDTO dto = new BoardDTO();
+			dto.setContent(request.getParameter("content"));
+			PageCount pc = searchCntPagingNum(model,dto);
+			dto.setStart(pc.getStartPage());
+			dto.setEndpage(pc.getEndPage());
+			model.addAttribute("dto", dao.board_searchCnt(dto));
 		}
 	
 		//편의점 검색
@@ -199,8 +222,15 @@ public class BoardService implements IBoardService{
 		public int getRecipeTotalPage() {
 			return dao.recipeGetTotalPage();
 		}
-		
-		
+		public int getSearchTotalPage(BoardDTO dto) {
+			return dao.getSearchTotalPage(dto);
+		}
+		public int getRecipeSearchTotalPage(BoardDTO dto) {
+			return dao.getRecipeSearchTotalPage(dto);
+		}
+		public int getSearchCntTotalPage(BoardDTO dto) {
+			return dao.getSearchCntTotalPage(dto);
+		}
 		
 		// 가져온 게시글 갯수를 이용하여 페이징 계산하기
 		public PageCount pagingNum(Model model) {
@@ -257,6 +287,75 @@ public class BoardService implements IBoardService{
 			pc.setTotEndPage(totEndPage);
 			pc.setStartPage(startPage);
 			pc.setEndPage(endPage);
+			model.addAttribute("pc", pc);
+			return pc;
+		}
+		public PageCount searchPagingNum(Model model,BoardDTO dto) {
+			int start = 0;
+			int startPage = 1;
+			int end = 10;
+			final int PAGENUM = 10;
+			Map<String, Object> map = model.asMap();
+			HttpServletRequest request = (HttpServletRequest)map.get("request");
+			// start 값 가져오기
+			if(request.getParameter("start") == null ) start = 1;
+			else start = Integer.parseInt(request.getParameter("start"));
+			if(start !=1 ) {
+				startPage = (start-1) * PAGENUM + 1;
+				end = startPage + PAGENUM - 1;
+			}
+			int totalPage = getSearchTotalPage(dto);
+			totalPage = totalPage/PAGENUM + (totalPage%PAGENUM == 0 ? 0:1);
+			PageCount pc = new PageCount();
+			pc.setStartPage(startPage);
+			pc.setEndPage(end);
+			pc.setTotEndPage(totalPage);
+			model.addAttribute("pc", pc);
+			return pc;
+		}
+		public PageCount recipeSearchPagingNum(Model model,BoardDTO dto) {
+			int start = 0;
+			int startPage = 1;
+			int end = 10;
+			final int PAGENUM = 10;
+			Map<String, Object> map = model.asMap();
+			HttpServletRequest request = (HttpServletRequest)map.get("request");
+			// start 값 가져오기
+			if(request.getParameter("start") == null ) start = 1;
+			else start = Integer.parseInt(request.getParameter("start"));
+			if(start !=1 ) {
+				startPage = (start-1) * PAGENUM + 1;
+				end = startPage + PAGENUM - 1;
+			}
+			int totalPage = getRecipeSearchTotalPage(dto);
+			totalPage = totalPage/PAGENUM + (totalPage%PAGENUM == 0 ? 0:1);
+			PageCount pc = new PageCount();
+			pc.setStartPage(startPage);
+			pc.setEndPage(end);
+			pc.setTotEndPage(totalPage);
+			model.addAttribute("pc", pc);
+			return pc;
+		}
+		public PageCount searchCntPagingNum(Model model,BoardDTO dto) {
+			int start = 0;
+			int startPage = 1;
+			int end = 10;
+			final int PAGENUM = 10;
+			Map<String, Object> map = model.asMap();
+			HttpServletRequest request = (HttpServletRequest)map.get("request");
+			// start 값 가져오기
+			if(request.getParameter("start") == null ) start = 1;
+			else start = Integer.parseInt(request.getParameter("start"));
+			if(start !=1 ) {
+				startPage = (start-1) * PAGENUM + 1;
+				end = startPage + PAGENUM - 1;
+			}
+			int totalPage = getSearchCntTotalPage(dto);
+			totalPage = totalPage/PAGENUM + (totalPage%PAGENUM == 0 ? 0:1);
+			PageCount pc = new PageCount();
+			pc.setStartPage(startPage);
+			pc.setEndPage(end);
+			pc.setTotEndPage(totalPage);
 			model.addAttribute("pc", pc);
 			return pc;
 		}
