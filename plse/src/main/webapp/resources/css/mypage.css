@@ -252,6 +252,34 @@ h2{margin-bottom:20px;padding:20px;}
 		padding:20px 15px; display:none;
 		 border: 2px solid #808080; border-radius: 10px;}
 .sec_content:first-of-type{display: block;}
+
+
+
+/* 하위메뉴 */
+.list_select_ul {padding:0; margin: 0; width: 80%; height: 40px; }
+.list_select_ul li {float:left; width:45%;  height: inherit;}
+.list_select_ul li:first-of-type {margin-right: 10%;}
+
+.list_select_ul li button{display:block; width:100%; height:100%; 
+					text-align: center; line-height:40px; background-color:#ffdddd;
+					border-radius:10px; color:#aaa;
+					border:none; transition:0.3s; cursor:pointer; 
+}
+.list_select_ul li button:hover{color:#fff; background-color:#ff6666; }
+.list_select_ul li button.active{color:#fff; background-color:#ff9999;}
+
+.art_content{clear:both; margin: 0 auto; width:100%; min-width:320px;
+		padding:20px 15px; display:none;
+		}
+.art_content:first-of-type{display: block;}
+
+
+
+
+
+
+
+
 /* 소제목 */
 h3{display:none;}
 
