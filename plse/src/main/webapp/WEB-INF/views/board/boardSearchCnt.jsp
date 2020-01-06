@@ -111,7 +111,7 @@
 				
 				<!-- 계산해서 페이지 번호 나타내주기 -->
 				<c:forEach begin="1" end="${pc.totEndPage }" step="1" var="cnt">
-					<a href="board?start=${cnt }">[${cnt }]</a>		
+					<a href="board_SearchCntOk?start=${cnt }&content=${content}">[${cnt }]</a>		
 				</c:forEach><br>
 				
 				<!-- 전체페이지 출력 -->

@@ -101,6 +101,25 @@
 			</table>
 			 <div id="paging">
 		        <!-- 페이징 구간 -->
+		        <!--  현재 페이지 번호 -->
+				<c:choose>
+					<c:when test="${param.start == null}">
+						<!-- 처음엔 start값이 없으니깐 만들어주기위함 -->
+						<c:set var="start" value="1" scope="session" />
+					</c:when>
+					<c:otherwise>
+						<!-- 링크 클릭시 start값을 넘겨주니깐 그대로 받는다. -->
+						<c:set var="start" value="${param.start}" scope="session" />
+					</c:otherwise>
+				</c:choose>
+				
+				<!-- 계산해서 페이지 번호 나타내주기 -->
+				<c:forEach begin="1" end="${pc.totEndPage }" step="1" var="cnt">
+					<a href="recipeBoard_search?start=${cnt }&title=${title}&content=${content}">[${cnt }]</a>		
+				</c:forEach><br>
+				
+				<!-- 전체페이지 출력 -->
+				${start} / ${pc.totEndPage}
 		      </div>
 			<div align="right">
 				<button class="btn" type="button" onclick="location.href='post'"><i class="fas fa-pen-fancy"></i> &nbsp; 글쓰기</button>
@@ -109,7 +128,6 @@
 		<div align="center">
 			<form action="recipeBoard_search" id="searchForm" name="searchForm">
 			<select name="title" class="form-cvsnum form-control">
-				<option value="productname">상품명</option>
 				<option value="title">제목</option>
 				<option value="nickname">작성자</option>
 			</select>

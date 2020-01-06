@@ -132,7 +132,6 @@
 		<div class="search_div">
 			<form action="recipeBoard_search" id="searchForm" name="searchForm">
 				<select name="title" class="form-cvsnum form-control">
-					<option value="productname">상품명</option>
 					<option value="title">제목</option>
 					<option value="nickname">작성자</option>
 				</select>

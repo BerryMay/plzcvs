@@ -28,9 +28,22 @@
 <script type="text/javascript">
 
 	$(function(){
-		$("#cvssearchs").change(function(){
-			document.cvsSearchForm.submit();
-		});
+		
+			
+				$("#cvssearchs").change(function(){
+					
+					if(cvssearchs.value=='9' ){
+						
+						location.href="board"
+					}
+					
+					else{
+						document.cvsSearchForm.submit();
+					}
+				});
+				
+		
+		
 	});
 </script>
 
@@ -53,6 +66,7 @@
 		<option value="1">GS25</option>
 		<option value="2">세븐일레븐</option>
 		<option value="3">CU</option>
+		<option value="9">모두보기</option>
 	</select>
 	</form>
 	
@@ -117,7 +131,7 @@
 						<td style="text-align: center" colspan="7">검색결과가 없습니다.</td>
 					</tr>
 				</c:if>
-				<c:forEach var="dto" items="${dto }">
+				<c:forEach var="dto" items="${list }">
 				<fmt:formatDate value="${dto.savedate}" pattern="yyyy.MM.dd" var="savedate"/>
 				<fmt:formatDate value="${dto.newproduct}" pattern="yyyy.MM.dd" var="newproducts"/>
 				<fmt:parseNumber value="${dto.newproduct.time / (1000*60*60*24)}" integerOnly="true" var="chgDttm"></fmt:parseNumber>
@@ -162,6 +176,25 @@
 			</table>
 			 <div id="paging">
 		        <!-- 페이징 구간 -->
+		        <!--  현재 페이지 번호 -->
+				<c:choose>
+					<c:when test="${param.start == null}">
+						<!-- 처음엔 start값이 없으니깐 만들어주기위함 -->
+						<c:set var="start" value="1" scope="session" />
+					</c:when>
+					<c:otherwise>
+						<!-- 링크 클릭시 start값을 넘겨주니깐 그대로 받는다. -->
+						<c:set var="start" value="${param.start}" scope="session" />
+					</c:otherwise>
+				</c:choose>
+				
+				<!-- 계산해서 페이지 번호 나타내주기 -->
+				<c:forEach begin="1" end="${pc.totEndPage }" step="1" var="cnt">
+					<a href="cvs_search?start=${cnt }&cvsnum=${cvsnum}">[${cnt }]</a>		
+				</c:forEach><br>
+				
+				<!-- 전체페이지 출력 -->
+				${start} / ${pc.totEndPage}
 		      </div>
 			<div align="right">
 				<button class="btn" type="button" onclick="location.href='post'"><i class="fas fa-pen-fancy"></i> &nbsp; 글쓰기</button>

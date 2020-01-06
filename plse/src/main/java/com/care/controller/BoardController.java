@@ -47,7 +47,7 @@ public class BoardController {
 		model.addAttribute("request", request);
 		bs.recipeBoard_best(model);//레시피 베스트 게시글 가져오기
 		bs.recipePage_board_list(model);
-		//bs.recipePagingNum(model);
+		
 		return "board/recipeBoard";
 	}
 	
@@ -217,7 +217,7 @@ public class BoardController {
 	@RequestMapping(value = "/board_SearchCntOk")
 	public String board_SearchCntOk(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
-		bs.board_search(model);
+		bs.board_searchCnt(model);
 		return "board/boardSearchCnt";
 	}
 	//편의점 검색
@@ -225,8 +225,7 @@ public class BoardController {
 	public String cvs_search(Model model,HttpServletRequest request) {
 		model.addAttribute("request", request);
 		bs.board_best(model);//베스트 게시글 가져오기
-		
-		bs.cvs_search(model);
+		bs.page_cvs_search(model);
 		
 	
 		return "board/boardSearchCVS";
@@ -303,7 +302,6 @@ public class BoardController {
 	
 	public List<String> productname_autocomplete(Model model, HttpServletRequest request) {
 		
-		System.out.println("실행");
 		model.addAttribute("request", request);
 		return bs.productname_autocomplete(model);
 	}

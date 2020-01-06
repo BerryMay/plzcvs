@@ -7,11 +7,21 @@
 	<mapper namespace="com.care.mybatis.boardMapper">
 	
 
-	<!-- 게시글 리스트 -->
+	<!-- chart1 -->
 	<select id="board_list" resultType="Bdto">
 
-		select * from board order by productname
+		select * from board where cat ='1' order  by productname
 
+	</select>
+	<!-- chart2 -->
+	<select id="board_list2" resultType="Bdto">
+
+		 select b.num,b.productname,b.stars,((TO_CHAR(sysdate,'yy'))-(TO_CHAR(age,'yy')))+1 as age,m.gender from board b,member m where b.nickname = m.nickname and gender = 'female' and cat ='1'and stars >='4'order by productname
+	</select>
+	<!-- chart3 -->
+	<select id="board_list3" resultType="Bdto">
+
+		select b.num,b.productname,b.stars,((TO_CHAR(sysdate,'yy'))-(TO_CHAR(age,'yy')))+1 as age,m.gender from board b,member m where b.nickname = m.nickname and gender = 'male' and cat ='1' and stars >='4' order by productname
 	</select>
 
 	
@@ -74,11 +84,17 @@
   	
   	<!-- 게시글 검색 -->
   	<select id="board_search" parameterType="Bdto" resultType="Bdto" >
-  		select * from board where ${title} like '%'||#{content}||'%' and cat='1' order by num desc
+  		select * from (select board.*, ROW_NUMBER() OVER(ORDER BY num desc) as rnum from board
+  		where ${title} like '%'||#{content}||'%' and cat='1')
+  		where rnum between #{start} and #{endpage}
+   	<!-- select * from board where ${title} like '%'||#{content}||'%' and cat='1' order by num desc -->
   	</select>
   	<!-- 레시피 게시글 검색 -->
   	<select id="recipeBoard_search" parameterType="Bdto" resultType="Bdto" >
-  		select * from board where ${title} like '%'||#{content}||'%' and cat='2' order by num desc
+  		select * from (select board.*, ROW_NUMBER() OVER(ORDER BY num desc) as rnum from board
+  		where ${title} like '%'||#{content}||'%' and cat='2')
+  		where rnum between #{start} and #{endpage}
+  		<!-- select * from board where ${title} like '%'||#{content}||'%' and cat='2' order by num desc -->
   	</select>
   	
 
@@ -118,6 +134,15 @@
 		select count(*) from board where cat='2' 
 	</select>
 	
+	<select id="getSearchTotalPage" resultType="int" parameterType="Bdto">
+		select count(*) from board where ${title} like '%'||#{content}||'%' and cat='1'
+	</select>
+	<select id="getRecipeSearchTotalPage" resultType="int" parameterType="Bdto">
+		select count(*) from board where ${title} like '%'||#{content}||'%' and cat='2'
+	</select>
+	<select id="getSearchCntTotalPage" resultType="int" parameterType="Bdto">
+		select count(*) from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%'
+	</select>
 
 	
 	
@@ -128,14 +153,16 @@
 	
 	<!-- 레시피 페이징리스트 가져오기 -->
 	<select id="recipeBoard_pagingList" parameterType="Pdto" resultType="Bdto">
-		select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt, c.newproduct  from board b, cvs c where b.cat='2' and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B where rn between #{startPage} and #{endPage}
+		select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,
+		(select count(*)from COMMENTS where bnum=b.num)replycnt  from board b where b.cat='2' 
+		order  by num desc)A)B where rn between #{startPage} and #{endPage}
 	</select>
 	
 	<!-- cvs별 페이징리스트 가져오기 -->
 	<select id="cvsPageBoard_pagingList" parameterType="Pdto" resultType="Bdto">
 		select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt,
-c.newproduct  from board b, cvs c where b.cat=#{cat} and b.cvsnum=#{cvsnum} and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B 
-where rn between #{startPage} and #{endPage}
+		c.newproduct  from board b, cvs c where b.cat=#{cat} and b.cvsnum=#{cvsnum} and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B 
+		where rn between #{startPage} and #{endPage}
 	</select>
 	
 	
@@ -169,7 +196,9 @@ where rn between #{startPage} and #{endPage}
   	</select>
   	<!-- 실시간검색어 클릭시 검색(컬럼 전체검색) -->
   	<select id="searchSelect" parameterType="Bdto" resultType="Bdto">
-  		select * from board where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%' order by num desc
+  		select * from (select board.*, ROW_NUMBER() OVER(ORDER BY num desc) as rnum from board
+  		where title like '%'||#{content}||'%' or productname like '%'||#{content}||'%' or nickname like '%'||#{content}||'%')
+  		where rnum between #{start} and #{endpage}
   	</select>
 
 
@@ -185,14 +214,12 @@ where rn between #{startPage} and #{endPage}
 
 	<!-- 내가쓴글 -->
   	<select id="myboard_list" resultType="Bdto" parameterType="String">
-  		select B.* from(select A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt, c.newproduct  from board b, cvs c where b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B where nickname=#{nickname}
+		select * from board where nickname=#{nickname} order by num desc
 	</select> 	
   	<!-- 내가 좋아요 한 글 -->
   	<select id="myheart_list" resultType="Bdto" parameterType="String">
-		select B.* from(select A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt, c.newproduct  from board b, cvs c where b.cat='1' and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum)A)B where b.num in (select h.bnum from heart h where nickname=#{nickname}) order by b.num desc 
-		
+		select * from board where num in (select bnum from heart where nickname=#{nickname}) order by num desc
 	</select>
-	
 	<!-- 시퀀스 조회 -->
 	<select id="seqSelect" resultType="int">
 		SELECT board_num_seq.nextval FROM DUAL
@@ -219,5 +246,17 @@ where rn between #{startPage} and #{endPage}
 	<select id="recipeBoard_best" resultType="Bdto">
 		<![CDATA[  select B.* from (select A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt from board b where cat='2' order by hit desc)A)B where rownum <= 3 ]]>
 	</select>
+	
+	
+	<select id="cvs_getTotalPage" resultType="int">
+		select count(*) from board where cat='1' and board.cvsnum = #{cvsnum} 
+	</select>
+	
+	<select id="cvs_pagingList" parameterType="Pdto" resultType="Bdto" >
+	select B.* from(select rownum rn, A.* from (select DISTINCT  b.*,(select count(*) from COMMENTS where bnum=b.num)replycnt,
+	c.newproduct  from board b, cvs c where b.cat='1' and b.cvsnum=#{cvsnum} and b.productname=c.PRODUCTNAME and b.cvsnum=c.cvsnum order by num desc)A)B 
+	where rn between #{startPage} and #{endPage}
+  	</select>
+	
 	
 	</mapper>
