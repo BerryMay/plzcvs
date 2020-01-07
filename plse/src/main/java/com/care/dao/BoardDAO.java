@@ -199,11 +199,7 @@ public class BoardDAO {
 			sqlSession.insert(namespace+".search_reg",dto);
 		}
 	}
-	// 관리자
-		@RequestMapping(method = RequestMethod.POST)
-		public int adminPost(CvsDTO dto) {
-			return sqlSession.insert(namespace+".adminPost",dto);
-		}
+	
 	
 	//내가 쓴 글
 	public List<BoardDTO> myboard_list(String nickname) {

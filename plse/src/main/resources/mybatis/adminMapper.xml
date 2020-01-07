@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper 만드는 곳 -->
+<mapper namespace="com.care.mybatis.adminMapper">
+
+	<!-- 관리자 상품등록 -->
+	<insert id="adminPost" parameterType="com.care.dto.CvsDTO">
+		insert into
+		cvs(cvsnum,productnum,productname,price,gdsimg)
+		values(#{cvsnum},#{productnum},#{productname},#{price},#{gdsimg})
+	</insert>
+</mapper>

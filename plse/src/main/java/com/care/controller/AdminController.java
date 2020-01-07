@@ -13,12 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.care.dto.CvsDTO;
 import com.care.file.UploadFileUtils;
+import com.care.service.AdminService;
 import com.care.service.BoardService;
 
 @Controller
 public class AdminController {
 	@Autowired
-	private BoardService bs;
+	private AdminService as;
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
@@ -40,16 +41,13 @@ public class AdminController {
 		}else {
 			dto.setGdsimg(null);
 		}
-		bs.adminPost(dto);
+		as.adminPost(dto);
 		return "admin/adminPost";
 	}
-	@RequestMapping(value = "/adminPage")
-	public String adminPage() {
-		return "admin/adminPage";
-	}
-	
+	//전체상품
 	@RequestMapping(value = "/adminProduct")
-	public String adminProduct() {
+	public String adminProduct(Model model) {
+		
 		return "admin/adminProduct";
 	}
 
