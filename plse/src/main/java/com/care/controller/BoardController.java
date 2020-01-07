@@ -274,27 +274,6 @@ public class BoardController {
 		return bs.board_commentList(model);
 	}
 	
-
-	//관리자 물품등록
-	@RequestMapping(value = "/adminPost")
-	public String adminPost() {
-		return "admin/adminPost";
-	}
-	///물픔등록ok
-	@RequestMapping(value = "/adminPostOk", method = RequestMethod.POST)
-	public String adminPost(Model model,CvsDTO dto,MultipartFile file) throws Exception {
-		String imgUploadPath = uploadPath + File.separator + "imgUpload";
-		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-		String fileName = null;
-		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
-			dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
-		}else {
-			dto.setGdsimg(null);
-		}
-		bs.adminPost(dto);
-		return "admin/adminPost";
-	}
 	
 	//상품명 자동완성
 	@RequestMapping(value = "productname_autocomplete")
