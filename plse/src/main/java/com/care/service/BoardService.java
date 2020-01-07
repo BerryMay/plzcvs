@@ -383,12 +383,7 @@ public class BoardService implements IBoardService{
 		}
 		
 		
-	//관리자 작성 
-	@RequestMapping(method = RequestMethod.POST)
-	public void adminPost(CvsDTO dto) throws Exception{
-			dao.adminPost(dto);
-			
-		}
+	
 	//자동완성	
 	@Override
 	public List<String> productname_autocomplete(Model model) {
