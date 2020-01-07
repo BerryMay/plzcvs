@@ -88,7 +88,7 @@
 
 
 			<h1 id="logo">
-				<a class="logo" href="http://localhost:8989/practice/"></a>
+				<a class="logo" href="/practice/"></a>
 			</h1>
 
 		<aside id="search_aside">
