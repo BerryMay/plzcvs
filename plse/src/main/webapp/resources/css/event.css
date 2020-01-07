@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.eventli{
+	width: 200px; height: 400px; float: left; margin: 5px; padding: 5px;
+}
+.bigdiv{
+	display: flex; flex-flow: column;
+}
+div{
+	text-align: center;
+}
