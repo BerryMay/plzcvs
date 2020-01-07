@@ -46,6 +46,4 @@ public class CommentDAO {
 		return sqlSession.delete(namespace+".comment_delete",num);
 	}
 	
-	
-	
 }

@@ -26,7 +26,6 @@ public class AdminController {
 	//관리자 물품등록
 	@RequestMapping(value = "/adminPost")
 	public String adminPost() {
-		System.out.println("실행");
 		return "admin/adminPost";
 	}
 	///물픔등록ok
@@ -47,8 +46,27 @@ public class AdminController {
 	//전체상품
 	@RequestMapping(value = "/adminProduct")
 	public String adminProduct(Model model) {
-		
+		as.all_product(model);
 		return "admin/adminProduct";
+	}
+	//상품 수정페이지
+	@RequestMapping(value = "/adminProduct_modify")
+	public String adminProduct_Modify(Model model,CvsDTO dto) {
+		model.addAttribute("product", as.select_product(dto));
+		return "admin/adminProduct_Modify";
+	}
+	//상품 수정등록
+	@RequestMapping(value = "/adminProduct_ModifyOk", method = RequestMethod.POST)
+	public String adminProduct_ModifyOk(Model model,CvsDTO dto,MultipartFile file) throws Exception{
+		System.out.println(dto.getGdsimg());
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+		System.out.println("파일네임은 "+fileName);
+		dto.setGdsimg("imgUpload" + ymdPath + File.separator + fileName);
+		as.adminProduct_Modify(dto);
+		return "redirect:adminProduct";
 	}
 
 	@RequestMapping(value = "/adminMember")

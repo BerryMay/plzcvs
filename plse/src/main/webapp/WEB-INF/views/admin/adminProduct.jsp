@@ -10,8 +10,7 @@
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
 <!-- Font Awesome CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
@@ -38,13 +37,20 @@
 			<li><a href="adminProduct"><button class="tablink active">상품보기</button></a></li>
 		</ul>
 	</div>
-	<table>
+	<div class="product_div">
+	<table class="product_table">
 		<tr>
-			<c:forEach var="product" items="${product }">
-				<td><a href="product_modify">${product }</a></td>
+			<c:forEach var="product" items="${product }" varStatus="cnt">
+				<td><div><a href="adminProduct_modify?productnum=${product.productnum }">
+				<img src="${product.gdsimg }" class="productimg"></div>
+					<div>${product.productname }</div>
+					<div>${product.price }</div>
+				</a></div></td>
+				<c:if test="${(cnt.index+1) % 5 == 0 }"></tr><tr></c:if>
 			</c:forEach>
 		</tr>
 	</table>
+	</div>
 	<jsp:include page="../default/footer.jsp"/>
 </body>
 </html>

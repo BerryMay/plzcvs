@@ -12,4 +12,16 @@
 		cvs(cvsnum,productnum,productname,price,gdsimg)
 		values(#{cvsnum},#{productnum},#{productname},#{price},#{gdsimg})
 	</insert>
+	
+	<select id="all_product" resultType="com.care.dto.CvsDTO">
+		select * from cvs
+	</select>
+	
+	<select id="select_product" parameterType="com.care.dto.CvsDTO" resultType="com.care.dto.CvsDTO">
+		select * from cvs where productnum = #{productnum}
+	</select>
+	
+	<update id="adminProduct_Modify" parameterType="com.care.dto.CvsDTO">
+		update cvs set cvsnum = #{cvsnum}, productname = #{productname}, price = #{price}, gdsimg = #{gdsimg} where productnum = #{productnum}
+	</update>
 </mapper>
