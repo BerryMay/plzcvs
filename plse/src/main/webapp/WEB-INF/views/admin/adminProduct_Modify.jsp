@@ -71,7 +71,7 @@
 				name="price" value="${product.price }"/>
 		</div>
 		<div>
-			<label>상품사진</label> <input type="file" name="file" value="${product.gdsimg }">
+			<label>상품사진</label> <input type="file" id="gdsImg" name="file">
 			<input type="hidden" name="gdsimg" value="${product.gdsimg }">
 		</div>
 		<div class="select_img">
@@ -82,41 +82,18 @@
 			<button type="submit" id="register_Btn" class="btn btn-primary">수정</button>
 			<button class="btn btn-default" type="reset" onclick="javascript:history.back()">취소</button>
 		</div>
-		<!-- 이미지 미리보기 -->
-            <script type="text/javascript">
-            var sel_files = [];
-            $(document).ready(function(){
-            	$("#ex_filename").on("change", handImg);
-            });
-            function fileUploadAction(){
-            	$("#ex_filename").trigger('click');
-            }
-            function handImg(e){
-            	sel_files = [];
-            	$(".select_img").empty();
-            	
-            	var files = e.target.files;
-            	var filesArr = Array.prototype.slice.call(files);
-            	var index = 0;
-            	filesArr.forEach(function(f) {
-            		if(!f.type.match("image.*")){
-            			alert("확장자는 이미지 확장자만 가능합니다.");
-            			return;
-            		}
-            		sel_files.push(f);
-            		
-            		var reader = new FileReader();
-            		reader.onload = function(e){
-            			var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImgAction("+index+")\" id=\"img_id_"+index+"\">"
-            			+"<img src=\""+e.target.result+"\" data-file="+f.name+"' class='ProductImg' title='클릭 시 지워집니다'>";
-            			
-            			$(".select_img").append(html);
-            			index++;
-            		}
-            		reader.readAsDataURL(f);
-            	});
-            }
-            </script>
+		<!-- 사진 바뀌면 보여주기 -->
+		<script type="text/javascript">
+		$("#gdsImg").change(function(){
+			if(this.files && this.files[0]) {
+				var reader = new FileReader;
+				reader.onload = function(data) {
+					$(".select_img img").attr("src", data.target.result).width(500);        
+			    }
+			    reader.readAsDataURL(this.files[0]);
+			}
+		});
+		</script>
 	</form>
 	</div>
 	<jsp:include page="../default/footer.jsp"/>

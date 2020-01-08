@@ -7,13 +7,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/event.css" type="text/css" />
+<link rel="stylesheet" href="css/mypage.css" type="text/css" />
 </head>
 <body>
 <jsp:include page="../default/header.jsp" />
 <div class="bigdiv">
-	<div><a href="event">GS25</a></div>
-	<div><a href="slevent">세븐일레븐</a></div>
-	<div><a href="cuevent">CU</a></div>
+	<button class="tablink"><a href="event">GS25</a></button>
+	<button class="tablink"><a href="slevent">세븐일레븐</a></button>
+	<button class="tablink"><a href="cuevent">CU</a></button>
 </div>
 <ul>
 	<c:forEach var="list" items="${list }">
