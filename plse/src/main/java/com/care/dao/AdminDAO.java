@@ -23,7 +23,7 @@ public class AdminDAO {
 		return sqlSession.insert(namespace+".adminPost",dto);
 	}
 	
-<<<<<<< HEAD
+
 	public List<MemberDTO> admin_list(Model model) {
 		return sqlSession.selectList(namespace+".member_list");
 	}
@@ -40,7 +40,7 @@ public class AdminDAO {
 		
 	}
 	
-=======
+
 	public List<CvsDTO> all_product(){
 		return sqlSession.selectList(namespace+".all_product");
 	}
@@ -52,5 +52,5 @@ public class AdminDAO {
 	public void adminProduct_Modify(CvsDTO dto) {
 		sqlSession.update(namespace+".adminProduct_Modify",dto);
 	}
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+
 }
