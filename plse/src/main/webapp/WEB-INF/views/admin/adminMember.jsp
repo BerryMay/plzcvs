@@ -276,13 +276,11 @@ var nickname;
 
 
 </head>
-<<<<<<< HEAD
-<body >
-	<c:if test="${userId != '관리자' }">
-=======
+
+
 <body>
 	<c:if test="${dto.verify != 9 }">
->>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
+
 		<script type="text/javascript">
 			alert("관리자가 아닙니다")
 			location.href="/practice/";
