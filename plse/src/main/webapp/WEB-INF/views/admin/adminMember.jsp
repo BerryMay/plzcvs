@@ -279,7 +279,7 @@ var nickname;
 
 
 <body>
-	<c:if test="${dto.verify != 9 }">
+	<c:if test="${verify != 9 }">
 
 		<script type="text/javascript">
 			alert("관리자가 아닙니다")
@@ -293,9 +293,9 @@ var nickname;
 	<!-- 메뉴 -->
 	<div class="mymenu_div">
 		<ul class="myMenu">
-			<li><a href="adminPost?nickname=${userId }"><button class="tablink">상품등록</button></a></li>
-			<li><a href="adminMember?nickname=${userId }"><button class="tablink active">멤버보기</button></a></li>
-			<li><a href="adminProduct?nickname=${userId }"><button class="tablink">상품보기</button></a></li>
+			<li><a href="adminPost"><button class="tablink">상품등록</button></a></li>
+			<li><a href="adminMember"><button class="tablink active">멤버보기</button></a></li>
+			<li><a href="adminProduct"><button class="tablink">상품보기</button></a></li>
 		</ul>
 	</div>
 	

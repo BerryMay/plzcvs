@@ -32,20 +32,14 @@ import com.care.service.MemberService;
 @Controller
 public class AdminController {
 	@Autowired
-	private BoardService bs;
-	@Autowired
 	private AdminService adbs;
-	@Autowired
-	private MemberService ms;
 
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
 	//관리자 물품등록
 	@RequestMapping(value = "/adminPost")
-	public String adminPost(Model model,HttpServletRequest request) {
-		model.addAttribute("request", request);
-		ms.member_view(model);
+	public String adminPost(Model model) {
 		return "admin/adminPost";
 	}
 	///물픔등록ok
@@ -65,24 +59,19 @@ public class AdminController {
 	}
 	//전체상품
 	@RequestMapping(value = "/adminProduct")
-	public String adminProduct(Model model,HttpServletRequest request) {
-		model.addAttribute("request", request);
-		ms.member_view(model);
+	public String adminProduct(Model model) {
 		adbs.all_product(model);
 		return "admin/adminProduct";
 	}
 	//상품 수정페이지
 	@RequestMapping(value = "/adminProduct_modify")
-	public String adminProduct_Modify(Model model,CvsDTO dto,HttpServletRequest request) {
-		model.addAttribute("request", request);
-		ms.member_view(model);
+	public String adminProduct_Modify(Model model,CvsDTO dto) {
 		model.addAttribute("product", adbs.select_product(dto));
 		return "admin/adminProduct_Modify";
 	}
 	//상품 수정등록
 	@RequestMapping(value = "/adminProduct_ModifyOk", method = RequestMethod.POST)
 	public String adminProduct_ModifyOk(Model model,CvsDTO dto,MultipartFile file) throws Exception{
-		System.out.println(dto.getGdsimg());
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
@@ -95,9 +84,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/adminMember")
-	public String adminMember(Model model,HttpServletRequest request) {
-		model.addAttribute("request", request);
-		ms.member_view(model);
+	public String adminMember(Model model) {
 		return "admin/adminMember";
 	}
 

@@ -5,6 +5,6 @@ label { display:inline-block; width:70px; padding:5px; }
 label[for='gdsDes'] { display:block; }
 input { width:150px; }
 textarea#gdsDes { width:400px; height:180px; }
-td{width: 200px; height: 400px;}
+.producttd{width: 200px; height: 400px;}
 .productimg{width: 200px; height: 200px;}
 .product_table{ text-align: center; margin: 0 auto;}
