@@ -1,17 +1,22 @@
 package com.care.controller;
 
+
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.care.dto.CvsDTO;
+import com.care.dto.MemberDTO;
 import com.care.file.UploadFileUtils;
 import com.care.service.AdminService;
 import com.care.service.BoardService;
@@ -19,7 +24,9 @@ import com.care.service.BoardService;
 @Controller
 public class AdminController {
 	@Autowired
-	private AdminService as;
+	private BoardService bs;
+	@Autowired
+	private AdminService adbs;
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
@@ -41,7 +48,7 @@ public class AdminController {
 		}else {
 			dto.setGdsimg(null);
 		}
-		as.adminPost(dto);
+		adbs.adminPost(dto);
 		return "admin/adminPost";
 	}
 	//전체상품
@@ -54,6 +61,29 @@ public class AdminController {
 	@RequestMapping(value = "/adminMember")
 	public String adminMember() {
 		return "admin/adminMember";
+	}
+
+	
+	/* 관리자멤버관리 */
+	@RequestMapping(value = "/admin_member")
+	@ResponseBody
+	public List<MemberDTO> adim_member(Model model) {
+		List<MemberDTO> list = adbs.admin_list(model);
+		return adbs.admin_list(model);
+	}
+	
+	@RequestMapping(value = "/member_delete")
+	@ResponseBody
+	public void member_delete(Model model,HttpServletRequest request) {	
+		model.addAttribute("request", request);
+		adbs.member_delete(model);
+	}
+	
+	@RequestMapping(value = "/repoint")
+	@ResponseBody
+	public void repoint(Model model,HttpServletRequest request) {	
+		model.addAttribute("request", request);
+		adbs.repoint(model);
 	}
 	
 	

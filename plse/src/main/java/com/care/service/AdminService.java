@@ -1,20 +1,26 @@
 package com.care.service;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.care.dao.AdminDAO;
-import com.care.dao.BoardDAO;
 import com.care.dto.CvsDTO;
+import com.care.dto.MemberDTO;
 
 @Service
 public class AdminService {
 	@Autowired
 	AdminDAO dao;
+	
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	//관리자 작성 
@@ -23,4 +29,30 @@ public class AdminService {
 				dao.adminPost(dto);
 				
 			}
+		
+		public List<MemberDTO> admin_list(Model model) {
+			
+			return dao.admin_list(model);
+		}
+
+
+		public int member_delete(Model model) {
+			Map<String, Object> map = model.asMap();
+			System.out.println("멤버삭제");
+			HttpServletRequest request = (HttpServletRequest)map.get("request");
+			return dao.member_delete(request.getParameter("nickname"));
+			
+		}
+
+		public int repoint(Model model) {
+			Map<String, Object> map = model.asMap();
+			System.out.println("포인트수정");
+			HttpServletRequest request = (HttpServletRequest)map.get("request");
+			MemberDTO dto = new MemberDTO();
+			dto.setNickname(request.getParameter("nickname"));
+			dto.setPoint(Integer.parseInt(request.getParameter("point")));
+			System.out.println(dto.getPoint());
+			return dao.repoint(dto);
+			
+		}
 }

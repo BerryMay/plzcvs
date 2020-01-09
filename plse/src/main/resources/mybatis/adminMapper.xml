@@ -12,4 +12,22 @@
 		cvs(cvsnum,productnum,productname,price,gdsimg)
 		values(#{cvsnum},#{productnum},#{productname},#{price},#{gdsimg})
 	</insert>
+	
+	<!-- 멤버불러오기 -->
+	<select id="member_list" resultType="Mdto">
+
+		select * from member
+
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="member_delete">
+	  	delete from member where nickname=#{nickname}
+	</delete>
+	
+	<!-- 포인트수정 -->
+	<update id="repoint" parameterType="Mdto">
+		update member set point= #{point} where NICKNAME =#{nickname}
+  	</update>
+  	
 </mapper>
