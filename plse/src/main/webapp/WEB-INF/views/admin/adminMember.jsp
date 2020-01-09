@@ -19,7 +19,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
 <link rel="stylesheet" href="css/board.css" type="text/css" />
 <link rel="stylesheet" href="css/mypage.css" type="text/css" />
-<link rel="stylesheet" href="css/adminPost.css" type="text/css" />
 <title>관리자 물품등록</title>
 <style>
 	.btn.btn_admin{background: #ff9999;  color: #ddd;}
@@ -72,11 +71,6 @@ var nickname;
                        html += "<td style='text-align: center'>"+data[i].age +"</td>";
                        html += "<td style='text-align: center'>"+data[i].gender+"</td>";      
                        html += "<td style='text-align: center'>"+data[i].mail+"</td>";
-         
-                       //html += "<td style='text-align: center'><input style=' width:50px;'value="+data[i].point+"></input><button type='button' onClick='document.getElementById('frm').submit();'  ></button> </td>";
-                      // html += "<input type='hidden' style=' width:50px;'value="+data[i].nickname+">";
-                      // html += "<td style='text-align: center'><input style=' width:50px;'value="+data[i].point+"></input>";
-                       //html += "<button onClick='repoint(this,'document.getElementById('frm-"+i+"'))'>수정</button> </td>";
                        html += "<td style='text-align: center'><input id='test"+i+"' style=' width:50px;' name='point' value="+data[i].point+"></input>&nbsp<button type='button' class='btn btn_admin' onClick='repoint(\""+data[i].nickname+"\" ,"+i+");'>수정</button></td>";
                        html += "<td style='text-align: center'><button type='button' class='btn btn_admin' onClick='delMember(this,\""+data[i].nickname+"\");'>삭제</button></td>";
                        html += "</tr>";
