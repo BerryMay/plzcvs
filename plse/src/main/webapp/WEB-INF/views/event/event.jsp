@@ -5,17 +5,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>편의점 이벤트상품</title>
 <link rel="stylesheet" href="css/event.css" type="text/css" />
 <link rel="stylesheet" href="css/mypage.css" type="text/css" />
 </head>
 <body>
 <jsp:include page="../default/header.jsp" />
-<div class="bigdiv">
-	<button class="tablink"><a href="event">GS25</a></button>
-	<button class="tablink"><a href="slevent">세븐일레븐</a></button>
-	<button class="tablink"><a href="cuevent">CU</a></button>
-</div>
+<div class="mymenu_div">
+		<ul class="myMenu">
+			<li><button class="tablink" onclick="location.href='event'">GS25</button></li>
+			<li><button class="tablink myboard" onclick="location.href='slevent'">세븐일레븐</button></li>
+			<li><button class="tablink myheart" onclick="location.href='cuevent'">CU</button></li>
+		</ul>
+	</div>	
+
 <ul>
 	<c:forEach var="list" items="${list }">
 		<li class="eventli">

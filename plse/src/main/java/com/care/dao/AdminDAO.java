@@ -25,14 +25,11 @@ public class AdminDAO {
 		return sqlSession.selectList(namespace+".all_product");
 	}
 	public CvsDTO select_product(CvsDTO dto) {
+		System.out.println("select_product 실행");
 		return sqlSession.selectOne(namespace+".select_product",dto);
 	}
+	@RequestMapping(method = RequestMethod.POST)
 	public void adminProduct_Modify(CvsDTO dto) {
-		System.out.println(dto.getCvsnum());
-		System.out.println(dto.getProductname());
-		System.out.println(dto.getPrice());
-		System.out.println(dto.getGdsimg());
-		System.out.println(dto.getProductnum());
 		sqlSession.update(namespace+".adminProduct_Modify",dto);
 	}
 }

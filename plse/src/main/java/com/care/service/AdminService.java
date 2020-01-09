@@ -31,6 +31,7 @@ public class AdminService {
 	public CvsDTO select_product(CvsDTO dto) {
 		return dao.select_product(dto);
 	}
+	@RequestMapping(method = RequestMethod.POST)
 	public void adminProduct_Modify(CvsDTO dto) {
 		dao.adminProduct_Modify(dto);
 	}

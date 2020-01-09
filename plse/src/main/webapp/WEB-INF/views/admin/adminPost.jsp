@@ -20,7 +20,7 @@
 <title>관리자 물품등록</title>
 </head>
 <body>
-	<c:if test="${userId != '관리자' }">
+	<c:if test="${dto.verify != 9 }">
 		<script type="text/javascript">
 			alert("관리자가 아닙니다")
 			location.href="http://localhost:8989/practice/";
@@ -33,9 +33,9 @@
 	<!-- 메뉴 -->
 	<div class="mymenu_div">
 		<ul class="myMenu">
-			<li><a href="adminPost"><button class="tablink active">상품등록</button></a></li>
-			<li><a href="adminMember"><button class="tablink">멤버보기</button></a></li>
-			<li><a href="adminProduct"><button class="tablink">상품보기</button></a></li>
+			<li><a href="adminPost?nickname=${userId }"><button class="tablink active">상품등록</button></a></li>
+			<li><a href="adminMember?nickname=${userId }"><button class="tablink">멤버보기</button></a></li>
+			<li><a href="adminProduct?nickname=${userId }"><button class="tablink">상품보기</button></a></li>
 		</ul>
 	</div>	
 	<div align="center" style="margin-top: 50px">
