@@ -63,13 +63,16 @@ public class BoardService implements IBoardService{
 	public void board_view(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
+		HttpSession session = request.getSession();
+		BoardDTO dto1 = new BoardDTO();
+		dto1.setNickname((String)session.getAttribute("userId"));
+		dto1.setNum(Integer.parseInt(request.getParameter("num")));
+		BoardDTO dto = dao.board_view(dto1);
 		dto.setContent(dto.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("dto", dto);
 		try {
 			model.addAttribute("imgList", dao.imgList(request.getParameter("num")));		
 		} catch (Exception e) { System.out.println("사진 없음");}
-		HttpSession session = request.getSession();
 		try {
 		session.setAttribute("price", dao.board_price(dto));
 		session.setAttribute("productimg", dao.board_productimg(dto));
@@ -82,12 +85,15 @@ public class BoardService implements IBoardService{
 	public void recipeboard_view(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		BoardDTO dto = dao.board_view(Integer.parseInt(request.getParameter("num")));
+		HttpSession session = request.getSession();
+		BoardDTO dto1 = new BoardDTO();
+		dto1.setNickname((String)session.getAttribute("userId"));
+		dto1.setNum(Integer.parseInt(request.getParameter("num")));
+		BoardDTO dto = dao.board_view(dto1);
 		dto.setContent(dto.getContent().replace("\r\n", "<br>"));
 		model.addAttribute("dto", dto);
 		try {
 			model.addAttribute("imgList", dao.imgList(request.getParameter("num")));	
-			HttpSession session = request.getSession();
 			session.setAttribute("productimg", dao.board_productimg(dto));			
 		} catch (Exception e) {
 			// TODO: handle exception

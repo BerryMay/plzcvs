@@ -462,7 +462,7 @@
 	              <input class="btn btn-primary" type="button" value="수정" onclick="javascript:location.href='recipeBoard_modify?num=${dto.num}'">
 	              <input class="btn btn-primary" type="button" value="삭제" onclick="javascript:location.href='recipeBoard_delete?num=${dto.num}'">
 	           </c:if>
-	           <c:if test="${userId == '관리자' }">
+	           <c:if test="${dto.verify == 9 }">
                  <input class="btn btn-primary" type="button" value="삭제" onclick="javascript:location.href='recipeBoard_delete?num=${dto.num}'">
               </c:if>
 	        </div> 
