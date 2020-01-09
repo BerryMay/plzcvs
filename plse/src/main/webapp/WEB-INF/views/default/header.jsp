@@ -76,7 +76,7 @@
 					
 					<c:when test="${verify == 9 }">
 					<li><a href="logout">${userId } 로그아웃</a></li>|
-					<li><a href="adminPost">관리자페이지</a>
+					<li><a href="adminPost?nickname=${userId }">관리자페이지</a>
 					</c:when>
 					
 					<c:otherwise>

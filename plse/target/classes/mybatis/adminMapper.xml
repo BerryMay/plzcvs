@@ -13,6 +13,7 @@
 		values(#{cvsnum},#{productnum},#{productname},#{price},#{gdsimg})
 	</insert>
 	
+<<<<<<< HEAD
 	<!-- 멤버불러오기 -->
 	<select id="member_list" resultType="Mdto">
 
@@ -30,4 +31,17 @@
 		update member set point= #{point} where NICKNAME =#{nickname}
   	</update>
   	
+=======
+	<select id="all_product" resultType="com.care.dto.CvsDTO">
+		select * from cvs
+	</select>
+	
+	<select id="select_product" parameterType="com.care.dto.CvsDTO" resultType="com.care.dto.CvsDTO">
+		select * from cvs where productnum = #{productnum}
+	</select>
+	
+	<update id="adminProduct_Modify" parameterType="com.care.dto.CvsDTO">
+		update cvs set cvsnum = #{cvsnum}, productname = #{productname}, price = #{price}, gdsimg = #{gdsimg} where productnum = #{productnum}
+	</update>
+>>>>>>> branch 'master' of https://github.com/BerryMay/plzcvs.git
 </mapper>

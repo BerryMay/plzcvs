@@ -23,4 +23,5 @@ public class BoardDTO {
 	private int replycnt;
 	private int start;
 	private int endpage;
+	private int verify;
 }

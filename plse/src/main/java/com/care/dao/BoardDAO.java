@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -54,9 +56,11 @@ public class BoardDAO {
 
 	}
 	
-	public BoardDTO board_view(int num) {
-		upHit(num);
-		return sqlSession.selectOne(namespace+".board_view",num);
+	public BoardDTO board_view(BoardDTO dto) {
+		upHit(dto.getNum());
+		System.out.println("여기는 여기"+dto.getNum());
+		System.out.println(dto.getNickname());
+		return sqlSession.selectOne(namespace+".board_view",dto);
 	}
 	
 	

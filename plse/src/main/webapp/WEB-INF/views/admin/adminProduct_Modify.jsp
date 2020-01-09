@@ -17,7 +17,15 @@
 <link rel="stylesheet" href="css/board.css" type="text/css" />
 <link rel="stylesheet" href="css/mypage.css" type="text/css" />
 <link rel="stylesheet" href="css/adminPost.css" type="text/css" />
-<title>관리자 물품등록</title>
+<!-- 사진 클릭시 지우기 -->
+<script type="text/javascript">
+	function deleteImgAction(index) {
+		sel_files.splice(index, 1);
+		var img_id = "#img_id_" + index;
+		$(img_id).remove();
+	}
+</script>
+<title>관리자 물품수정</title>
 </head>
 <body>
 	<c:if test="${dto.verify != 9 }">
@@ -29,7 +37,7 @@
 	<jsp:include page="../default/header.jsp" />
 	
 	
-	<h2>관리자 페이지</h2>
+	<h2>물품 수정 페이지</h2>
 	<!-- 메뉴 -->
 	<div class="mymenu_div">
 		<ul class="myMenu">
@@ -40,38 +48,52 @@
 	</div>	
 	<div align="center" style="margin-top: 50px">
 	<form role="form" method="POST" autocomplete="off" id="postform"
-		  enctype="multipart/form-data" action="adminPostOk">
+		  enctype="multipart/form-data" action="adminProduct_ModifyOk">
 		<div class="inputArea">
 			<label>편의점</label> <select class="cvsnum" name="cvsnum">
-				<option value="1">GS25</option>
-				<option value="2">세븐일레븐</option>
-				<option value="3">CU</option>
+				<option value="1" <c:if test="${product.cvsnum == 1 }">selected="selected"</c:if>>GS25</option>
+				<option value="2" <c:if test="${product.cvsnum == 2 }">selected="selected"</c:if>>세븐일레븐</option>
+				<option value="3" <c:if test="${product.cvsnum == 3 }">selected="selected"</c:if>>CU</option>
 			</select>
 		</div>
 		
 		<div class="productnum">
 			<label for="gdsName">상품번호</label> <input type="text" id="productnum"
-				name="productnum" />
+				name="productnum" value="${product.productnum }"/>
 		</div>
 		<div class="productname">
 			<label for="gdsName">상품명</label> <input type="text" id="productname"
-				name="productname" />
+				name="productname" value="${product.productname }"/>
 		</div>
 
 		<div class="price">
 			<label for="gdsPrice">상품가격</label> <input type="text" id="price"
-				name="price" />
+				name="price" value="${product.price }"/>
 		</div>
-
 		<div>
-			<label>상품사진</label> <input type="file" name="file">
+			<label>상품사진</label> <input type="file" id="gdsImg" name="file">
+			<input type="hidden" name="gdsimg" value="${product.gdsimg }">
 		</div>
-
-		<div class="inputArea">
-			<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
-			<button class="btn btn-default" type="reset" onclick="javascript:history.back()">취소</button>
+		<div class="select_img">
+			<label>사진</label> <img src="${product.gdsimg }"/></div>
 		</div>
 		
+		<div class="inputArea">
+			<button type="submit" id="register_Btn" class="btn btn-primary">수정</button>
+			<button class="btn btn-default" type="reset" onclick="javascript:history.back()">취소</button>
+		</div>
+		<!-- 사진 바뀌면 보여주기 -->
+		<script type="text/javascript">
+		$("#gdsImg").change(function(){
+			if(this.files && this.files[0]) {
+				var reader = new FileReader;
+				reader.onload = function(data) {
+					$(".select_img img").attr("src", data.target.result).width(500);        
+			    }
+			    reader.readAsDataURL(this.files[0]);
+			}
+		});
+		</script>
 	</form>
 	</div>
 	<jsp:include page="../default/footer.jsp"/>
