@@ -49,7 +49,7 @@
   	
   	<!-- 게시글/레시피 클릭한것 보여주기 -->
   	<select id="board_view" resultType="Bdto" parameterType="Bdto">
-  		select b.*,(select verify from member where nickname=#{nickname})verify from board b where b.num=#{num}
+  		select * from board where num=#{num}
   	</select>
   	
   
