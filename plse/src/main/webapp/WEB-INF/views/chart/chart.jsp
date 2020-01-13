@@ -32,7 +32,7 @@ google.load('visualization','1',{
           = new google.visualization.ColumnChart(document.getElementById('chart_div'));
                
                 chart.draw(data, {
-                    title : "조회수 통계",
+                    //title : "조회수 통계",
        
                     width : 700,
                     height : 500
@@ -50,7 +50,7 @@ google.load('visualization','1',{
         var data = new google.visualization.DataTable(jsonData);
         var chart = new google.visualization.PieChart(document.getElementById('chart_w')); //원형 그래프
                 chart.draw(data, {
-                    title : "여성선호식품",
+                    //title : "여성선호식품",
        
                     width : 400,
                     height : 300,
@@ -71,7 +71,7 @@ google.load('visualization','1',{
           var chart = new google.visualization.PieChart(document.getElementById('chart_m')); //원형 그래프
                
                 chart.draw(data, {
-                    title : "남성선호식품",
+                    //title : "남성선호식품",
        
                     width : 400,
                     height : 300,
@@ -80,14 +80,41 @@ google.load('visualization','1',{
     }
  
 </script>
+<style>
+article hr{width:60%; margin: 20px auto;}
+article{
+	margin-top: 20px;
+}
+.chart_gender hr{
+	float: left;
+	width:250px;
+	transform:rotate(90deg);
+	position:relative; top:180px; left:-120px; z-index: 10;
+}
+.chart_gender rect{width:120px;}
+article h3{width:200px; margin:0 auto 20px;}
+</style>
 </head>
 <body>
  <jsp:include page="../default/header.jsp" />
     <!-- 차트 출력 영역 -->
-    <div id="chart_div" align="center"></div>
- 	<div align="center" style="width: 800px; margin: 0 auto; ">
-	    <div id="chart_w" align="center" style="float: left;"></div>
-		<div id="chart_m" align="center" style="float: right;"></div>
+    <article>
+    	<h3>조회  수 통계</h3>
+	    <div id="chart_div" align="center"></div>
+	     <hr>
+    </article>
+    
+   
+ 	<div class="chart_gender" align="center" style="width: 800px; margin: 0 auto; ">
+ 		<article style="float: left;">
+    		<h3>여성 선호 식품</h3>
+	    	<div id="chart_w" align="center"></div>
+	    </article>
+	    <hr>
+	    <article  style="float: right;">
+    		<h3>남성 선호 식품</h3>
+			<div id="chart_m" align="center"></div>
+		</article>
     </div>
     
     <jsp:include page="../default/footer.jsp" />

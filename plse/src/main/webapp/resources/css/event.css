@@ -1,11 +1,17 @@
 @charset "UTF-8";
-
+div#contents{overflow:hidden; margin-bottom: 30px;}
 .eventli{
-	width: 200px; height: 400px; float: left; margin: 5px; padding: 5px;
+	width: 20%; height: 320px; float: left; 
+	margin: 2.5%; padding: 5px;
 }
 .bigdiv{
 	display: flex; flex-flow: column;
 }
-div{
-	text-align: center;
+.event_priduct{
+	width:90%; margin:0 auto  30px ; 
 }
+
+.myMenu.eventMenu {
+	border-radius: 0 0 10px 10px; overflow: hidden; margin-bottom: 20px;
+}
+

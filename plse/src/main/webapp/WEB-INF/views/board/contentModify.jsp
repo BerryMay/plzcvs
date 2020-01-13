@@ -44,7 +44,7 @@
 	                }			
 				},error:function(data){console.log("상품명 불러오기에러");},
 		})
-
+	
 			
 			$(".form-cvsnum").change(function(){ //선택한 편의점별로 값 바꾸기				
 				if(this.value == '1'){	cnum ={"cnum":$(".form-cvsnum").val()};	}	//gs일때								
@@ -123,6 +123,7 @@
             $('<span class="label label-default"></span>').text($(this).val() || ' ').insertAfter(this); });
           $('.rating').on('change', function () { $(this).next('.label').text($(this).val()); });
         });//별점끝
+        
       </script>
 	<meta charset="UTF-8">
 	<title>게시글 수정</title>
@@ -146,6 +147,7 @@
 					</div>
 					<div class="productname_div">
 					<label for="productname">상품명</label> 
+					
 					<input type="text" class="form-productname form-control " id="productname" name="productname" value="${dto.productname }"/>
 					</div>
 				</div><!-- 편의점, 상품명 div -->
@@ -169,7 +171,16 @@
               	</div>
     		    <div class="form-group"> <!-- 내용 -->
     		        <label for="content">내용</label>
-    		        <textarea rows="15" class="form-control" id="content" name="content" >${dto.content }</textarea>
+    		        <textarea rows="15" class="form-control" id="content" name="content" ></textarea>
+    		        <script>
+
+    				function replaceAll(str, searchStr, replaceStr) {
+    		    	 		 return str.split(searchStr).join(replaceStr);
+    		    	}
+	    		        var content="${dto.content }";
+	    		  	 	var con =  replaceAll(content,"<br>","\r\n");
+	    		  	 	$('#content').html(con);
+    		        </script>
     		    </div>
 
     		    <div class=" filebox"><!-- 파일첨부 -->

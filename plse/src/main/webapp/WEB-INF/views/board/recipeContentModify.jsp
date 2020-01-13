@@ -101,7 +101,16 @@
               	</div>
     		    <div class="form-group"> <!-- 내용 -->
     		        <label for="content">내용</label>
-    		        <textarea rows="15" class="form-control" id="content" name="content" >${dto.content }</textarea>
+    		        <textarea rows="15" class="form-control" id="content" name="content" ></textarea>
+    		        <script>
+
+    				function replaceAll(str, searchStr, replaceStr) {
+    		    	 		 return str.split(searchStr).join(replaceStr);
+    		    	}
+	    		        var content="${dto.content }";
+	    		  	 	var con =  replaceAll(content,"<br>","\r\n");
+	    		  	 	$('#content').html(con);
+    		        </script>
     		    </div>
 
     		    <div class=" filebox"><!-- 파일첨부 -->
