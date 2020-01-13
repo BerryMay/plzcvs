@@ -15,15 +15,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
-	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="css/style.css" />
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -36,9 +27,13 @@
 			</div>
 			<h2>요청하신 페이지는 없는 페이지입니다!</h2>
 			<h2>Oops, The Page you are looking for can't be found!</h2>
-			<form class="notfound-search">
-				
-			</form>
+			<div>
+				<img src="/practice/resources/img/h.jpg" width="180" height="200">
+				<img src="/practice/resources/img/b.jpg" width="180" height="200">
+				<img src="/practice/resources/img/y.jpg" width="180" height="200">
+				<img src="/practice/resources/img/s.jpg" width="180" height="200">
+				<img src="/practice/resources/img/o.jpg" width="180" height="200">
+			</div>
 			<a href="/practice/"><span class="arrow"></span>Return To Homepage</a>
 		</div>
 	</div>

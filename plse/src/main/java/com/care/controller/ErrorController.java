@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ErrorController {
    
    //[그외 에러페이지]
-   @GetMapping
+  @GetMapping
    public String defaultError() {
       return "error/default";
    }
